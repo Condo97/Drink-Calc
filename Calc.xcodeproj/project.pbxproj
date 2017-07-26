@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		BB05E9A61F285200004F80BD /* HistoryStandardTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = BB05E9A51F285200004F80BD /* HistoryStandardTableViewCell.m */; };
+		BB05E9A71F285200004F80BD /* HistoryHeaderTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = BB05E9A41F285200004F80BD /* HistoryHeaderTableViewCell.m */; };
 		BB207DA81ECA8FC6007C6E8B /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = BB207DA71ECA8FC6007C6E8B /* main.m */; };
 		BB207DAB1ECA8FC6007C6E8B /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = BB207DAA1ECA8FC6007C6E8B /* AppDelegate.m */; };
 		BB207DAE1ECA8FC6007C6E8B /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BB207DAD1ECA8FC6007C6E8B /* ViewController.m */; };
@@ -16,6 +18,34 @@
 		BB207DB91ECA8FC6007C6E8B /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = BB207DB71ECA8FC6007C6E8B /* LaunchScreen.storyboard */; };
 		BB207DC41ECA8FC6007C6E8B /* CalcTests.m in Sources */ = {isa = PBXBuildFile; fileRef = BB207DC31ECA8FC6007C6E8B /* CalcTests.m */; };
 		BB207DCF1ECA8FC6007C6E8B /* CalcUITests.m in Sources */ = {isa = PBXBuildFile; fileRef = BB207DCE1ECA8FC6007C6E8B /* CalcUITests.m */; };
+		BB429D4A1EEE0D3A00991203 /* KDCircularProgress.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB429D491EEE0D3A00991203 /* KDCircularProgress.swift */; };
+		BB429D921EEE2AB700991203 /* RingCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = BB429D911EEE2AB700991203 /* RingCollectionViewCell.m */; };
+		BB52BC421F01F71E0096063B /* EntryViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BB52BC411F01F71E0096063B /* EntryViewController.m */; };
+		BB52BC481F01F9080096063B /* BAFluidView.m in Sources */ = {isa = PBXBuildFile; fileRef = BB52BC441F01F9080096063B /* BAFluidView.m */; };
+		BB52BC491F01F9080096063B /* UIColor+ColorWithHex.m in Sources */ = {isa = PBXBuildFile; fileRef = BB52BC471F01F9080096063B /* UIColor+ColorWithHex.m */; };
+		BB651A501F0F44F7004722E5 /* KASlideShow.m in Sources */ = {isa = PBXBuildFile; fileRef = BB651A4E1F0F44F6004722E5 /* KASlideShow.m */; };
+		BB6714721EF0AAFD008C94EC /* CDManager.m in Sources */ = {isa = PBXBuildFile; fileRef = BB6714711EF0AAFD008C94EC /* CDManager.m */; };
+		BB80118D1F1FDE5100539C7A /* LimitCalculationManager.m in Sources */ = {isa = PBXBuildFile; fileRef = BB80118C1F1FDE5100539C7A /* LimitCalculationManager.m */; };
+		BB8011911F21A74B00539C7A /* FirstViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BB8011901F21A74B00539C7A /* FirstViewController.m */; };
+		BB91BEDE1F11837100949B9F /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BB91BEDD1F11837100949B9F /* StoreKit.framework */; };
+		BB91BEE11F11859100949B9F /* StoreKitManager.m in Sources */ = {isa = PBXBuildFile; fileRef = BB91BEE01F11859100949B9F /* StoreKitManager.m */; };
+		BB91BEE61F11A5E700949B9F /* KFKeychain.m in Sources */ = {isa = PBXBuildFile; fileRef = BB91BEE51F11A5E700949B9F /* KFKeychain.m */; };
+		BB96CB331F1467D10083D48D /* RingPurchaseButton.m in Sources */ = {isa = PBXBuildFile; fileRef = BB96CB321F1467D00083D48D /* RingPurchaseButton.m */; };
+		BBA8BD2F1EFB7C0A0039AE0D /* DrinksListTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BBA8BD2E1EFB7C0A0039AE0D /* DrinksListTableViewController.m */; };
+		BBA8BD321EFB7D360039AE0D /* DrinksListTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = BBA8BD311EFB7D360039AE0D /* DrinksListTableViewCell.m */; };
+		BBC196421EF6B264003E404C /* HTTPManager.m in Sources */ = {isa = PBXBuildFile; fileRef = BBC196411EF6B264003E404C /* HTTPManager.m */; };
+		BBC196451EF72D56003E404C /* ArchiverManager.m in Sources */ = {isa = PBXBuildFile; fileRef = BBC196441EF72D56003E404C /* ArchiverManager.m */; };
+		BBC196481EF738BA003E404C /* JSONManager.m in Sources */ = {isa = PBXBuildFile; fileRef = BBC196471EF738BA003E404C /* JSONManager.m */; };
+		BBC702451F25594F000A58A4 /* FinalViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BBC702441F25594F000A58A4 /* FinalViewController.m */; };
+		BBCB537D1F255D68004BED23 /* EditProfileTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BBCB537C1F255D68004BED23 /* EditProfileTableViewController.m */; };
+		BBCB53801F255D78004BED23 /* EditRingAutoLimitTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BBCB537F1F255D77004BED23 /* EditRingAutoLimitTableViewController.m */; };
+		BBCB53831F255D84004BED23 /* HistoryTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BBCB53821F255D84004BED23 /* HistoryTableViewController.m */; };
+		BBCB53861F256049004BED23 /* EditRingAutoLimitTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = BBCB53851F256049004BED23 /* EditRingAutoLimitTableViewCell.m */; };
+		BBDBCAB11F06FA260094B00B /* RoundedView.m in Sources */ = {isa = PBXBuildFile; fileRef = BBDBCAB01F06FA260094B00B /* RoundedView.m */; };
+		BBDD408C1F22A22800DFAD55 /* SecondTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BBDD408B1F22A22800DFAD55 /* SecondTableViewController.m */; };
+		BBE1239B1F14882700EBE3F8 /* LoadingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BBE1239A1F14882700EBE3F8 /* LoadingViewController.m */; };
+		BBE1239E1F157DB200EBE3F8 /* HealthKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BBE1239D1F157DB200EBE3F8 /* HealthKit.framework */; };
+		BBE123A11F157E0200EBE3F8 /* HealthKitManager.m in Sources */ = {isa = PBXBuildFile; fileRef = BBE123A01F157E0200EBE3F8 /* HealthKitManager.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -36,6 +66,11 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		BB05E99E1F2847B3004F80BD /* HistoryHeaderTableViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HistoryHeaderTableViewCell.h; sourceTree = "<group>"; };
+		BB05E9A11F2851C2004F80BD /* HistoryStandardTableViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HistoryStandardTableViewCell.h; sourceTree = "<group>"; };
+		BB05E9A41F285200004F80BD /* HistoryHeaderTableViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HistoryHeaderTableViewCell.m; sourceTree = "<group>"; };
+		BB05E9A51F285200004F80BD /* HistoryStandardTableViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HistoryStandardTableViewCell.m; sourceTree = "<group>"; };
+		BB1B83231F0FE77C00F4239C /* UIImage+BlurExtension.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = "UIImage+BlurExtension.h"; path = "../../../../../Downloads/UIImage+BlurExtension.h"; sourceTree = "<group>"; };
 		BB207DA31ECA8FC6007C6E8B /* Calc.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Calc.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		BB207DA71ECA8FC6007C6E8B /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		BB207DA91ECA8FC6007C6E8B /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -53,6 +88,63 @@
 		BB207DCA1ECA8FC6007C6E8B /* CalcUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = CalcUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		BB207DCE1ECA8FC6007C6E8B /* CalcUITests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CalcUITests.m; sourceTree = "<group>"; };
 		BB207DD01ECA8FC6007C6E8B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		BB429D441EEE0AC200991203 /* Calc-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Calc-Bridging-Header.h"; sourceTree = "<group>"; };
+		BB429D471EEE0AD000991203 /* KDCircularProgress.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = KDCircularProgress.h; sourceTree = "<group>"; };
+		BB429D491EEE0D3A00991203 /* KDCircularProgress.swift */ = {isa = PBXFileReference; explicitFileType = sourcecode.swift; fileEncoding = 4; path = KDCircularProgress.swift; sourceTree = "<group>"; };
+		BB429D901EEE2AB700991203 /* RingCollectionViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RingCollectionViewCell.h; sourceTree = "<group>"; };
+		BB429D911EEE2AB700991203 /* RingCollectionViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RingCollectionViewCell.m; sourceTree = "<group>"; };
+		BB52BC401F01F71D0096063B /* EntryViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EntryViewController.h; sourceTree = "<group>"; };
+		BB52BC411F01F71E0096063B /* EntryViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EntryViewController.m; sourceTree = "<group>"; };
+		BB52BC431F01F9080096063B /* BAFluidView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BAFluidView.h; sourceTree = "<group>"; };
+		BB52BC441F01F9080096063B /* BAFluidView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BAFluidView.m; sourceTree = "<group>"; };
+		BB52BC451F01F9080096063B /* Constants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Constants.h; sourceTree = "<group>"; };
+		BB52BC461F01F9080096063B /* UIColor+ColorWithHex.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIColor+ColorWithHex.h"; sourceTree = "<group>"; };
+		BB52BC471F01F9080096063B /* UIColor+ColorWithHex.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIColor+ColorWithHex.m"; sourceTree = "<group>"; };
+		BB651A4E1F0F44F6004722E5 /* KASlideShow.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = KASlideShow.m; path = "../../../../Downloads/KASlideShow-master/KASlideShow/KASlideShow.m"; sourceTree = "<group>"; };
+		BB651A4F1F0F44F7004722E5 /* KASlideShow.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = KASlideShow.h; path = "../../../../Downloads/KASlideShow-master/KASlideShow/KASlideShow.h"; sourceTree = "<group>"; };
+		BB6714701EF0AAFD008C94EC /* CDManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CDManager.h; sourceTree = "<group>"; };
+		BB6714711EF0AAFD008C94EC /* CDManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CDManager.m; sourceTree = "<group>"; };
+		BB80118B1F1FDE5100539C7A /* LimitCalculationManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LimitCalculationManager.h; sourceTree = "<group>"; };
+		BB80118C1F1FDE5100539C7A /* LimitCalculationManager.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LimitCalculationManager.m; sourceTree = "<group>"; };
+		BB80118F1F21A74B00539C7A /* FirstViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FirstViewController.h; sourceTree = "<group>"; };
+		BB8011901F21A74B00539C7A /* FirstViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FirstViewController.m; sourceTree = "<group>"; };
+		BB91BEDD1F11837100949B9F /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = System/Library/Frameworks/StoreKit.framework; sourceTree = SDKROOT; };
+		BB91BEDF1F11859100949B9F /* StoreKitManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = StoreKitManager.h; sourceTree = "<group>"; };
+		BB91BEE01F11859100949B9F /* StoreKitManager.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = StoreKitManager.m; sourceTree = "<group>"; };
+		BB91BEE41F11A5E200949B9F /* KFKeychain.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = KFKeychain.h; path = "../../../../../Downloads/Keychain-iOS-ObjC-master/KFKeychain.h"; sourceTree = "<group>"; };
+		BB91BEE51F11A5E700949B9F /* KFKeychain.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = KFKeychain.m; path = "../../../../../Downloads/Keychain-iOS-ObjC-master/KFKeychain.m"; sourceTree = "<group>"; };
+		BB96CB311F1467D00083D48D /* RingPurchaseButton.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RingPurchaseButton.h; sourceTree = "<group>"; };
+		BB96CB321F1467D00083D48D /* RingPurchaseButton.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RingPurchaseButton.m; sourceTree = "<group>"; };
+		BBA8BD2D1EFB7C0A0039AE0D /* DrinksListTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DrinksListTableViewController.h; sourceTree = "<group>"; };
+		BBA8BD2E1EFB7C0A0039AE0D /* DrinksListTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DrinksListTableViewController.m; sourceTree = "<group>"; };
+		BBA8BD301EFB7D360039AE0D /* DrinksListTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DrinksListTableViewCell.h; sourceTree = "<group>"; };
+		BBA8BD311EFB7D360039AE0D /* DrinksListTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DrinksListTableViewCell.m; sourceTree = "<group>"; };
+		BBC196401EF6B264003E404C /* HTTPManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HTTPManager.h; sourceTree = "<group>"; };
+		BBC196411EF6B264003E404C /* HTTPManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HTTPManager.m; sourceTree = "<group>"; };
+		BBC196431EF72D56003E404C /* ArchiverManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ArchiverManager.h; sourceTree = "<group>"; };
+		BBC196441EF72D56003E404C /* ArchiverManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ArchiverManager.m; sourceTree = "<group>"; };
+		BBC196461EF738BA003E404C /* JSONManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JSONManager.h; sourceTree = "<group>"; };
+		BBC196471EF738BA003E404C /* JSONManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JSONManager.m; sourceTree = "<group>"; };
+		BBC702431F25594F000A58A4 /* FinalViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FinalViewController.h; sourceTree = "<group>"; };
+		BBC702441F25594F000A58A4 /* FinalViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FinalViewController.m; sourceTree = "<group>"; };
+		BBCB537B1F255D68004BED23 /* EditProfileTableViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = EditProfileTableViewController.h; sourceTree = "<group>"; };
+		BBCB537C1F255D68004BED23 /* EditProfileTableViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = EditProfileTableViewController.m; sourceTree = "<group>"; };
+		BBCB537E1F255D77004BED23 /* EditRingAutoLimitTableViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = EditRingAutoLimitTableViewController.h; sourceTree = "<group>"; };
+		BBCB537F1F255D77004BED23 /* EditRingAutoLimitTableViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = EditRingAutoLimitTableViewController.m; sourceTree = "<group>"; };
+		BBCB53811F255D84004BED23 /* HistoryTableViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HistoryTableViewController.h; sourceTree = "<group>"; };
+		BBCB53821F255D84004BED23 /* HistoryTableViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HistoryTableViewController.m; sourceTree = "<group>"; };
+		BBCB53841F256049004BED23 /* EditRingAutoLimitTableViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = EditRingAutoLimitTableViewCell.h; sourceTree = "<group>"; };
+		BBCB53851F256049004BED23 /* EditRingAutoLimitTableViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = EditRingAutoLimitTableViewCell.m; sourceTree = "<group>"; };
+		BBDBCAAF1F06FA260094B00B /* RoundedView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RoundedView.h; sourceTree = "<group>"; };
+		BBDBCAB01F06FA260094B00B /* RoundedView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RoundedView.m; sourceTree = "<group>"; };
+		BBDD408A1F22A22800DFAD55 /* SecondTableViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SecondTableViewController.h; sourceTree = "<group>"; };
+		BBDD408B1F22A22800DFAD55 /* SecondTableViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SecondTableViewController.m; sourceTree = "<group>"; };
+		BBE123991F14882700EBE3F8 /* LoadingViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LoadingViewController.h; sourceTree = "<group>"; };
+		BBE1239A1F14882700EBE3F8 /* LoadingViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LoadingViewController.m; sourceTree = "<group>"; };
+		BBE1239C1F157DB200EBE3F8 /* Calc.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Calc.entitlements; sourceTree = "<group>"; };
+		BBE1239D1F157DB200EBE3F8 /* HealthKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = HealthKit.framework; path = System/Library/Frameworks/HealthKit.framework; sourceTree = SDKROOT; };
+		BBE1239F1F157E0200EBE3F8 /* HealthKitManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HealthKitManager.h; sourceTree = "<group>"; };
+		BBE123A01F157E0200EBE3F8 /* HealthKitManager.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HealthKitManager.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -60,6 +152,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				BB91BEDE1F11837100949B9F /* StoreKit.framework in Frameworks */,
+				BBE1239E1F157DB200EBE3F8 /* HealthKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -80,6 +174,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		BB1B83221F0FE76C00F4239C /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				BB1B83231F0FE77C00F4239C /* UIImage+BlurExtension.h */,
+			);
+			path = Extensions;
+			sourceTree = "<group>";
+		};
 		BB207D9A1ECA8FC5007C6E8B = {
 			isa = PBXGroup;
 			children = (
@@ -87,6 +189,7 @@
 				BB207DC21ECA8FC6007C6E8B /* CalcTests */,
 				BB207DCD1ECA8FC6007C6E8B /* CalcUITests */,
 				BB207DA41ECA8FC6007C6E8B /* Products */,
+				BB91BEDC1F11837100949B9F /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -103,16 +206,37 @@
 		BB207DA51ECA8FC6007C6E8B /* Calc */ = {
 			isa = PBXGroup;
 			children = (
+				BBE1239C1F157DB200EBE3F8 /* Calc.entitlements */,
+				BB91BEE31F11A5D700949B9F /* KFKeychain */,
+				BB1B83221F0FE76C00F4239C /* Extensions */,
+				BB52BC4A1F01F9110096063B /* BAFluidView */,
+				BB651A4D1F0F44E3004722E5 /* KASlideShow */,
+				BB429D481EEE0AE000991203 /* KDCircularProcess */,
 				BB207DA91ECA8FC6007C6E8B /* AppDelegate.h */,
 				BB207DAA1ECA8FC6007C6E8B /* AppDelegate.m */,
 				BB207DAC1ECA8FC6007C6E8B /* ViewController.h */,
 				BB207DAD1ECA8FC6007C6E8B /* ViewController.m */,
+				BBA8BD2D1EFB7C0A0039AE0D /* DrinksListTableViewController.h */,
+				BBA8BD2E1EFB7C0A0039AE0D /* DrinksListTableViewController.m */,
+				BBA8BD301EFB7D360039AE0D /* DrinksListTableViewCell.h */,
+				BBA8BD311EFB7D360039AE0D /* DrinksListTableViewCell.m */,
+				BB52BC401F01F71D0096063B /* EntryViewController.h */,
+				BB52BC411F01F71E0096063B /* EntryViewController.m */,
+				BBE123991F14882700EBE3F8 /* LoadingViewController.h */,
+				BBE1239A1F14882700EBE3F8 /* LoadingViewController.m */,
+				BBC196491EF85548003E404C /* Managers */,
+				BB80118E1F21A6DB00539C7A /* Setup */,
+				BBC702471F255A14000A58A4 /* Main Screen Accessories */,
+				BB96CB341F1467DC0083D48D /* Custom UI Elements */,
+				BB429D3E1EEE065D00991203 /* Ring Controllers */,
+				BBDBCAB21F06FA2D0094B00B /* Supporting Files */,
 				BB207DAF1ECA8FC6007C6E8B /* Main.storyboard */,
 				BB207DB51ECA8FC6007C6E8B /* Assets.xcassets */,
 				BB207DB71ECA8FC6007C6E8B /* LaunchScreen.storyboard */,
 				BB207DBA1ECA8FC6007C6E8B /* Info.plist */,
 				BB207DB21ECA8FC6007C6E8B /* Calc.xcdatamodeld */,
 				BB207DA61ECA8FC6007C6E8B /* Supporting Files */,
+				BB429D441EEE0AC200991203 /* Calc-Bridging-Header.h */,
 			);
 			path = Calc;
 			sourceTree = "<group>";
@@ -141,6 +265,134 @@
 				BB207DD01ECA8FC6007C6E8B /* Info.plist */,
 			);
 			path = CalcUITests;
+			sourceTree = "<group>";
+		};
+		BB429D3E1EEE065D00991203 /* Ring Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				BB429D901EEE2AB700991203 /* RingCollectionViewCell.h */,
+				BB429D911EEE2AB700991203 /* RingCollectionViewCell.m */,
+			);
+			name = "Ring Controllers";
+			sourceTree = "<group>";
+		};
+		BB429D481EEE0AE000991203 /* KDCircularProcess */ = {
+			isa = PBXGroup;
+			children = (
+				BB429D471EEE0AD000991203 /* KDCircularProgress.h */,
+				BB429D491EEE0D3A00991203 /* KDCircularProgress.swift */,
+			);
+			name = KDCircularProcess;
+			sourceTree = "<group>";
+		};
+		BB52BC4A1F01F9110096063B /* BAFluidView */ = {
+			isa = PBXGroup;
+			children = (
+				BB52BC431F01F9080096063B /* BAFluidView.h */,
+				BB52BC441F01F9080096063B /* BAFluidView.m */,
+				BB52BC451F01F9080096063B /* Constants.h */,
+				BB52BC461F01F9080096063B /* UIColor+ColorWithHex.h */,
+				BB52BC471F01F9080096063B /* UIColor+ColorWithHex.m */,
+			);
+			name = BAFluidView;
+			sourceTree = "<group>";
+		};
+		BB651A4D1F0F44E3004722E5 /* KASlideShow */ = {
+			isa = PBXGroup;
+			children = (
+				BB651A4F1F0F44F7004722E5 /* KASlideShow.h */,
+				BB651A4E1F0F44F6004722E5 /* KASlideShow.m */,
+			);
+			name = KASlideShow;
+			sourceTree = "<group>";
+		};
+		BB80118E1F21A6DB00539C7A /* Setup */ = {
+			isa = PBXGroup;
+			children = (
+				BB80118F1F21A74B00539C7A /* FirstViewController.h */,
+				BB8011901F21A74B00539C7A /* FirstViewController.m */,
+				BBDD408A1F22A22800DFAD55 /* SecondTableViewController.h */,
+				BBDD408B1F22A22800DFAD55 /* SecondTableViewController.m */,
+				BBC702431F25594F000A58A4 /* FinalViewController.h */,
+				BBC702441F25594F000A58A4 /* FinalViewController.m */,
+			);
+			path = Setup;
+			sourceTree = "<group>";
+		};
+		BB91BEDC1F11837100949B9F /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				BBE1239D1F157DB200EBE3F8 /* HealthKit.framework */,
+				BB91BEDD1F11837100949B9F /* StoreKit.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		BB91BEE31F11A5D700949B9F /* KFKeychain */ = {
+			isa = PBXGroup;
+			children = (
+				BB91BEE41F11A5E200949B9F /* KFKeychain.h */,
+				BB91BEE51F11A5E700949B9F /* KFKeychain.m */,
+			);
+			path = KFKeychain;
+			sourceTree = "<group>";
+		};
+		BB96CB341F1467DC0083D48D /* Custom UI Elements */ = {
+			isa = PBXGroup;
+			children = (
+				BB96CB311F1467D00083D48D /* RingPurchaseButton.h */,
+				BB96CB321F1467D00083D48D /* RingPurchaseButton.m */,
+			);
+			path = "Custom UI Elements";
+			sourceTree = "<group>";
+		};
+		BBC196491EF85548003E404C /* Managers */ = {
+			isa = PBXGroup;
+			children = (
+				BBC196461EF738BA003E404C /* JSONManager.h */,
+				BBC196471EF738BA003E404C /* JSONManager.m */,
+				BBC196401EF6B264003E404C /* HTTPManager.h */,
+				BBC196411EF6B264003E404C /* HTTPManager.m */,
+				BB6714701EF0AAFD008C94EC /* CDManager.h */,
+				BB6714711EF0AAFD008C94EC /* CDManager.m */,
+				BBC196431EF72D56003E404C /* ArchiverManager.h */,
+				BBC196441EF72D56003E404C /* ArchiverManager.m */,
+				BB91BEDF1F11859100949B9F /* StoreKitManager.h */,
+				BB91BEE01F11859100949B9F /* StoreKitManager.m */,
+				BBE1239F1F157E0200EBE3F8 /* HealthKitManager.h */,
+				BBE123A01F157E0200EBE3F8 /* HealthKitManager.m */,
+				BB80118B1F1FDE5100539C7A /* LimitCalculationManager.h */,
+				BB80118C1F1FDE5100539C7A /* LimitCalculationManager.m */,
+			);
+			name = Managers;
+			sourceTree = "<group>";
+		};
+		BBC702471F255A14000A58A4 /* Main Screen Accessories */ = {
+			isa = PBXGroup;
+			children = (
+				BBCB537B1F255D68004BED23 /* EditProfileTableViewController.h */,
+				BBCB537C1F255D68004BED23 /* EditProfileTableViewController.m */,
+				BBCB537E1F255D77004BED23 /* EditRingAutoLimitTableViewController.h */,
+				BBCB537F1F255D77004BED23 /* EditRingAutoLimitTableViewController.m */,
+				BBCB53841F256049004BED23 /* EditRingAutoLimitTableViewCell.h */,
+				BBCB53851F256049004BED23 /* EditRingAutoLimitTableViewCell.m */,
+				BBCB53811F255D84004BED23 /* HistoryTableViewController.h */,
+				BBCB53821F255D84004BED23 /* HistoryTableViewController.m */,
+				BB05E99E1F2847B3004F80BD /* HistoryHeaderTableViewCell.h */,
+				BB05E9A41F285200004F80BD /* HistoryHeaderTableViewCell.m */,
+				BB05E9A11F2851C2004F80BD /* HistoryStandardTableViewCell.h */,
+				BB05E9A51F285200004F80BD /* HistoryStandardTableViewCell.m */,
+			);
+			path = "Main Screen Accessories";
+			sourceTree = "<group>";
+		};
+		BBDBCAB21F06FA2D0094B00B /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				BBDBCAAF1F06FA260094B00B /* RoundedView.h */,
+				BBDBCAB01F06FA260094B00B /* RoundedView.m */,
+			);
+			path = "Supporting Files";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -211,7 +463,16 @@
 					BB207DA21ECA8FC6007C6E8B = {
 						CreatedOnToolsVersion = 8.3.1;
 						DevelopmentTeam = WNCN9TJFT3;
+						LastSwiftMigration = 0900;
 						ProvisioningStyle = Automatic;
+						SystemCapabilities = {
+							com.apple.HealthKit = {
+								enabled = 1;
+							};
+							com.apple.InAppPurchase = {
+								enabled = 1;
+							};
+						};
 					};
 					BB207DBE1ECA8FC6007C6E8B = {
 						CreatedOnToolsVersion = 8.3.1;
@@ -279,10 +540,38 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				BB429D4A1EEE0D3A00991203 /* KDCircularProgress.swift in Sources */,
 				BB207DB41ECA8FC6007C6E8B /* Calc.xcdatamodeld in Sources */,
+				BB96CB331F1467D10083D48D /* RingPurchaseButton.m in Sources */,
+				BB52BC481F01F9080096063B /* BAFluidView.m in Sources */,
+				BBCB53861F256049004BED23 /* EditRingAutoLimitTableViewCell.m in Sources */,
+				BBE123A11F157E0200EBE3F8 /* HealthKitManager.m in Sources */,
+				BB52BC491F01F9080096063B /* UIColor+ColorWithHex.m in Sources */,
+				BBCB53801F255D78004BED23 /* EditRingAutoLimitTableViewController.m in Sources */,
+				BB05E9A61F285200004F80BD /* HistoryStandardTableViewCell.m in Sources */,
+				BBC702451F25594F000A58A4 /* FinalViewController.m in Sources */,
+				BBDBCAB11F06FA260094B00B /* RoundedView.m in Sources */,
+				BB8011911F21A74B00539C7A /* FirstViewController.m in Sources */,
+				BBA8BD321EFB7D360039AE0D /* DrinksListTableViewCell.m in Sources */,
+				BB91BEE61F11A5E700949B9F /* KFKeychain.m in Sources */,
+				BBA8BD2F1EFB7C0A0039AE0D /* DrinksListTableViewController.m in Sources */,
+				BB429D921EEE2AB700991203 /* RingCollectionViewCell.m in Sources */,
+				BBE1239B1F14882700EBE3F8 /* LoadingViewController.m in Sources */,
+				BBC196481EF738BA003E404C /* JSONManager.m in Sources */,
+				BBDD408C1F22A22800DFAD55 /* SecondTableViewController.m in Sources */,
+				BBC196421EF6B264003E404C /* HTTPManager.m in Sources */,
+				BBCB53831F255D84004BED23 /* HistoryTableViewController.m in Sources */,
+				BB05E9A71F285200004F80BD /* HistoryHeaderTableViewCell.m in Sources */,
+				BB91BEE11F11859100949B9F /* StoreKitManager.m in Sources */,
+				BB80118D1F1FDE5100539C7A /* LimitCalculationManager.m in Sources */,
 				BB207DAE1ECA8FC6007C6E8B /* ViewController.m in Sources */,
 				BB207DAB1ECA8FC6007C6E8B /* AppDelegate.m in Sources */,
+				BBCB537D1F255D68004BED23 /* EditProfileTableViewController.m in Sources */,
+				BBC196451EF72D56003E404C /* ArchiverManager.m in Sources */,
 				BB207DA81ECA8FC6007C6E8B /* main.m in Sources */,
+				BB6714721EF0AAFD008C94EC /* CDManager.m in Sources */,
+				BB651A501F0F44F7004722E5 /* KASlideShow.m in Sources */,
+				BB52BC421F01F71E0096063B /* EntryViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -433,11 +722,18 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_ENTITLEMENTS = Calc/Calc.entitlements;
+				DEFINES_MODULE = YES;
 				DEVELOPMENT_TEAM = WNCN9TJFT3;
 				INFOPLIST_FILE = Calc/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = ACApplications.Calc;
+				PRODUCT_BUNDLE_IDENTIFIER = com.acapplications.calc;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "Calc/Calc-Bridging-Header.h";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 4.0;
 			};
 			name = Debug;
 		};
@@ -445,17 +741,24 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_ENTITLEMENTS = Calc/Calc.entitlements;
+				DEFINES_MODULE = YES;
 				DEVELOPMENT_TEAM = WNCN9TJFT3;
 				INFOPLIST_FILE = Calc/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = ACApplications.Calc;
+				PRODUCT_BUNDLE_IDENTIFIER = com.acapplications.calc;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "Calc/Calc-Bridging-Header.h";
+				SWIFT_VERSION = 4.0;
 			};
 			name = Release;
 		};
 		BB207DD71ECA8FC6007C6E8B /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				DEVELOPMENT_TEAM = WNCN9TJFT3;
 				INFOPLIST_FILE = CalcTests/Info.plist;
@@ -469,6 +772,7 @@
 		BB207DD81ECA8FC6007C6E8B /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				DEVELOPMENT_TEAM = WNCN9TJFT3;
 				INFOPLIST_FILE = CalcTests/Info.plist;
@@ -482,6 +786,7 @@
 		BB207DDA1ECA8FC6007C6E8B /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				DEVELOPMENT_TEAM = WNCN9TJFT3;
 				INFOPLIST_FILE = CalcUITests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
@@ -494,6 +799,7 @@
 		BB207DDB1ECA8FC6007C6E8B /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				DEVELOPMENT_TEAM = WNCN9TJFT3;
 				INFOPLIST_FILE = CalcUITests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
@@ -522,6 +828,7 @@
 				BB207DD51ECA8FC6007C6E8B /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		BB207DD61ECA8FC6007C6E8B /* Build configuration list for PBXNativeTarget "CalcTests" */ = {
 			isa = XCConfigurationList;
@@ -530,6 +837,7 @@
 				BB207DD81ECA8FC6007C6E8B /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		BB207DD91ECA8FC6007C6E8B /* Build configuration list for PBXNativeTarget "CalcUITests" */ = {
 			isa = XCConfigurationList;
@@ -538,6 +846,7 @@
 				BB207DDB1ECA8FC6007C6E8B /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 

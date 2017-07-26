@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="13122.19" systemVersion="16F73" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13104.16"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" id="iN0-l3-epB" customClass="ArrowView">
+            <rect key="frame" x="0.0" y="0.0" width="50" height="100"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Arrow" translatesAutoresizingMaskIntoConstraints="NO" id="eQC-fU-LWW">
+                    <rect key="frame" x="0.0" y="0.0" width="50" height="100"/>
+                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                </imageView>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xgG-lT-9tN">
+                    <rect key="frame" x="0.0" y="25" width="50" height="50"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="11"/>
+                    <nil key="textColor"/>
+                    <nil key="highlightedColor"/>
+                </label>
+            </subviews>
+            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+            <constraints>
+                <constraint firstItem="eQC-fU-LWW" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="8tO-h2-CFa"/>
+                <constraint firstItem="eQC-fU-LWW" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="Hk7-ht-FPd"/>
+                <constraint firstAttribute="trailing" secondItem="eQC-fU-LWW" secondAttribute="trailing" id="MJE-66-rB2"/>
+                <constraint firstItem="xgG-lT-9tN" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" constant="25" id="PfF-t9-hqt"/>
+                <constraint firstItem="eQC-fU-LWW" firstAttribute="leading" secondItem="xgG-lT-9tN" secondAttribute="leading" id="YeM-Em-C4z"/>
+                <constraint firstItem="eQC-fU-LWW" firstAttribute="trailing" secondItem="xgG-lT-9tN" secondAttribute="trailing" id="i8f-7F-Sdg"/>
+                <constraint firstAttribute="bottom" secondItem="eQC-fU-LWW" secondAttribute="bottom" id="qId-fG-Ggv"/>
+                <constraint firstItem="xgG-lT-9tN" firstAttribute="centerY" secondItem="eQC-fU-LWW" secondAttribute="centerY" id="sxJ-Tm-PVe"/>
+            </constraints>
+            <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+            <connections>
+                <outlet property="nextRingLabel" destination="xgG-lT-9tN" id="oix-yA-4DK"/>
+            </connections>
+            <point key="canvasLocation" x="26" y="90"/>
+        </view>
+    </objects>
+    <resources>
+        <image name="Arrow" width="391" height="777"/>
+    </resources>
+</document>
