@@ -147,12 +147,13 @@
     [context save:&error2];
 }
 
-- (void) getParsedRingDataForTodayForRingDataArray:(NSArray *)ringDataArray andFilterRingID:(NSString *)filterRingID outputRingID:(NSMutableArray **)ringID outputAmount:(NSMutableArray **)amount outputRingDateStamp:(NSMutableArray **)dateStamp {
+- (void) getParsedRingDataForTodayForRingDataArray:(NSArray *)ringDataArray andFilterRingID:(NSString *)filterRingID outputRingID:(NSMutableArray **)ringID outputAmount:(NSMutableArray **)amount outputRingDateStamp:(NSMutableArray **)dateStamp outputName:(NSMutableArray **)name {
     NSMutableArray *outputRingID = [[NSMutableArray alloc] init];
     NSMutableArray *outputAmountInitial = [[NSMutableArray alloc] init];
     int outputLimitInitial = 0;
     NSMutableArray *toAngleInitial = [[NSMutableArray alloc] init];
     NSMutableArray *dateStampInitial = [[NSMutableArray alloc] init];
+    NSMutableArray *nameInitial = [[NSMutableArray alloc] init];
     
     NSDate *nowDate = [NSDate date];
     NSCalendar *calendar = [NSCalendar currentCalendar];
@@ -162,12 +163,15 @@
     for(NSManagedObject *object in ringDataArray) {
         NSString *ringID = [object valueForKey:@"ringID"];
         NSString *amount = [object valueForKey:@"amount"];
+        
+        NSString *name = [object valueForKey:@"name"];
         NSDate *date = [object valueForKey:@"dateStamp"];
         
         if([filterRingID isEqual:ringID] && [nowDay isEqual:[calendar components:(NSCalendarUnitDay | NSCalendarUnitMonth | NSCalendarUnitYear) fromDate:date]]) {
             [outputRingID addObject:ringID];
             [outputAmountInitial addObject:amount];
             [dateStampInitial addObject:date];
+            [nameInitial addObject: name];
             double amountValue = [amount intValue];
             double percent = amountValue/outputLimitInitial;
             double finalAngle = percent*360.0;
@@ -179,24 +183,29 @@
     *ringID = outputRingID;
     *amount = outputAmountInitial;
     *dateStamp = dateStampInitial;
+    *name = nameInitial;
 }
 
-- (void) getParsedRingDataForRingDataArray:(NSArray *)ringDataArray andFilterRingID:(NSString *)filterRingID outputRingID:(NSMutableArray **)ringID outputAmount:(NSMutableArray **)amount outputRingDateStamp:(NSMutableArray **)dateStamp {
+- (void) getParsedRingDataForRingDataArray:(NSArray *)ringDataArray andFilterRingID:(NSString *)filterRingID outputRingID:(NSMutableArray **)ringID outputAmount:(NSMutableArray **)amount outputRingDateStamp:(NSMutableArray **)dateStamp outputName:(NSMutableArray **)name {
     NSMutableArray *outputRingID = [[NSMutableArray alloc] init];
     NSMutableArray *outputAmountInitial = [[NSMutableArray alloc] init];
     int outputLimitInitial = 0;
     NSMutableArray *toAngleInitial = [[NSMutableArray alloc] init];
     NSMutableArray *dateStampInitial = [[NSMutableArray alloc] init];
+    NSMutableArray *nameInitial = [[NSMutableArray alloc] init];
     
     for(NSManagedObject *object in ringDataArray) {
         NSString *ringID = [object valueForKey:@"ringID"];
         NSString *amount = [object valueForKey:@"amount"];
         NSString *date = [object valueForKey:@"dateStamp"];
+        NSString *name = [object valueForKey:@"name"];
+        
         
         if([filterRingID isEqual:ringID]) {
             [outputRingID addObject:ringID];
             [outputAmountInitial addObject:amount];
             [dateStampInitial addObject:date];
+            [nameInitial addObject:name];
             double amountValue = [amount intValue];
             double percent = amountValue/outputLimitInitial;
             double finalAngle = percent*360.0;
@@ -208,6 +217,7 @@
     *ringID = outputRingID;
     *amount = outputAmountInitial;
     *dateStamp = dateStampInitial;
+    *name = nameInitial;
 }
 
 - (NSDictionary *) getAllRingDataWithRingDataArray:(NSArray *)ringDataArray andFilterRingID:(NSString *)filterRingID {
@@ -219,21 +229,67 @@
         NSDate *date = [object valueForKey:@"dateStamp"];
         
         if([filterRingID isEqual:ringID]) {
-            [resultDictionary setObject:[NSNumber numberWithInt:[amount intValue]] forKey:date];
+            [resultDictionary setObject:[NSNumber numberWithDouble:[amount doubleValue]] forKey:date];
         }
     }
     
     return resultDictionary;
 }
 
-- (void) saveRingDataWithRingID:(NSString *)ringID andAmount:(NSString *)amount andLimit:(NSString *)limit {
+- (NSString *) getDrinkNameWithRingDataArray:(NSArray *)ringDataArray andRingID:(NSString *)ringID andDateStamp:(NSDate *)dateStamp {
+    NSString *drinkName = [[NSString alloc] init];
+    
+    for(NSManagedObject *object in ringDataArray) {
+        NSCalendar *calendar = [NSCalendar currentCalendar];
+        NSDateComponents *tempComponents = [calendar componentsInTimeZone:[NSTimeZone systemTimeZone] fromDate:[object valueForKey:@"dateStamp"]];
+        [tempComponents setTimeZone:[NSTimeZone timeZoneWithAbbreviation:@"GMT"]];
+        NSDate *tempDate = [calendar dateFromComponents:tempComponents];
+        
+        if([[object valueForKey:@"ringID"] isEqualToString:ringID])
+            if([tempDate isEqual:dateStamp])
+                drinkName = [object valueForKey:@"name"];
+    }
+    
+    return drinkName;
+}
+
+- (void) saveRingDataWithRingID:(NSString *)ringID andAmount:(NSString *)amount andLimit:(NSString *)limit andName:(NSString *)name {
     NSDate *nowDate = [NSDate date];
     
-    NSArray *ringDataArray = [NSArray arrayWithObjects:ringID, amount, nowDate, nil];
+    NSArray *ringDataArray = [NSArray arrayWithObjects:ringID, amount, nowDate, name, nil];
     NSArray *limitDataArray = [NSArray arrayWithObjects:ringID, limit, nil];
     
-    [self saveDataArray:ringDataArray forEntityNamed:@"Ring" forAttributesNamed:@"ringID", @"amount", @"dateStamp", nil];
+    [self saveDataArray:ringDataArray forEntityNamed:@"Ring" forAttributesNamed:@"ringID", @"amount", @"dateStamp", @"name", nil];
     [self saveDataArray:limitDataArray forEntityNamed:@"UserLimit" forAttributesNamed:@"ringID", @"limit", nil];
+}
+
+- (BOOL) deleteRingDataWithRingID:(NSString *)ringID andTimeStamp:(NSDate *)timeStamp {
+    NSManagedObjectContext *context = ((AppDelegate *)[[UIApplication sharedApplication] delegate]).persistentContainer.viewContext;
+    NSCalendar *calendar = [NSCalendar currentCalendar];
+    
+    NSError *error;
+    NSFetchRequest *request = [[NSFetchRequest alloc] initWithEntityName:@"Ring"];
+    NSArray *resultArray = [context executeFetchRequest:request error:&error];
+    
+    if(error == nil) {
+        for(NSManagedObject *managedObject in resultArray) {
+            NSDateComponents *dateComponents = [calendar componentsInTimeZone:[NSTimeZone systemTimeZone] fromDate:[managedObject valueForKey:@"dateStamp"]];
+            [dateComponents setTimeZone:[NSTimeZone timeZoneWithAbbreviation:@"GMT"]];
+            NSDate *adjustedManagedObjectDate = [calendar dateFromComponents:dateComponents];
+            if([adjustedManagedObjectDate isEqual:timeStamp]) {
+                [context deleteObject:managedObject];
+            }
+        }
+        
+        NSError *error2;
+        [context save:&error2];
+        
+        if(error2 == nil)
+            return YES;
+        return NO;
+    }
+    
+    return NO;
 }
 
 - (UIColor *) colorWithHexString:(NSString *)hexString {
@@ -269,7 +325,7 @@
                            alpha:1.0f];
 }
 
-- (double) getRingAngleForAmount:(int)amount andLimit:(int)limit {
+- (double) getRingAngleForAmount:(double)amount andLimit:(double)limit {
     double amountValue = amount;
     double limitValue = limit;
     double percent = 0;

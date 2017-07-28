@@ -19,6 +19,7 @@
 - (NSMutableDictionary *) getRingIDsAsDictionaryWithJSONDictionary:(NSDictionary *)json;
 - (NSMutableDictionary *) getRingIAPIDsAsDictionaryWithJSONDictionary:(NSDictionary *)json;
 - (NSMutableDictionary *) getRingLimitEquationsAsDictionaryWithJSONDictionary:(NSDictionary *)json;
+- (NSMutableDictionary *) getRingTextsAsDictionaryWithJSONDictionary:(NSDictionary *)json;
 - (NSMutableDictionary *) getRingHKReadTypesAsDictionaryWithJSONDictionary:(NSDictionary *)json;
 - (NSMutableDictionary *) getRingHKWriteTypesAsDictionaryWithJSONDictionary:(NSDictionary *)json;
 - (NSMutableDictionary *) getRingThingsToMeasureAsDictionaryWithJSONDictionary:(NSDictionary *)json;
@@ -26,6 +27,7 @@
 - (NSMutableDictionary *) getSpecificDrinksAsDictionaryWithJSONDictionary:(NSDictionary *)json andRingIndex:(NSInteger)ringIndex andGeneralDrinkIndex:(NSInteger)generalDrinkIndex;
 
 - (void) setupScrollviewBackgroundImagesWithJSONDictionary:(NSDictionary *)json withImageSize:(CGSize)imageSize;
+- (void) setupGeneralDrinkImagesWithJSONDictionary:(NSDictionary *)json withImageSize:(CGSize)imageSize andRingIndex:(int)ringIndex;
 - (NSMutableDictionary *) getImageDictionaryWithDataDictionary:(NSDictionary *)dataDictionary;
 
 @end

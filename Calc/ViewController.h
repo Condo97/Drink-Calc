@@ -26,5 +26,7 @@
 @property (weak, nonatomic) IBOutlet UIImageView *leftArrow;
 @property (weak, nonatomic) IBOutlet UIImageView *rightArrow;
 
+@property (weak, nonatomic) IBOutlet UITextView *ringTextView;
+
 @end
 

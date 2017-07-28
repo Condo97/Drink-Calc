@@ -27,8 +27,7 @@
          */
     
     if([[[[NSUserDefaults standardUserDefaults] objectForKey:@"ringAutoLimitDictionary"] objectForKey:ringName] isEqual: @YES]) {
-        double weightInLbs = [[NSUserDefaults standardUserDefaults] integerForKey:@"userWeight"];
-        double weight = weightInLbs * 0.45359237;
+        double weight = [[NSUserDefaults standardUserDefaults] integerForKey:@"userWeight"];
         double height = [[NSUserDefaults standardUserDefaults] integerForKey:@"userHeightInInches"];
         int gender = (int)[[NSUserDefaults standardUserDefaults] integerForKey:@"userGender"];
         int age = (int)[[NSUserDefaults standardUserDefaults] integerForKey:@"userAge"];
@@ -60,7 +59,7 @@
         double resultDouble = [result doubleValue];
         completion(YES, resultDouble, ringName);
     } else {
-        int limit = (int)[[[NSUserDefaults standardUserDefaults] objectForKey:@"userLimit"] objectForKey:ringName];
+        double limit = [[[[NSUserDefaults standardUserDefaults] objectForKey:@"userLimit"] objectForKey:ringName] doubleValue];
         completion(YES, limit, ringName);
     }
 }

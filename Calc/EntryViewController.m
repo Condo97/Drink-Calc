@@ -25,7 +25,8 @@
 @property (strong, nonatomic) UILabel *infoViewLabel;
 
 @property (strong, nonatomic) NSString *measurementUnitsBeforeSlash, *measurementUnitsAfterSlash, *thingToMeasure, *ringColorHex, *hkIdentifierToWrite, *hkIdentifierToWriteUnit;
-@property (nonatomic) int amount, finalAmount, size, sliderMax, increments;
+@property (nonatomic) int size, sliderMax, increments;
+@property (nonatomic) double amount, finalAmount;
 
 @end
 
@@ -46,7 +47,7 @@
     self.measurementUnitsBeforeSlash = [[[JSONManager sharedManager] getRingMeasurementTypesBeforeSlashAsDictionaryWithJSONDictionary:json] objectForKey:currentRingName];
     self.measurementUnitsAfterSlash = [[[JSONManager sharedManager] getRingMeasurementTypesAfterSlashAsDictionaryWithJSONDictionary:json] objectForKey:currentRingName];
     self.thingToMeasure = [[[JSONManager sharedManager] getRingThingsToMeasureAsDictionaryWithJSONDictionary:json] objectForKey:currentRingName];
-    self.amount = [[[[JSONManager sharedManager] getSpecificDrinksAsDictionaryWithJSONDictionary:json andRingIndex:self.currentRing andGeneralDrinkIndex:self.currentGeneralDrink] objectForKey:self.currentSpecificDrinkName] intValue];
+    self.amount = [[[[JSONManager sharedManager] getSpecificDrinksAsDictionaryWithJSONDictionary:json andRingIndex:self.currentRing andGeneralDrinkIndex:self.currentGeneralDrink] objectForKey:self.currentSpecificDrinkName] doubleValue];
     self.ringColorHex = [[[JSONManager sharedManager] getRingNamesAsDictionaryWithJSONDictionary:json] objectForKey:currentRingName];
     self.hkIdentifierToWrite = [[[[[JSONManager sharedManager] getRingHKWriteTypesAsDictionaryWithJSONDictionary:json] mutableArrayValueForKey:currentRingName] objectAtIndex:0] objectAtIndex:0];
     self.hkIdentifierToWriteUnit = [[[[[JSONManager sharedManager] getRingHKWriteTypesAsDictionaryWithJSONDictionary:json] mutableArrayValueForKey:currentRingName] objectAtIndex:0] objectAtIndex:1];
@@ -165,12 +166,26 @@
     // Dispose of any resources that can be recreated.
 }
 
-- (void) updateInfoViewLabelTextWithAmount:(NSInteger)theAmount {
-    NSString *infoViewLabelTextBeforeAttributes = [NSString stringWithFormat:@"%ld%@\n%ld%@ of %@", (long)self.size, self.measurementUnitsAfterSlash, (long)theAmount, self.measurementUnitsBeforeSlash, self.thingToMeasure];
-    NSMutableAttributedString *infoViewLabelText = [[NSMutableAttributedString alloc] initWithString:infoViewLabelTextBeforeAttributes];
-    [infoViewLabelText addAttribute:NSForegroundColorAttributeName value:[UIColor colorWithHex:self.ringColorHex] range:[infoViewLabelTextBeforeAttributes rangeOfString:[NSString stringWithFormat:@"%ld", (long)theAmount]]];
-    [infoViewLabelText addAttribute:NSFontAttributeName value:[UIFont systemFontOfSize:17.0] range:[infoViewLabelTextBeforeAttributes rangeOfString:[NSString stringWithFormat:@"%ld%@ of %@", (long)theAmount, self.measurementUnitsBeforeSlash, self.thingToMeasure]]];
-    [infoViewLabelText addAttribute:NSFontAttributeName value:[UIFont systemFontOfSize:17.0 weight:UIFontWeightBold] range:[infoViewLabelTextBeforeAttributes rangeOfString:[NSString stringWithFormat:@"%ld", (long)theAmount]]];
+- (void) updateInfoViewLabelTextWithAmount:(double)theAmount {
+    NSString *infoViewLabelTextBeforeAttributes;
+    NSMutableAttributedString *infoViewLabelText;
+    
+    if(theAmount <= 9) {
+        theAmount = round(100 * theAmount) / 100;
+        infoViewLabelTextBeforeAttributes = [NSString stringWithFormat:@"%ld%@\n%.2f%@ of %@", (long)self.size, self.measurementUnitsAfterSlash, (double)theAmount, self.measurementUnitsBeforeSlash, self.thingToMeasure];
+        infoViewLabelText = [[NSMutableAttributedString alloc] initWithString:infoViewLabelTextBeforeAttributes];
+        [infoViewLabelText addAttribute:NSForegroundColorAttributeName value:[UIColor colorWithHex:self.ringColorHex] range:[infoViewLabelTextBeforeAttributes rangeOfString:[NSString stringWithFormat:@"%.2f", (double)theAmount]]];
+        [infoViewLabelText addAttribute:NSFontAttributeName value:[UIFont systemFontOfSize:17.0] range:[infoViewLabelTextBeforeAttributes rangeOfString:[NSString stringWithFormat:@"%.2f%@ of %@", (double)theAmount, self.measurementUnitsBeforeSlash, self.thingToMeasure]]];
+        [infoViewLabelText addAttribute:NSFontAttributeName value:[UIFont systemFontOfSize:17.0 weight:UIFontWeightBold] range:[infoViewLabelTextBeforeAttributes rangeOfString:[NSString stringWithFormat:@"%.2f", (double)theAmount]]];
+    } else {
+        theAmount = round(theAmount);
+        infoViewLabelTextBeforeAttributes = [NSString stringWithFormat:@"%ld%@\n%ld%@ of %@", (long)self.size, self.measurementUnitsAfterSlash, (long)theAmount, self.measurementUnitsBeforeSlash, self.thingToMeasure];
+        infoViewLabelText = [[NSMutableAttributedString alloc] initWithString:infoViewLabelTextBeforeAttributes];
+        [infoViewLabelText addAttribute:NSForegroundColorAttributeName value:[UIColor colorWithHex:self.ringColorHex] range:[infoViewLabelTextBeforeAttributes rangeOfString:[NSString stringWithFormat:@"%ld", (long)theAmount]]];
+        [infoViewLabelText addAttribute:NSFontAttributeName value:[UIFont systemFontOfSize:17.0] range:[infoViewLabelTextBeforeAttributes rangeOfString:[NSString stringWithFormat:@"%ld%@ of %@", (long)theAmount, self.measurementUnitsBeforeSlash, self.thingToMeasure]]];
+        [infoViewLabelText addAttribute:NSFontAttributeName value:[UIFont systemFontOfSize:17.0 weight:UIFontWeightBold] range:[infoViewLabelTextBeforeAttributes rangeOfString:[NSString stringWithFormat:@"%ld", (long)theAmount]]];
+    }
+    
     [infoViewLabelText addAttribute:NSForegroundColorAttributeName value:[UIColor blackColor] range:[infoViewLabelTextBeforeAttributes rangeOfString:[NSString stringWithFormat:@"%@", self.measurementUnitsBeforeSlash]]];
     [infoViewLabelText addAttribute:NSForegroundColorAttributeName value:[UIColor colorWithHex:self.ringColorHex] range:[infoViewLabelTextBeforeAttributes rangeOfString:[NSString stringWithFormat:@"%@", self.thingToMeasure]]];
     [infoViewLabelText addAttribute:NSFontAttributeName value:[UIFont systemFontOfSize:17.0 weight:UIFontWeightBold] range:[infoViewLabelTextBeforeAttributes rangeOfString:[NSString stringWithFormat:@"%@", self.thingToMeasure]]];
@@ -178,7 +193,7 @@
     [self.infoViewLabel setAttributedText:infoViewLabelText];
 }
 
-- (NSInteger) getCalculatedAmountForSliderValue:(float)sliderValue {
+- (double) getCalculatedAmountForSliderValue:(float)sliderValue {
     self.finalAmount = (sliderValue * self.amount * self.cupStepper.value);
     return self.finalAmount;
 }
@@ -254,7 +269,7 @@
     if([[segue identifier] isEqualToString:@"saveSegue"]) {
         int limit = [(NSNumber *)[(NSDictionary *)[[NSUserDefaults standardUserDefaults] objectForKey:@"userLimit"] objectForKey:currentRingName] intValue];
         
-        [[CDManager sharedManager] saveRingDataWithRingID:[NSString stringWithFormat:@"%d", self.currentRing] andAmount:[NSString stringWithFormat:@"%d", self.finalAmount] andLimit:[NSString stringWithFormat:@"%ld", (long)limit]];
+        [[CDManager sharedManager] saveRingDataWithRingID:[NSString stringWithFormat:@"%d", self.currentRing] andAmount:[NSString stringWithFormat:@"%f", self.finalAmount] andLimit:[NSString stringWithFormat:@"%ld", (long)limit] andName:currentSpecificDrinkName];
         [[HealthKitManager sharedManager] writeToHealthKitWithQuantityTypeIdentifier:self.hkIdentifierToWrite andValue:self.finalAmount andUnit:self.hkIdentifierToWriteUnit];
     }
 }

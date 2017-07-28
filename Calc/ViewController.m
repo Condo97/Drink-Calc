@@ -23,14 +23,15 @@
 #import "HealthKitManager.h"
 #import "LimitCalculationManager.h"
 #import "EditProfileTableViewController.h"
+#import "HistoryTableViewController.h"
 
 @interface ViewController ()
 
 @property (strong, nonatomic) NSMutableArray *ringArray, *ringLabelArray, *ringLabelShowingPercentArray, *amountSumPerRing, *limitPerRing, *ringPurchaseButtonArray;
 @property (nonatomic) int currentRing;
 @property (nonatomic) NSInteger selectedGeneralDrink;
-@property (nonatomic) NSMutableDictionary *slideShowImages;
-@property (strong, nonatomic) NSDictionary *purchasedRingsDictionary;
+@property (nonatomic) NSMutableDictionary *slideShowImages, *generalDrinkImages;
+@property (strong, nonatomic) NSDictionary *purchasedRingsDictionary, *ringTexts;
 
 @end
 
@@ -43,7 +44,7 @@
     
     [[CDManager sharedManager] setupRingStore];
     
-    [[StoreKitManager sharedManager] resetKeychainForTesting];
+    //[[StoreKitManager sharedManager] resetKeychainForTesting];
     
     self.currentRing = 0;
     self.selectedGeneralDrink = 0;
@@ -63,11 +64,16 @@
     NSString *currentRingName = [[[JSONManager sharedManager] getRingNamesInOrderWithJSONDictionary:ringsJson] objectAtIndex:self.currentRing];
     [[UIView appearance] setTintColor:[UIColor colorWithHex:[[[JSONManager sharedManager] getRingNamesAsDictionaryWithJSONDictionary:ringsJson] objectForKey:currentRingName]]];
     
-    
+    self.ringTexts = [[JSONManager sharedManager] getRingTextsAsDictionaryWithJSONDictionary:ringsJson];
     [self.profileButton setTitleColor:[UIColor colorWithHex:[[[JSONManager sharedManager] getRingNamesAsDictionaryWithJSONDictionary:ringsJson] objectForKey:currentRingName]] forState:UIControlStateNormal];
     [self.historyButton setTitleColor:[UIColor colorWithHex:[[[JSONManager sharedManager] getRingNamesAsDictionaryWithJSONDictionary:ringsJson] objectForKey:currentRingName]] forState:UIControlStateNormal];
     
     [[JSONManager sharedManager] setupScrollviewBackgroundImagesWithJSONDictionary:ringsJson withImageSize:CGSizeMake(self.view.frame.size.width, self.ringScrollView.frame.size.height)];
+    
+    NSArray *allRingsInOrder = [[JSONManager sharedManager] getRingNamesInOrderWithJSONDictionary:ringsJson];
+    for(int i = 0; i < allRingsInOrder.count; i++) {
+        [[JSONManager sharedManager] setupGeneralDrinkImagesWithJSONDictionary:ringsJson withImageSize:CGSizeMake(55, 55) andRingIndex:i];
+    }
     
     [self setTitle:currentRingName];
     [self.navigationItem.leftBarButtonItem setTintColor:[UIColor colorWithHex:[[[JSONManager sharedManager] getRingNamesAsDictionaryWithJSONDictionary:ringsJson] objectForKey:currentRingName]]];
@@ -75,6 +81,10 @@
     
     NSDictionary *sliderBGImageDataDictionary = [NSKeyedUnarchiver unarchiveObjectWithData:[[ArchiverManager sharedManager] loadDataFromDiskWithFileName:@"scrollViewBGImageData"]];
     self.slideShowImages = [[JSONManager sharedManager] getImageDictionaryWithDataDictionary:sliderBGImageDataDictionary];
+    for(int i = 0; i < allRingsInOrder.count; i++) {
+        NSDictionary *generalDrinkDataDictionary = [NSKeyedUnarchiver unarchiveObjectWithData:[[ArchiverManager sharedManager] loadDataFromDiskWithFileName:[NSString stringWithFormat:@"generalDrinkImageDataWithRingIndex%ld", (long)i]]];
+        [self.generalDrinkImages setObject:[[JSONManager sharedManager] getImageDictionaryWithDataDictionary:generalDrinkDataDictionary] forKey:[allRingsInOrder objectAtIndex:i]];
+    }
     
     //Setup rings
     NSMutableDictionary *ringDictionary = [[JSONManager sharedManager] getRingNamesAsDictionaryWithJSONDictionary:ringsJson];
@@ -103,6 +113,8 @@
     [self.scrollViewBackgroundView setDelay:3.0];
     [self.scrollViewBackgroundView setTransitionDuration:1.5];
     [self.scrollViewBackgroundView setTransitionType:KASlideShowTransitionFade];
+    
+    [self.ringTextView setText:[self.ringTexts objectForKey:currentRingName]];
     
     [self.leftArrow setAlpha:0.0];
     
@@ -141,8 +153,8 @@
 }
 
 - (void) animateRings {
-    NSMutableArray *ringID, *amount, *timeStamp;
-    int limit = 0;
+    NSMutableArray *ringID, *amount, *timeStamp, *name;
+    double limit = 0;
     
     self.purchasedRingsDictionary = [self getPurchasedRings];
     
@@ -153,29 +165,45 @@
         NSDictionary *ringsJson = [NSKeyedUnarchiver unarchiveObjectWithData:[[ArchiverManager sharedManager] loadDataFromDiskWithFileName:@"allJson"]];
         NSString *currentRingName = [[[JSONManager sharedManager] getRingNamesInOrderWithJSONDictionary:ringsJson] objectAtIndex:i];
         
-        limit = [[[[NSUserDefaults standardUserDefaults] objectForKey:@"userLimit"] objectForKey:currentRingName] intValue];
+        limit = [[[[NSUserDefaults standardUserDefaults] objectForKey:@"userLimit"] objectForKey:currentRingName] doubleValue];
         
         if([self ringIsPurchasedWithRingName:currentRingName]) {
-            int amountSum = 0;
+            double amountSum = 0;
             
             [[self.ringPurchaseButtonArray objectAtIndex:i] setTitle:@"" forState:UIControlStateNormal];
             [[self.ringPurchaseButtonArray objectAtIndex:i] setEnabled:NO];
             
-            [[CDManager sharedManager] getParsedRingDataForTodayForRingDataArray:[[CDManager sharedManager] getDataArrayForEntityNamed:@"Ring"] andFilterRingID:[NSString stringWithFormat:@"%d", i] outputRingID:&ringID outputAmount:&amount outputRingDateStamp:&timeStamp];
+            [[CDManager sharedManager] getParsedRingDataForTodayForRingDataArray:[[CDManager sharedManager] getDataArrayForEntityNamed:@"Ring"] andFilterRingID:[NSString stringWithFormat:@"%d", i] outputRingID:&ringID outputAmount:&amount outputRingDateStamp:&timeStamp outputName:&name];
             
             for(NSString *currentAmount in amount)
-                amountSum += [currentAmount intValue];
+                amountSum += [currentAmount doubleValue];
             
-            [self.amountSumPerRing addObject:[NSNumber numberWithInt:amountSum]];
-            [self.limitPerRing addObject:[NSNumber numberWithInt:limit]];
+            [self.amountSumPerRing addObject:[NSNumber numberWithDouble:amountSum]];
+            [self.limitPerRing addObject:[NSNumber numberWithDouble:limit]];
             
             [[self.ringArray objectAtIndex:i] animateToAngle:[[CDManager sharedManager] getRingAngleForAmount:amountSum andLimit:limit] duration:1.0 relativeDuration:NO completion:nil];
             
             if(![[self.ringLabelShowingPercentArray objectAtIndex:i] isEqual:@YES]) {
-                [(UILabel *)[self.ringLabelArray objectAtIndex:i] setText:[NSString stringWithFormat:@"%d/%d", [(NSNumber *)[self.amountSumPerRing objectAtIndex:i] intValue], [(NSNumber *)[self.limitPerRing objectAtIndex:i] intValue]]];
+                if([[self.amountSumPerRing objectAtIndex:i] doubleValue] <= 9 && [[self.limitPerRing objectAtIndex:i] doubleValue] <= 9) {
+                    double tempAmount = round(100 * [[self.amountSumPerRing objectAtIndex:i] doubleValue]) / 100;
+                    double tempLimit = round(100 * [[self.limitPerRing objectAtIndex:i] doubleValue]) / 100;
+                    [(UILabel *)[self.ringLabelArray objectAtIndex:i] setText:[NSString stringWithFormat:@"%.2f/%.2f", tempAmount, tempLimit]];
+                } else if ([[self.amountSumPerRing objectAtIndex:i] doubleValue] > 9 && [[self.limitPerRing objectAtIndex:i] doubleValue] <= 9) {
+                    int tempAmount = round([[self.amountSumPerRing objectAtIndex:i] doubleValue]);
+                    double tempLimit = round(100 * [[self.limitPerRing objectAtIndex:i] doubleValue]) / 100;
+                    [(UILabel *)[self.ringLabelArray objectAtIndex:i] setText:[NSString stringWithFormat:@"%ld/%.2f", (long)tempAmount, tempLimit]];
+                } else if ([[self.amountSumPerRing objectAtIndex:i] doubleValue] <= 9 && [[self.limitPerRing objectAtIndex:i] doubleValue] > 9) {
+                    double tempAmount = round(100 * [[self.amountSumPerRing objectAtIndex:i] doubleValue]) / 100;
+                    int tempLimit = round([[self.limitPerRing objectAtIndex:i] doubleValue]);
+                    [(UILabel *)[self.ringLabelArray objectAtIndex:i] setText:[NSString stringWithFormat:@"%.2f/%ld", tempAmount, (long)tempLimit]];
+                } else {
+                    int tempAmount = round([[self.amountSumPerRing objectAtIndex:i] doubleValue]);
+                    int tempLimit = round([[self.limitPerRing objectAtIndex:i] doubleValue]);
+                    [(UILabel *)[self.ringLabelArray objectAtIndex:i] setText:[NSString stringWithFormat:@"%ld/%ld", (long)tempAmount, (long)tempLimit]];
+                }
             } else {
                 int percent = 0;
-                if([(NSNumber *)[self.limitPerRing objectAtIndex:i] intValue] != 0)
+                if([(NSNumber *)[self.limitPerRing objectAtIndex:i] doubleValue] != 0)
                     percent = ([(NSNumber *)[self.amountSumPerRing objectAtIndex:i] floatValue] / [(NSNumber *)[self.limitPerRing objectAtIndex:i] floatValue]) * 100;
                 [(UILabel *)[self.ringLabelArray objectAtIndex:i] setText:[NSString stringWithFormat:@"%d%%", percent]];
             }
@@ -249,10 +277,26 @@
             [self.ringLabelShowingPercentArray setObject:@YES atIndexedSubscript:self.currentRing];
         
         if(![[self.ringLabelShowingPercentArray objectAtIndex:self.currentRing] isEqual:@YES]) {
-            [(UILabel *)[self.ringLabelArray objectAtIndex:self.currentRing] setText:[NSString stringWithFormat:@"%d/%d", [(NSNumber *)[self.amountSumPerRing objectAtIndex:self.currentRing] intValue], [(NSNumber *)[self.limitPerRing objectAtIndex:self.currentRing] intValue]]];
+            if([[self.amountSumPerRing objectAtIndex:self.currentRing] doubleValue] <= 9 && [[self.limitPerRing objectAtIndex:self.currentRing] doubleValue] <= 9) {
+                double tempAmount = round(100 * [[self.amountSumPerRing objectAtIndex:self.currentRing] doubleValue]) / 100;
+                double tempLimit = round(100 * [[self.limitPerRing objectAtIndex:self.currentRing] doubleValue]) / 100;
+                [(UILabel *)[self.ringLabelArray objectAtIndex:self.currentRing] setText:[NSString stringWithFormat:@"%.2f/%.2f", tempAmount, tempLimit]];
+            } else if ([[self.amountSumPerRing objectAtIndex:self.currentRing] doubleValue] > 9 && [[self.limitPerRing objectAtIndex:self.currentRing] doubleValue] <= 9) {
+                int tempAmount = round([[self.amountSumPerRing objectAtIndex:self.currentRing] doubleValue]);
+                double tempLimit = round(100 * [[self.limitPerRing objectAtIndex:self.currentRing] doubleValue]) / 100;
+                [(UILabel *)[self.ringLabelArray objectAtIndex:self.currentRing] setText:[NSString stringWithFormat:@"%ld/%.2f", (long)tempAmount, tempLimit]];
+            } else if ([[self.amountSumPerRing objectAtIndex:self.currentRing] doubleValue] <= 9 && [[self.limitPerRing objectAtIndex:self.currentRing] doubleValue] > 9) {
+                double tempAmount = round(100 * [[self.amountSumPerRing objectAtIndex:self.currentRing] doubleValue]) / 100;
+                int tempLimit = round([[self.limitPerRing objectAtIndex:self.currentRing] doubleValue]);
+                [(UILabel *)[self.ringLabelArray objectAtIndex:self.currentRing] setText:[NSString stringWithFormat:@"%.2f/%ld", tempAmount, (long)tempLimit]];
+            } else {
+                int tempAmount = round([[self.amountSumPerRing objectAtIndex:self.currentRing] doubleValue]);
+                int tempLimit = round([[self.limitPerRing objectAtIndex:self.currentRing] doubleValue]);
+                [(UILabel *)[self.ringLabelArray objectAtIndex:self.currentRing] setText:[NSString stringWithFormat:@"%ld/%ld", (long)tempAmount, (long)tempLimit]];
+            }
         } else {
             int percent = 0;
-            if([(NSNumber *)[self.limitPerRing objectAtIndex:self.currentRing] intValue] != 0)
+            if([(NSNumber *)[self.limitPerRing objectAtIndex:self.currentRing] doubleValue] != 0)
                 percent = ([(NSNumber *)[self.amountSumPerRing objectAtIndex:self.currentRing] floatValue] / [(NSNumber *)[self.limitPerRing objectAtIndex:self.currentRing] floatValue]) * 100;
             [(UILabel *)[self.ringLabelArray objectAtIndex:self.currentRing] setText:[NSString stringWithFormat:@"%d%%", percent]];
         }
@@ -363,6 +407,7 @@
         [[UIView appearance] setTintColor:[UIColor colorWithHex:[[[JSONManager sharedManager] getRingNamesAsDictionaryWithJSONDictionary:json] objectForKey:currentRingName]]];
         
         [self setTitle:currentRingName];
+        [self.ringTextView setText:[self.ringTexts objectForKey:currentRingName]];
         
         dispatch_async(dispatch_get_main_queue(), ^{
             [self.profileButton setTitleColor:[UIColor colorWithHex:[[[JSONManager sharedManager] getRingNamesAsDictionaryWithJSONDictionary:json] objectForKey:currentRingName]] forState:UIControlStateNormal];
@@ -413,6 +458,12 @@
         EditProfileTableViewController *editProfileTableViewController = (EditProfileTableViewController *)navController.topViewController;
         NSDictionary *ringsJson = [NSKeyedUnarchiver unarchiveObjectWithData:[[ArchiverManager sharedManager] loadDataFromDiskWithFileName:@"allJson"]];
         [editProfileTableViewController setCurrentRingName:[[[JSONManager sharedManager] getRingNamesInOrderWithJSONDictionary:ringsJson] objectAtIndex:self.currentRing]];
+    } else if ([[segue identifier] isEqualToString:@"toHistoryVC"]) {
+        UINavigationController *navController = segue.destinationViewController;
+        HistoryTableViewController *historyTableViewController = (HistoryTableViewController *)navController.topViewController;
+        NSDictionary *ringsJson = [NSKeyedUnarchiver unarchiveObjectWithData:[[ArchiverManager sharedManager] loadDataFromDiskWithFileName:@"allJson"]];
+        [historyTableViewController setCurrentRingName:[[[JSONManager sharedManager] getRingNamesInOrderWithJSONDictionary:ringsJson] objectAtIndex:self.currentRing]];
+        [historyTableViewController setCurrentRingID:self.currentRing];
     }
 }
     

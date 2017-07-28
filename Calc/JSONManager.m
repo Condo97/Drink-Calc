@@ -107,6 +107,16 @@
     return allRingLimitEquations;
 }
 
+- (NSMutableDictionary *) getRingTextsAsDictionaryWithJSONDictionary:(NSDictionary *)json {
+    NSMutableDictionary *allRingTexts = [[NSMutableDictionary alloc] init];
+    
+    for(NSInteger i = 0; i < [json mutableArrayValueForKey:@"rings"].count; i++) {
+        [allRingTexts setObject:[[[json mutableArrayValueForKey:@"rings"] objectAtIndex:i] valueForKey:@"ringText"]  forKey:[[[json mutableArrayValueForKey:@"rings"] objectAtIndex:i] objectForKey:@"ringName"]];
+    }
+    
+    return allRingTexts;
+}
+
 - (NSMutableDictionary *) getRingHKReadTypesAsDictionaryWithJSONDictionary:(NSDictionary *)json {
     NSMutableDictionary *allRingHKReadTypes = [[NSMutableDictionary alloc] init];
     
@@ -198,6 +208,39 @@
         
         [[ArchiverManager sharedManager] saveDataToDisk:[NSKeyedArchiver archivedDataWithRootObject:imageURLDictionary] withFileName:@"scrollViewBGImageURLs"];
         [[ArchiverManager sharedManager] saveDataToDisk:[NSKeyedArchiver archivedDataWithRootObject:finalImageDataDictionary] withFileName:@"scrollViewBGImageData"];
+    }
+}
+
+- (void) setupGeneralDrinkImagesWithJSONDictionary:(NSDictionary *)json withImageSize:(CGSize)imageSize andRingIndex:(int)ringIndex {
+    NSMutableDictionary *imageURLDictionary = [[NSMutableDictionary alloc] init];
+    
+    for(int i = 0; i < [[[json mutableArrayValueForKey:@"rings"] objectAtIndex:ringIndex] mutableArrayValueForKey:@"generalDrinks"].count; i++) {
+        [imageURLDictionary setObject: [[[[[json mutableArrayValueForKey:@"rings"] objectAtIndex:ringIndex] mutableArrayValueForKey:@"generalDrinks"] objectAtIndex:i] valueForKey:@"generalDrinkImage"] forKey:[[[json mutableArrayValueForKey:@"rings"] objectAtIndex:i] objectForKey:@"ringName"]];
+    }
+    
+    NSDictionary *generalDrinkImageURLsFromStore = [NSKeyedUnarchiver unarchiveObjectWithData:[[ArchiverManager sharedManager] loadDataFromDiskWithFileName:[NSString stringWithFormat:@"generalDrinkImageURLsWithRingIndex%ld", (long)ringIndex]]];
+    
+    if(![generalDrinkImageURLsFromStore isEqual:imageURLDictionary]) {
+        NSMutableDictionary *finalImageDataDictionary = [[NSMutableDictionary alloc] init];
+        for(int i = 0; i < [imageURLDictionary allKeys].count; i++) {
+            NSArray *imageURLArray = [imageURLDictionary objectForKey:[[imageURLDictionary allKeys] objectAtIndex:i]];
+            NSMutableArray *finalImageDataArray = [[NSMutableArray alloc] init];
+            
+            for(NSString *imageURL in imageURLArray) {
+                NSData *imageData = [[NSData alloc] init];
+                if(![imageURL isEqual:[NSNull null]]) {
+                    imageData = [[NSData alloc] initWithContentsOfURL:[NSURL URLWithString:imageURL]];
+                    UIImage *finalImage = [self imageWithImage:[UIImage imageWithData:imageData] scaledToSize:imageSize];
+                    imageData = UIImagePNGRepresentation(finalImage);
+                }
+                [finalImageDataArray addObject:imageData];
+            }
+            
+            [finalImageDataDictionary setObject:finalImageDataArray forKey:[[imageURLDictionary allKeys] objectAtIndex:i]];
+        }
+        
+        [[ArchiverManager sharedManager] saveDataToDisk:[NSKeyedArchiver archivedDataWithRootObject:imageURLDictionary] withFileName:[NSString stringWithFormat:@"generalDrinkImageURLsWithRingIndex%ld", (long)ringIndex]];
+        [[ArchiverManager sharedManager] saveDataToDisk:[NSKeyedArchiver archivedDataWithRootObject:finalImageDataDictionary] withFileName:[NSString stringWithFormat:@"generalDrinkImageDataWithRingIndex%ld", (long)ringIndex]];
     }
 }
 

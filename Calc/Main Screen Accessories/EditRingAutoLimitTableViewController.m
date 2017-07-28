@@ -63,6 +63,15 @@
     
     cell.limitTextField.inputAccessoryView = toolbar;
     
+    double limit = [[[[NSUserDefaults standardUserDefaults] objectForKey:@"userLimit"] objectForKey:[self.ringNamesInOrder objectAtIndex:indexPath.row]] doubleValue];
+    if(limit <= 9) {
+        limit = round(100 * limit) / 100;
+        [cell.limitTextField setText:[NSString stringWithFormat:@"%.2f", limit]];
+    } else {
+        limit = round(limit);
+        [cell.limitTextField setText:[NSString stringWithFormat:@"%ld", (long)limit]];
+    }
+    
     [cell.ringName setText:[self.ringNamesInOrder objectAtIndex:indexPath.row]];
     if([[self.ringUsesAutoLimit allKeys] containsObject:[self.ringNamesInOrder objectAtIndex:indexPath.row]]) {
         if([[self.ringUsesAutoLimit objectForKey:[self.ringNamesInOrder objectAtIndex:indexPath.row]] isEqual:@YES]) {

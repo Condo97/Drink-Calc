@@ -16,4 +16,6 @@
 @property (nonatomic) int currentRingID;
 @property (strong, nonatomic) NSString *currentRingName;
 
+@property (weak, nonatomic) IBOutlet UIBarButtonItem *editButtonOutlet;
+
 @end
