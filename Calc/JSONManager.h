@@ -29,5 +29,6 @@
 - (void) setupScrollviewBackgroundImagesWithJSONDictionary:(NSDictionary *)json withImageSize:(CGSize)imageSize;
 - (void) setupGeneralDrinkImagesWithJSONDictionary:(NSDictionary *)json withImageSize:(CGSize)imageSize andRingIndex:(int)ringIndex;
 - (NSMutableDictionary *) getImageDictionaryWithDataDictionary:(NSDictionary *)dataDictionary;
+- (NSMutableDictionary *) getImageDictionaryForGeneralDrinkImagesWithDataDictionary:(NSDictionary *)dataDictionary;
 
 @end

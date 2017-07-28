@@ -215,7 +215,7 @@
     NSMutableDictionary *imageURLDictionary = [[NSMutableDictionary alloc] init];
     
     for(int i = 0; i < [[[json mutableArrayValueForKey:@"rings"] objectAtIndex:ringIndex] mutableArrayValueForKey:@"generalDrinks"].count; i++) {
-        [imageURLDictionary setObject: [[[[[json mutableArrayValueForKey:@"rings"] objectAtIndex:ringIndex] mutableArrayValueForKey:@"generalDrinks"] objectAtIndex:i] valueForKey:@"generalDrinkImage"] forKey:[[[json mutableArrayValueForKey:@"rings"] objectAtIndex:i] objectForKey:@"ringName"]];
+        [imageURLDictionary setObject: [[[[[json mutableArrayValueForKey:@"rings"] objectAtIndex:ringIndex] mutableArrayValueForKey:@"generalDrinks"] objectAtIndex:i] valueForKey:@"generalDrinkImage"] forKey:[[[[[json mutableArrayValueForKey:@"rings"] objectAtIndex:ringIndex] mutableArrayValueForKey:@"generalDrinks"] objectAtIndex:i] valueForKey:@"generalDrinkName"]];
     }
     
     NSDictionary *generalDrinkImageURLsFromStore = [NSKeyedUnarchiver unarchiveObjectWithData:[[ArchiverManager sharedManager] loadDataFromDiskWithFileName:[NSString stringWithFormat:@"generalDrinkImageURLsWithRingIndex%ld", (long)ringIndex]]];
@@ -223,20 +223,16 @@
     if(![generalDrinkImageURLsFromStore isEqual:imageURLDictionary]) {
         NSMutableDictionary *finalImageDataDictionary = [[NSMutableDictionary alloc] init];
         for(int i = 0; i < [imageURLDictionary allKeys].count; i++) {
-            NSArray *imageURLArray = [imageURLDictionary objectForKey:[[imageURLDictionary allKeys] objectAtIndex:i]];
-            NSMutableArray *finalImageDataArray = [[NSMutableArray alloc] init];
+            NSString *imageURL = [imageURLDictionary objectForKey:[[imageURLDictionary allKeys] objectAtIndex:i]];
             
-            for(NSString *imageURL in imageURLArray) {
-                NSData *imageData = [[NSData alloc] init];
-                if(![imageURL isEqual:[NSNull null]]) {
-                    imageData = [[NSData alloc] initWithContentsOfURL:[NSURL URLWithString:imageURL]];
-                    UIImage *finalImage = [self imageWithImage:[UIImage imageWithData:imageData] scaledToSize:imageSize];
-                    imageData = UIImagePNGRepresentation(finalImage);
-                }
-                [finalImageDataArray addObject:imageData];
+            NSData *imageData = [[NSData alloc] init];
+            if(![imageURL isEqual:[NSNull null]]) {
+                imageData = [[NSData alloc] initWithContentsOfURL:[NSURL URLWithString:imageURL]];
+                UIImage *finalImage = [self imageWithImage:[UIImage imageWithData:imageData] scaledToSize:imageSize];
+                imageData = UIImagePNGRepresentation(finalImage);
             }
             
-            [finalImageDataDictionary setObject:finalImageDataArray forKey:[[imageURLDictionary allKeys] objectAtIndex:i]];
+            [finalImageDataDictionary setObject:imageData forKey:[[imageURLDictionary allKeys] objectAtIndex:i]];
         }
         
         [[ArchiverManager sharedManager] saveDataToDisk:[NSKeyedArchiver archivedDataWithRootObject:imageURLDictionary] withFileName:[NSString stringWithFormat:@"generalDrinkImageURLsWithRingIndex%ld", (long)ringIndex]];
@@ -257,6 +253,22 @@
         }
         
         [finalImageDictionary setObject:imageArray forKey:[[dataDictionary allKeys] objectAtIndex:i]];
+    }
+    
+    return finalImageDictionary;
+}
+
+- (NSMutableDictionary *) getImageDictionaryForGeneralDrinkImagesWithDataDictionary:(NSDictionary *)dataDictionary {
+    NSMutableDictionary *finalImageDictionary = [[NSMutableDictionary alloc] init];
+    for(int i = 0; i < [dataDictionary allKeys].count; i++) {
+        NSData *imageData = [dataDictionary objectForKey:[[dataDictionary allKeys] objectAtIndex:i]];
+        UIImage *image = [[UIImage alloc] init];
+        if([imageData isEqualToData:[[NSData alloc] init]])
+            image = [[UIImage alloc] init];
+        else
+            image = [UIImage imageWithData:imageData];
+        
+        [finalImageDictionary setObject:image forKey:[[dataDictionary allKeys] objectAtIndex:i]];
     }
     
     return finalImageDictionary;

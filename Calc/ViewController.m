@@ -54,6 +54,7 @@
     self.amountSumPerRing = [[NSMutableArray alloc] init];
     self.limitPerRing = [[NSMutableArray alloc] init];
     self.ringPurchaseButtonArray = [[NSMutableArray alloc] init];
+    self.generalDrinkImages = [[NSMutableDictionary alloc] init];
     
 //    UIGestureRecognizer *leftArrowGestureRecognizer = [[UIGestureRecognizer alloc] initWithTarget:self action:@selector(leftArrowTapped:)];
 //    UIGestureRecognizer *rightArrowGestureRecognizer = [[UIGestureRecognizer alloc] initWithTarget:self action:@selector(rightArrowTapped:)];
@@ -83,7 +84,7 @@
     self.slideShowImages = [[JSONManager sharedManager] getImageDictionaryWithDataDictionary:sliderBGImageDataDictionary];
     for(int i = 0; i < allRingsInOrder.count; i++) {
         NSDictionary *generalDrinkDataDictionary = [NSKeyedUnarchiver unarchiveObjectWithData:[[ArchiverManager sharedManager] loadDataFromDiskWithFileName:[NSString stringWithFormat:@"generalDrinkImageDataWithRingIndex%ld", (long)i]]];
-        [self.generalDrinkImages setObject:[[JSONManager sharedManager] getImageDictionaryWithDataDictionary:generalDrinkDataDictionary] forKey:[allRingsInOrder objectAtIndex:i]];
+        [self.generalDrinkImages setObject:[[JSONManager sharedManager] getImageDictionaryForGeneralDrinkImagesWithDataDictionary:generalDrinkDataDictionary] forKey:[allRingsInOrder objectAtIndex:i]];
     }
     
     //Setup rings
@@ -373,6 +374,7 @@
     NSArray *allRingNames = [[JSONManager sharedManager] getRingNamesInOrderWithJSONDictionary:ringsJson];
     
     [cell.cellText setText:[generalDrinksArray objectAtIndex:indexPath.row]];
+    [cell.cellImage setImage:[[self.generalDrinkImages objectForKey:[allRingNames objectAtIndex:self.currentRing]] objectForKey:[generalDrinksArray objectAtIndex:indexPath.row]]];
     
     if([[[self getPurchasedRings] objectForKey:[allRingNames objectAtIndex:self.currentRing]] isEqualToString:@"NO"]) {
         [cell setAccessoryType:UITableViewCellAccessoryNone];
