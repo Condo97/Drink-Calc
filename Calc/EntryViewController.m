@@ -55,6 +55,8 @@
     self.maxAmplitude = 70;
     self.minAmplitude = 40;
     
+    [self setTitle:[NSString stringWithFormat:@"%@ Entry", currentSpecificDrinkName]];
+    
     [self.liquidView setFillColor:[UIColor colorWithHex:self.ringColorHex]];
     [self.liquidView setFillDuration:2.0];
     [self.liquidView setFillAutoReverse:NO];

@@ -109,6 +109,8 @@
 #pragma  mark - Table view delegate
 
 - (void) tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    [[tableView cellForRowAtIndexPath:indexPath] setSelected:NO];
+    
     if(indexPath.section == 1) {
         for(int i = 0; i < self.cellsShowing.count; i++) {
             if(indexPath.row / 2 == i) {

@@ -1,4 +1,3 @@
-
 //
 //  HistoryHeaderTableViewCell.m
 //  Calc

@@ -1,5 +1,3 @@
-
-
 //
 //  HistoryStandardTableViewCell.m
 //  Calc

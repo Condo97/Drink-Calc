@@ -59,8 +59,11 @@
     self.allAmountsSplitIntoSections = [[NSMutableArray alloc] init];
     self.allAmountsForCurrentRing = [[CDManager sharedManager] getAllRingDataWithRingDataArray:self.ringDataArray andFilterRingID:[NSString stringWithFormat:@"%ld", (long)currentRingID]];
     
+    [self setTitle:[NSString stringWithFormat:@"%@ History", currentRingName]];
+    
     for(int i = 0; i < [self.allAmountsForCurrentRing allKeys].count; i++) {
         NSDateComponents *tempDateComponents = [calendar componentsInTimeZone:[NSTimeZone systemTimeZone] fromDate:[[self.allAmountsForCurrentRing allKeys] objectAtIndex:i]];
+        
         NSDateComponents *dateComponents = [[NSDateComponents alloc] init];
         [dateComponents setYear:tempDateComponents.year];
         [dateComponents setMonth:tempDateComponents.month];
@@ -359,23 +362,31 @@
             }
         } else {
             if([[CDManager sharedManager] deleteRingDataWithRingID:[NSString stringWithFormat:@"%ld", (long)currentRingID] andTimeStamp:[[[self.allAmountsSplitIntoSections objectAtIndex:indexPath.section] objectAtIndex:indexPath.row - 1] objectForKey:@"date"]]) {
+                [tableView beginUpdates];
                 
                 [self loadAllAmountsSplitIntoSectionsArray];
                 //[tableView deleteRowsAtIndexPaths:@[indexPath, [NSIndexPath indexPathForRow:indexPath.row - 1 inSection:indexPath.section]] withRowAnimation:UITableViewRowAnimationFade];
+                
                 [tableView deleteSections:[NSIndexSet indexSetWithIndex:indexPath.section] withRowAnimation:UITableViewRowAnimationFade];
+                [tableView endUpdates];
                 
                 if(tableView.numberOfSections == 0) {
+                    
+                    
+//                    [tableView beginUpdates];
+//                    [tableView insertSections:[NSIndexSet indexSetWithIndex:0] withRowAnimation:UITableViewRowAnimationFade];
                     self.noCellsExistSections = YES;
+                    //[tableView endUpdates];
                     
-                    [tableView insertSections:[NSIndexSet indexSetWithIndex:0] withRowAnimation:UITableViewRowAnimationFade];
                     
+                    
+                    //[tableView beginUpdates];
+//                    [tableView insertRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:0 inSection:0]] withRowAnimation:UITableViewRowAnimationFade];
                     self.noCellsExistCells = YES;
+                    ///[tableView endUpdates];
                     
-                    [tableView insertRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:0 inSection:0]] withRowAnimation:UITableViewRowAnimationFade];
+                    [tableView reloadData];
                 }
-                
-                [self.tableView beginUpdates];
-                [self.tableView endUpdates];
             }
         }
     }

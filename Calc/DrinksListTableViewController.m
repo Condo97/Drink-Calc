@@ -62,6 +62,8 @@
 }
 
 - (void) tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    [[tableView cellForRowAtIndexPath:indexPath] setSelected:NO];
+    
     self.selectedSpecificDrink = indexPath.row;
     
     self.selectedSpecificDrinkName = [tableView cellForRowAtIndexPath:indexPath].textLabel.text;

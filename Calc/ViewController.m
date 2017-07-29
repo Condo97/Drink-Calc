@@ -388,6 +388,8 @@
 }
 
 - (void) tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    [[tableView cellForRowAtIndexPath:indexPath] setSelected:NO];
+    
     self.selectedGeneralDrink = indexPath.row;
     [self performSegueWithIdentifier:@"toDrinksListView" sender:nil];
 }
