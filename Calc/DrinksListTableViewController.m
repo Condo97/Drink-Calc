@@ -31,6 +31,12 @@
     NSMutableArray *generalDrinksArray = [[JSONManager sharedManager] getGeneralDrinksAsArrayWithJSONDictionary:ringsJson andRingIndex:self.currentRing];
     
     [self setTitle:[generalDrinksArray objectAtIndex:self.currentGeneralDrink]];
+    
+    [self.navigationController.navigationBar.layer setMasksToBounds:NO];
+    [self.navigationController.navigationBar.layer setShadowColor:[UIColor blackColor].CGColor];
+    [self.navigationController.navigationBar.layer setShadowOpacity:0.0];
+    //[self.navigationController.navigationBar.layer setShadowRadius:7.5];
+    //[self.navigationController.navigationBar.layer setShadowOffset:CGSizeMake(0, 0)];
 }
 
 - (void) didReceiveMemoryWarning {

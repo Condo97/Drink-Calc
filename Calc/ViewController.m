@@ -69,6 +69,18 @@
     [self.profileButton setTitleColor:[UIColor colorWithHex:[[[JSONManager sharedManager] getRingNamesAsDictionaryWithJSONDictionary:ringsJson] objectForKey:currentRingName]] forState:UIControlStateNormal];
     [self.historyButton setTitleColor:[UIColor colorWithHex:[[[JSONManager sharedManager] getRingNamesAsDictionaryWithJSONDictionary:ringsJson] objectForKey:currentRingName]] forState:UIControlStateNormal];
     
+    [self.navigationController.navigationBar.layer setMasksToBounds:NO];
+    [self.navigationController.navigationBar.layer setShadowColor:[UIColor blackColor].CGColor];
+    [self.navigationController.navigationBar.layer setShadowOpacity:1.0];
+    [self.navigationController.navigationBar.layer setShadowRadius:7.5];
+    [self.navigationController.navigationBar.layer setShadowOffset:CGSizeMake(0, 0)];
+    
+    [self.tableViewBlurView.layer setMasksToBounds:NO];
+    [self.tableViewBlurView.layer setShadowColor:[UIColor blackColor].CGColor];
+    [self.tableViewBlurView.layer setShadowOpacity:1.0];
+    [self.tableViewBlurView.layer setShadowRadius:7.5];
+    [self.tableViewBlurView.layer setShadowOffset:CGSizeMake(0, 0)];
+    
     [[JSONManager sharedManager] setupScrollviewBackgroundImagesWithJSONDictionary:ringsJson withImageSize:CGSizeMake(self.view.frame.size.width, self.ringScrollView.frame.size.height)];
     
     NSArray *allRingsInOrder = [[JSONManager sharedManager] getRingNamesInOrderWithJSONDictionary:ringsJson];

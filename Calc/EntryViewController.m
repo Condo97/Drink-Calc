@@ -230,6 +230,7 @@
     
     [customAmountAlert addTextFieldWithConfigurationHandler:^(UITextField *textField){
         [textField setPlaceholder:[NSString stringWithFormat:@"Custom amount in %@", self.measurementUnitsAfterSlash]];
+        [textField setKeyboardType:UIKeyboardTypeNumberPad];
     }];
     
     [customAmountAlert addAction:cancelButton];

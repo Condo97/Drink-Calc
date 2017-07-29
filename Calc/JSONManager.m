@@ -286,7 +286,8 @@
 }
 
 - (UIImage *) slideShowImageWithImage:(UIImage *)image andSize:(CGSize)imageSize {
-    return [[self imageWithImage:image scaledToSize:imageSize] blurredImageWithRadius:14.0];
+    
+    return [[self imageWithImage:image scaledToSize:imageSize] blurredImageWithRadius:1.0];
 }
 
 @end

@@ -13,5 +13,6 @@
 
 @property (weak, nonatomic) IBOutlet KDCircularProgress *circularProgress;
 @property (weak, nonatomic) IBOutlet UILabel *label;
+@property (weak, nonatomic) IBOutlet UILabel *circularProgressLabel;
 
 @end

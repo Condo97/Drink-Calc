@@ -28,5 +28,7 @@
 
 @property (weak, nonatomic) IBOutlet UITextView *ringTextView;
 
+@property (weak, nonatomic) IBOutlet UIView *tableViewBlurView;
+
 @end
 

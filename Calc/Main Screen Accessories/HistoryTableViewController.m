@@ -117,7 +117,7 @@
         }
     }
     
-    self.allAmountsSplitIntoSections = (NSMutableArray *)[[tempArray reverseObjectEnumerator] allObjects];
+    self.allAmountsSplitIntoSections = tempArray;//(NSMutableArray *)[[tempArray reverseObjectEnumerator] allObjects];
 }
 
 - (void) didReceiveMemoryWarning {
@@ -147,13 +147,17 @@
     return [(NSArray *)[self.allAmountsSplitIntoSections objectAtIndex:section] count] + 1;
 }
 
+- (NSString *) tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {
+    return [NSDateFormatter localizedStringFromDate:(NSDate *)[self getDayForArray:[self.allAmountsSplitIntoSections objectAtIndex:section]] dateStyle:NSDateFormatterMediumStyle timeStyle:NSDateFormatterNoStyle];
+}
+
 - (UITableViewCell *) tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     if(self.noCellsExistSections && self.noCellsExistCells)
         return [tableView dequeueReusableCellWithIdentifier:@"noDisplayCell" forIndexPath:indexPath];
     
     if(indexPath.row == 0) {
         HistoryHeaderTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"headerCell" forIndexPath:indexPath];
-        UILabel *circularProgressLabel = [[UILabel alloc] initWithFrame:CGRectMake((cell.circularProgress.frame.size.width - 100) / 2, (cell.circularProgress.frame.size.height - 50) / 2, 100, 50)];
+        //[cell.circularProgressLabel setFrame:CGRectMake((cell.circularProgress.frame.size.width - 100) / 2, (cell.circularProgress.frame.size.height - 50) / 2, 100, 50)];
         double totalConsumed = 0;
         
         for(int i = 0; i < [(NSArray *)[self.allAmountsSplitIntoSections objectAtIndex:indexPath.section] count]; i++) {
@@ -260,14 +264,16 @@
         [cell.circularProgress.layer setShadowRadius:7.5];
         [cell.circularProgress.layer setShadowOffset:CGSizeMake(0, 0)];
         
-        [circularProgressLabel setFont:[UIFont systemFontOfSize:17.0]];
-        [circularProgressLabel setTextAlignment:NSTextAlignmentCenter];
-        [circularProgressLabel setAdjustsFontSizeToFitWidth:YES];
-        [circularProgressLabel setMinimumScaleFactor:0.5];
+        [cell.circularProgressLabel setFont:[UIFont systemFontOfSize:17.0]];
+        [cell.circularProgressLabel setTextAlignment:NSTextAlignmentCenter];
+        [cell.circularProgressLabel setAdjustsFontSizeToFitWidth:YES];
+        [cell.circularProgressLabel setMinimumScaleFactor:0.5];
         
-        if(circularProgressLabel.numberOfLines > 2) {
+        if(cell.circularProgressLabel.numberOfLines > 2) {
             
         }
+        
+        
         
         int ringAngle = 0;
         double percent = 0;
@@ -277,8 +283,8 @@
             percent = ((double)totalConsumed/(double)self.limit) * 100.0;
         }
         
-        [circularProgressLabel setText:[NSString stringWithFormat:@"%ld%%", (long)percent]];
-        [cell.circularProgress addSubview:circularProgressLabel];
+        [cell.circularProgressLabel setText:[NSString stringWithFormat:@"%ld%%", (long)percent]];
+        //[cell.circularProgress addSubview:cell.circularProgressLabel];
         [cell.circularProgress animateToAngle:ringAngle duration:1.0 relativeDuration:NO completion:nil];
         
         [cell.label setAttributedText:headerLabelText];
@@ -359,6 +365,117 @@
                 
                 [self.tableView beginUpdates];
                 [self.tableView endUpdates];
+                
+                HistoryHeaderTableViewCell *cell = [tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:indexPath.section]];
+                //[cell.circularProgressLabel setFrame:CGRectMake((cell.circularProgress.frame.size.width - 100) / 2, (cell.circularProgress.frame.size.height - 50) / 2, 100, 50)];
+                
+                double totalConsumed = 0;
+                
+                for(int i = 0; i < [(NSArray *)[self.allAmountsSplitIntoSections objectAtIndex:indexPath.section] count]; i++) {
+                    totalConsumed += [[[[self.allAmountsSplitIntoSections objectAtIndex:indexPath.section] objectAtIndex:i] objectForKey:@"value"] doubleValue];
+                }
+                
+                NSString *originalString = [[NSString alloc] init];
+                NSMutableAttributedString *headerLabelText = [[NSMutableAttributedString alloc] init];
+                if(self.view.frame.size.width <= 320) {
+                    if(totalConsumed <= 9 && self.limit <= 9) {
+                        double tempTotalConsumed = round(100 * totalConsumed) / 100;
+                        double tempLimit = round(100 * self.limit) / 100;
+                        originalString = [NSString stringWithFormat:@"You have\ndrank %.2f%@\nout of %.2f%@.", tempTotalConsumed, self.units, tempLimit, self.units];
+                        
+                        headerLabelText = [[NSMutableAttributedString alloc] initWithString:originalString];
+                        [headerLabelText addAttribute:NSFontAttributeName value:[UIFont systemFontOfSize:17.0 weight:UIFontWeightSemibold] range:[originalString rangeOfString:[NSString stringWithFormat:@"%.2f%@", tempTotalConsumed, self.units]]];
+                        if(totalConsumed > (self.limit * 0.90))
+                            [headerLabelText addAttribute:NSForegroundColorAttributeName value:[UIColor redColor] range:[originalString rangeOfString:[NSString stringWithFormat:@"%.2f%@", tempTotalConsumed, self.units]]];
+                        [headerLabelText addAttribute:NSFontAttributeName value:[UIFont systemFontOfSize:17.0 weight:UIFontWeightSemibold] range:[originalString rangeOfString:[NSString stringWithFormat:@"%.2f%@", tempLimit, self.units]]];
+                    } else if (totalConsumed <= 9 && self.limit > 9) {
+                        double tempTotalConsumed = round(100 * totalConsumed) / 100;
+                        int tempLimit = round(self.limit);
+                        originalString = [NSString stringWithFormat:@"You have\ndrank %.2f%@\nout of %ld%@.", tempTotalConsumed, self.units, (long)tempLimit, self.units];
+                        
+                        headerLabelText = [[NSMutableAttributedString alloc] initWithString:originalString];
+                        [headerLabelText addAttribute:NSFontAttributeName value:[UIFont systemFontOfSize:17.0 weight:UIFontWeightSemibold] range:[originalString rangeOfString:[NSString stringWithFormat:@"%.2f%@", tempTotalConsumed, self.units]]];
+                        if(totalConsumed > (self.limit * 0.90))
+                            [headerLabelText addAttribute:NSForegroundColorAttributeName value:[UIColor redColor] range:[originalString rangeOfString:[NSString stringWithFormat:@"%.2f%@", tempTotalConsumed, self.units]]];
+                        [headerLabelText addAttribute:NSFontAttributeName value:[UIFont systemFontOfSize:17.0 weight:UIFontWeightSemibold] range:[originalString rangeOfString:[NSString stringWithFormat:@"%ldf%@", (long)tempLimit, self.units]]];
+                    } else if (totalConsumed > 9 && self.limit <= 9) {
+                        int tempTotalConsumed = round(totalConsumed);
+                        double tempLimit = round(100 * self.limit) / 100;
+                        originalString = [NSString stringWithFormat:@"You have\ndrank %ld%@\nout of %.2f%@.", (long)tempTotalConsumed, self.units, tempLimit, self.units];
+                        
+                        headerLabelText = [[NSMutableAttributedString alloc] initWithString:originalString];
+                        [headerLabelText addAttribute:NSFontAttributeName value:[UIFont systemFontOfSize:17.0 weight:UIFontWeightSemibold] range:[originalString rangeOfString:[NSString stringWithFormat:@"%ld%@", (long)tempTotalConsumed, self.units]]];
+                        if(totalConsumed > (self.limit * 0.90))
+                            [headerLabelText addAttribute:NSForegroundColorAttributeName value:[UIColor redColor] range:[originalString rangeOfString:[NSString stringWithFormat:@"%ld%@", (long)tempTotalConsumed, self.units]]];
+                        [headerLabelText addAttribute:NSFontAttributeName value:[UIFont systemFontOfSize:17.0 weight:UIFontWeightSemibold] range:[originalString rangeOfString:[NSString stringWithFormat:@"%.2f%@", tempLimit, self.units]]];
+                    } else {
+                        int tempTotalConsumed = round(totalConsumed);
+                        int tempLimit = round(self.limit);
+                        originalString = [NSString stringWithFormat:@"You have\ndrank %ld%@\nout of %ld%@.", (long)tempTotalConsumed, self.units, (long)tempLimit, self.units];
+                        
+                        headerLabelText = [[NSMutableAttributedString alloc] initWithString:originalString];
+                        [headerLabelText addAttribute:NSFontAttributeName value:[UIFont systemFontOfSize:17.0 weight:UIFontWeightSemibold] range:[originalString rangeOfString:[NSString stringWithFormat:@"%ld%@", (long)tempTotalConsumed, self.units]]];
+                        if(totalConsumed > (self.limit * 0.90))
+                            [headerLabelText addAttribute:NSForegroundColorAttributeName value:[UIColor redColor] range:[originalString rangeOfString:[NSString stringWithFormat:@"%ld%@", (long)tempTotalConsumed, self.units]]];
+                        [headerLabelText addAttribute:NSFontAttributeName value:[UIFont systemFontOfSize:17.0 weight:UIFontWeightSemibold] range:[originalString rangeOfString:[NSString stringWithFormat:@"%ld%@", (long)tempLimit, self.units]]];
+                    }
+                } else {
+                    if(totalConsumed <= 9 && self.limit <= 9) {
+                        double tempTotalConsumed = round(100 * totalConsumed) / 100;
+                        double tempLimit = round(100 * self.limit) / 100;
+                        originalString = [NSString stringWithFormat:@"You have drank %.2f%@\nout of %.2f%@.", tempTotalConsumed, self.units, tempLimit, self.units];
+                        
+                        headerLabelText = [[NSMutableAttributedString alloc] initWithString:originalString];
+                        [headerLabelText addAttribute:NSFontAttributeName value:[UIFont systemFontOfSize:17.0 weight:UIFontWeightSemibold] range:[originalString rangeOfString:[NSString stringWithFormat:@"%.2f%@", tempTotalConsumed, self.units]]];
+                        if(totalConsumed > (self.limit * 0.90))
+                            [headerLabelText addAttribute:NSForegroundColorAttributeName value:[UIColor redColor] range:[originalString rangeOfString:[NSString stringWithFormat:@"%.2f%@", tempTotalConsumed, self.units]]];
+                        [headerLabelText addAttribute:NSFontAttributeName value:[UIFont systemFontOfSize:17.0 weight:UIFontWeightSemibold] range:[originalString rangeOfString:[NSString stringWithFormat:@"%.2f%@", tempLimit, self.units]]];
+                    } else if (totalConsumed <= 9 && self.limit > 9) {
+                        double tempTotalConsumed = round(100 * totalConsumed) / 100;
+                        int tempLimit = round(self.limit);
+                        originalString = [NSString stringWithFormat:@"You have drank %.2f%@\nout of %ld%@.", tempTotalConsumed, self.units, (long)tempLimit, self.units];
+                        
+                        headerLabelText = [[NSMutableAttributedString alloc] initWithString:originalString];
+                        [headerLabelText addAttribute:NSFontAttributeName value:[UIFont systemFontOfSize:17.0 weight:UIFontWeightSemibold] range:[originalString rangeOfString:[NSString stringWithFormat:@"%.2f%@", tempTotalConsumed, self.units]]];
+                        if(totalConsumed > (self.limit * 0.90))
+                            [headerLabelText addAttribute:NSForegroundColorAttributeName value:[UIColor redColor] range:[originalString rangeOfString:[NSString stringWithFormat:@"%.2f%@", tempTotalConsumed, self.units]]];
+                        [headerLabelText addAttribute:NSFontAttributeName value:[UIFont systemFontOfSize:17.0 weight:UIFontWeightSemibold] range:[originalString rangeOfString:[NSString stringWithFormat:@"%ldf%@", (long)tempLimit, self.units]]];
+                    } else if (totalConsumed > 9 && self.limit <= 9) {
+                        int tempTotalConsumed = round(totalConsumed);
+                        double tempLimit = round(100 * self.limit) / 100;
+                        originalString = [NSString stringWithFormat:@"You have drank %ld%@\nout of %.2f%@.", (long)tempTotalConsumed, self.units, tempLimit, self.units];
+                        
+                        headerLabelText = [[NSMutableAttributedString alloc] initWithString:originalString];
+                        [headerLabelText addAttribute:NSFontAttributeName value:[UIFont systemFontOfSize:17.0 weight:UIFontWeightSemibold] range:[originalString rangeOfString:[NSString stringWithFormat:@"%ld%@", (long)tempTotalConsumed, self.units]]];
+                        if(totalConsumed > (self.limit * 0.90))
+                            [headerLabelText addAttribute:NSForegroundColorAttributeName value:[UIColor redColor] range:[originalString rangeOfString:[NSString stringWithFormat:@"%ld%@", (long)tempTotalConsumed, self.units]]];
+                        [headerLabelText addAttribute:NSFontAttributeName value:[UIFont systemFontOfSize:17.0 weight:UIFontWeightSemibold] range:[originalString rangeOfString:[NSString stringWithFormat:@"%.2f%@", tempLimit, self.units]]];
+                    } else {
+                        int tempTotalConsumed = round(totalConsumed);
+                        int tempLimit = round(self.limit);
+                        originalString = [NSString stringWithFormat:@"You have drank %ld%@\nout of %ld%@.", (long)tempTotalConsumed, self.units, (long)tempLimit, self.units];
+                        
+                        headerLabelText = [[NSMutableAttributedString alloc] initWithString:originalString];
+                        [headerLabelText addAttribute:NSFontAttributeName value:[UIFont systemFontOfSize:17.0 weight:UIFontWeightSemibold] range:[originalString rangeOfString:[NSString stringWithFormat:@"%ld%@", (long)tempTotalConsumed, self.units]]];
+                        if(totalConsumed > (self.limit * 0.90))
+                            [headerLabelText addAttribute:NSForegroundColorAttributeName value:[UIColor redColor] range:[originalString rangeOfString:[NSString stringWithFormat:@"%ld%@", (long)tempTotalConsumed, self.units]]];
+                        [headerLabelText addAttribute:NSFontAttributeName value:[UIFont systemFontOfSize:17.0 weight:UIFontWeightSemibold] range:[originalString rangeOfString:[NSString stringWithFormat:@"%ld%@", (long)tempLimit, self.units]]];
+                    }
+                }
+                
+                int ringAngle = 0;
+                double percent = 0;
+                
+                if(self.limit != 0) {
+                    ringAngle = [[CDManager sharedManager] getRingAngleForAmount:totalConsumed andLimit:self.limit];
+                    percent = ((double)totalConsumed/(double)self.limit) * 100.0;
+                }
+                
+                [cell.circularProgress animateToAngle:ringAngle duration:1.0 relativeDuration:NO completion:nil];
+                [cell.circularProgressLabel setText:[NSString stringWithFormat:@"%ld%%", (long)percent]];
+                [cell.circularProgress animateToAngle:ringAngle duration:1.0 relativeDuration:NO completion:nil];
+                
+                [cell.label setAttributedText:headerLabelText];
             }
         } else {
             if([[CDManager sharedManager] deleteRingDataWithRingID:[NSString stringWithFormat:@"%ld", (long)currentRingID] andTimeStamp:[[[self.allAmountsSplitIntoSections objectAtIndex:indexPath.section] objectAtIndex:indexPath.row - 1] objectForKey:@"date"]]) {
