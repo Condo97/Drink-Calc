@@ -32,6 +32,7 @@
 @property (nonatomic) NSInteger selectedGeneralDrink;
 @property (nonatomic) NSMutableDictionary *slideShowImages, *generalDrinkImages;
 @property (strong, nonatomic) NSDictionary *purchasedRingsDictionary, *ringTexts;
+@property (nonatomic) int tableViewHeight;
 
 @end
 
@@ -64,6 +65,8 @@
     __block NSDictionary *ringsJson = [NSKeyedUnarchiver unarchiveObjectWithData:[[ArchiverManager sharedManager] loadDataFromDiskWithFileName:@"allJson"]];
     NSString *currentRingName = [[[JSONManager sharedManager] getRingNamesInOrderWithJSONDictionary:ringsJson] objectAtIndex:self.currentRing];
     [[UIView appearance] setTintColor:[UIColor colorWithHex:[[[JSONManager sharedManager] getRingNamesAsDictionaryWithJSONDictionary:ringsJson] objectForKey:currentRingName]]];
+    NSMutableArray *generalDrinksArray = [[JSONManager sharedManager] getGeneralDrinksAsArrayWithJSONDictionary:ringsJson andRingIndex:self.currentRing];
+    [self.tableViewHeightConstraint setConstant:generalDrinksArray.count * 77 + self.drinksTableView.sectionHeaderHeight + self.ringTextView.frame.size.height + self.drinksTableView.sectionFooterHeight];
     
     self.ringTexts = [[JSONManager sharedManager] getRingTextsAsDictionaryWithJSONDictionary:ringsJson];
     [self.profileButton setTitleColor:[UIColor colorWithHex:[[[JSONManager sharedManager] getRingNamesAsDictionaryWithJSONDictionary:ringsJson] objectForKey:currentRingName]] forState:UIControlStateNormal];
@@ -421,6 +424,12 @@
         NSArray *allRingNamesInOrder = [[JSONManager sharedManager] getRingNamesInOrderWithJSONDictionary:json];
         NSString *currentRingName = [[[JSONManager sharedManager] getRingNamesInOrderWithJSONDictionary:json] objectAtIndex:self.currentRing];
         [[UIView appearance] setTintColor:[UIColor colorWithHex:[[[JSONManager sharedManager] getRingNamesAsDictionaryWithJSONDictionary:json] objectForKey:currentRingName]]];
+        NSMutableArray *generalDrinksArray = [[JSONManager sharedManager] getGeneralDrinksAsArrayWithJSONDictionary:json andRingIndex:self.currentRing];
+        
+        if([[[self getPurchasedRings] objectForKey:[allRingNamesInOrder objectAtIndex:self.currentRing]] isEqualToString:@"NO"])
+            [self.tableViewHeightConstraint setConstant:generalDrinksArray.count * 77 + self.drinksTableView.sectionHeaderHeight + self.ringTextView.frame.size.height + self.drinksTableView.sectionFooterHeight + 35];
+        else
+            [self.tableViewHeightConstraint setConstant:generalDrinksArray.count * 77 + self.drinksTableView.sectionHeaderHeight + self.ringTextView.frame.size.height + self.drinksTableView.sectionFooterHeight];
         
         [self setTitle:currentRingName];
         [self.ringTextView setText:[self.ringTexts objectForKey:currentRingName]];

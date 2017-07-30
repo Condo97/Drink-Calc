@@ -16,6 +16,8 @@
 
 @property (nonatomic) NSInteger selectedSpecificDrink;
 @property (strong, nonatomic) NSString *selectedSpecificDrinkName;
+@property (nonatomic) BOOL specificDrinkIsShot;
+@property (strong, nonatomic) NSDictionary *specificDrinkIsShotDictionary;
 
 @end
 
@@ -29,6 +31,7 @@
     
     NSDictionary *ringsJson = [NSKeyedUnarchiver unarchiveObjectWithData:[[ArchiverManager sharedManager] loadDataFromDiskWithFileName:@"allJson"]];
     NSMutableArray *generalDrinksArray = [[JSONManager sharedManager] getGeneralDrinksAsArrayWithJSONDictionary:ringsJson andRingIndex:self.currentRing];
+    self.specificDrinkIsShotDictionary = [[JSONManager sharedManager] getSpecificDrinkIsShotAsDictionaryWithJSONDictionary:ringsJson andRingIndex:self.currentRing andGeneralDrinkIndex:currentGeneralDrink];
     
     [self setTitle:[generalDrinksArray objectAtIndex:self.currentGeneralDrink]];
     
@@ -62,7 +65,10 @@
     NSMutableDictionary *specificDrinksDictionary = [[JSONManager sharedManager] getSpecificDrinksAsDictionaryWithJSONDictionary:ringsJson andRingIndex:self.currentRing andGeneralDrinkIndex:self.currentGeneralDrink];
     
     [cell.textLabel setText:[[specificDrinksDictionary allKeys] objectAtIndex:indexPath.row]];
-    [cell.detailTextLabel setText:[NSString stringWithFormat:@"%@%@/%@",[specificDrinksDictionary objectForKey:[[specificDrinksDictionary allKeys] objectAtIndex:indexPath.row]], [[[JSONManager sharedManager] getRingMeasurementTypesBeforeSlashAsDictionaryWithJSONDictionary:ringsJson] objectForKey:[[[JSONManager sharedManager] getRingNamesInOrderWithJSONDictionary:ringsJson] objectAtIndex:self.currentRing]], [[[JSONManager sharedManager] getRingMeasurementTypesAfterSlashAsDictionaryWithJSONDictionary:ringsJson] objectForKey:[[[JSONManager sharedManager] getRingNamesInOrderWithJSONDictionary:ringsJson] objectAtIndex:self.currentRing]]]];
+    if([[self.specificDrinkIsShotDictionary objectForKey:[[specificDrinksDictionary allKeys] objectAtIndex:indexPath.row]] isEqualToString:@"1"])
+        [cell.detailTextLabel setText:[NSString stringWithFormat:@"%@%@ Per Shot",[specificDrinksDictionary objectForKey:[[specificDrinksDictionary allKeys] objectAtIndex:indexPath.row]], [[[JSONManager sharedManager] getRingMeasurementTypesBeforeSlashAsDictionaryWithJSONDictionary:ringsJson] objectForKey:[[[JSONManager sharedManager] getRingNamesInOrderWithJSONDictionary:ringsJson] objectAtIndex:self.currentRing]]]];
+    else
+        [cell.detailTextLabel setText:[NSString stringWithFormat:@"%@%@/%@",[specificDrinksDictionary objectForKey:[[specificDrinksDictionary allKeys] objectAtIndex:indexPath.row]], [[[JSONManager sharedManager] getRingMeasurementTypesBeforeSlashAsDictionaryWithJSONDictionary:ringsJson] objectForKey:[[[JSONManager sharedManager] getRingNamesInOrderWithJSONDictionary:ringsJson] objectAtIndex:self.currentRing]], [[[JSONManager sharedManager] getRingMeasurementTypesAfterSlashAsDictionaryWithJSONDictionary:ringsJson] objectForKey:[[[JSONManager sharedManager] getRingNamesInOrderWithJSONDictionary:ringsJson] objectAtIndex:self.currentRing]]]];
     
     return cell;
 }
@@ -73,6 +79,12 @@
     self.selectedSpecificDrink = indexPath.row;
     
     self.selectedSpecificDrinkName = [tableView cellForRowAtIndexPath:indexPath].textLabel.text;
+    
+    if([[self.specificDrinkIsShotDictionary objectForKey:self.selectedSpecificDrinkName] isEqualToString:@"1"])
+        self.specificDrinkIsShot = YES;
+    else
+        self.specificDrinkIsShot = NO;
+    
     [self performSegueWithIdentifier:@"toEntryView" sender:nil];
 }
 
@@ -124,6 +136,7 @@
         [entryVC setCurrentGeneralDrink:self.currentGeneralDrink];
         [entryVC setCurrentSpecificDrink:self.selectedSpecificDrink];
         [entryVC setCurrentSpecificDrinkName:self.selectedSpecificDrinkName];
+        [entryVC setIsShot:self.specificDrinkIsShot];
     }
 }
 

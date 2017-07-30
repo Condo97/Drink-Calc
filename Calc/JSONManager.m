@@ -167,6 +167,16 @@
     return allSpecificDrinks;
 }
 
+- (NSMutableDictionary *) getSpecificDrinkIsShotAsDictionaryWithJSONDictionary:(NSDictionary *)json andRingIndex:(NSInteger)ringIndex andGeneralDrinkIndex:(NSInteger)generalDrinkIndex {
+    NSMutableDictionary *allSpecificDrinksIsShot = [[NSMutableDictionary alloc] init];
+    
+    for(NSInteger i = 0; i < [[[[[json mutableArrayValueForKey:@"rings"] objectAtIndex:ringIndex] mutableArrayValueForKey:@"generalDrinks"] objectAtIndex:generalDrinkIndex] mutableArrayValueForKey:@"specificDrinks"].count; i++) {
+        [allSpecificDrinksIsShot setObject:[[[[[[[json mutableArrayValueForKey:@"rings"] objectAtIndex:ringIndex] mutableArrayValueForKey:@"generalDrinks"] objectAtIndex:generalDrinkIndex] mutableArrayValueForKey:@"specificDrinks"] objectAtIndex:i] valueForKey:@"isShot"] forKey:[[[[[[[json mutableArrayValueForKey:@"rings"] objectAtIndex:ringIndex] mutableArrayValueForKey:@"generalDrinks"] objectAtIndex:generalDrinkIndex] mutableArrayValueForKey:@"specificDrinks"] objectAtIndex:i] valueForKey:@"name"]];
+    }
+    
+    return allSpecificDrinksIsShot;
+}
+
 - (NSString *) getRingNameForRingID:(NSString *)ringID withJSONDictionary:(NSDictionary *)json {
     NSDictionary *allRingIDs = [self getRingIDsAsDictionaryWithJSONDictionary:json];
     for(int i = 0; i < [allRingIDs allKeys].count; i++) {

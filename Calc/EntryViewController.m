@@ -18,14 +18,11 @@
 
 @property (nonatomic) int maxAmplitude;
 @property (nonatomic) int minAmplitude;
-@property (strong, nonatomic) RoundedView *sliderBackgroundView;
-@property (strong, nonatomic) RoundedView *roundedViewBackgroundView;
-@property (strong, nonatomic) RoundedView *customAmountView;
-@property (strong, nonatomic) RoundedView *infoView;
+@property (strong, nonatomic) RoundedView *sliderBackgroundView, *roundedViewBackgroundView, *customAmountView, *infoView, *addShotView;
 @property (strong, nonatomic) UILabel *infoViewLabel;
 
 @property (strong, nonatomic) NSString *measurementUnitsBeforeSlash, *measurementUnitsAfterSlash, *thingToMeasure, *ringColorHex, *hkIdentifierToWrite, *hkIdentifierToWriteUnit;
-@property (nonatomic) int size, sliderMax, increments;
+@property (nonatomic) int size, sliderMax, increments, shotCount;
 @property (nonatomic) double amount, finalAmount;
 
 @end
@@ -35,12 +32,20 @@
 @synthesize currentRing;
 @synthesize currentGeneralDrink, currentSpecificDrink;
 @synthesize currentSpecificDrinkName, currentRingName;
+@synthesize isShot;
 
 - (void) viewDidLoad {
     [super viewDidLoad];
     
     self.sliderMax = 42; //MAKE DYNAMIC
     self.increments = 2; //MAKE DYNAMIC
+    
+    self.shotCount = 0;
+    
+    if(isShot) {
+        self.sliderMax = 5;
+        self.increments = 1;
+    }
     
     NSDictionary *json = [NSKeyedUnarchiver unarchiveObjectWithData:[[ArchiverManager sharedManager] loadDataFromDiskWithFileName:@"allJson"]];
     currentRingName = [[[JSONManager sharedManager] getRingNamesInOrderWithJSONDictionary:json] objectAtIndex:currentRing];
@@ -174,14 +179,28 @@
     
     if(theAmount <= 9) {
         theAmount = round(100 * theAmount) / 100;
-        infoViewLabelTextBeforeAttributes = [NSString stringWithFormat:@"%ld%@\n%.2f%@ of %@", (long)self.size, self.measurementUnitsAfterSlash, (double)theAmount, self.measurementUnitsBeforeSlash, self.thingToMeasure];
+        if(!isShot)
+            infoViewLabelTextBeforeAttributes = [NSString stringWithFormat:@"%ld%@\n%.2f%@ of %@", (long)self.size, self.measurementUnitsAfterSlash, (double)theAmount, self.measurementUnitsBeforeSlash, self.thingToMeasure];
+        else {
+            NSString *s = @"s";
+            if(theAmount == 1)
+                s = @"";
+            infoViewLabelTextBeforeAttributes = [NSString stringWithFormat:@"%ld Shot%@\n%.2f%@ of %@", (long)self.size, s, (double)theAmount, self.measurementUnitsBeforeSlash, self.thingToMeasure];
+        }
         infoViewLabelText = [[NSMutableAttributedString alloc] initWithString:infoViewLabelTextBeforeAttributes];
         [infoViewLabelText addAttribute:NSForegroundColorAttributeName value:[UIColor colorWithHex:self.ringColorHex] range:[infoViewLabelTextBeforeAttributes rangeOfString:[NSString stringWithFormat:@"%.2f", (double)theAmount]]];
         [infoViewLabelText addAttribute:NSFontAttributeName value:[UIFont systemFontOfSize:17.0] range:[infoViewLabelTextBeforeAttributes rangeOfString:[NSString stringWithFormat:@"%.2f%@ of %@", (double)theAmount, self.measurementUnitsBeforeSlash, self.thingToMeasure]]];
         [infoViewLabelText addAttribute:NSFontAttributeName value:[UIFont systemFontOfSize:17.0 weight:UIFontWeightBold] range:[infoViewLabelTextBeforeAttributes rangeOfString:[NSString stringWithFormat:@"%.2f", (double)theAmount]]];
     } else {
         theAmount = round(theAmount);
-        infoViewLabelTextBeforeAttributes = [NSString stringWithFormat:@"%ld%@\n%ld%@ of %@", (long)self.size, self.measurementUnitsAfterSlash, (long)theAmount, self.measurementUnitsBeforeSlash, self.thingToMeasure];
+        if(!isShot)
+            infoViewLabelTextBeforeAttributes = [NSString stringWithFormat:@"%ld%@\n%ld%@ of %@", (long)self.size, self.measurementUnitsAfterSlash, (long)theAmount, self.measurementUnitsBeforeSlash, self.thingToMeasure];
+        else {
+            NSString *s = @"s";
+            if(theAmount == 1)
+                s = @"";
+            infoViewLabelTextBeforeAttributes = [NSString stringWithFormat:@"%ld Shot%@\n%ld%@ of %@", (long)self.size, s, (long)theAmount, self.measurementUnitsBeforeSlash, self.thingToMeasure];
+        }
         infoViewLabelText = [[NSMutableAttributedString alloc] initWithString:infoViewLabelTextBeforeAttributes];
         [infoViewLabelText addAttribute:NSForegroundColorAttributeName value:[UIColor colorWithHex:self.ringColorHex] range:[infoViewLabelTextBeforeAttributes rangeOfString:[NSString stringWithFormat:@"%ld", (long)theAmount]]];
         [infoViewLabelText addAttribute:NSFontAttributeName value:[UIFont systemFontOfSize:17.0] range:[infoViewLabelTextBeforeAttributes rangeOfString:[NSString stringWithFormat:@"%ld%@ of %@", (long)theAmount, self.measurementUnitsBeforeSlash, self.thingToMeasure]]];
@@ -201,10 +220,11 @@
 }
 
 - (void) sliderValueChanged:(id)sender {
-    if(fmod(self.slider.value, self.increments) < (self.increments/2)) {
-        self.slider.value = self.slider.value - fmod(self.slider.value, self.increments);
+    double chunk = self.slider.value - (fmod(self.slider.value, (double)self.increments) - (double)self.increments) - (double)self.increments;
+    if(fmod(self.slider.value, (double)self.increments) >= ((double)self.increments/2)) {
+        self.slider.value = chunk + self.increments;
     } else {
-        self.slider.value = self.slider.value + (self.increments- fmod(self.slider.value, self.increments));
+        self.slider.value = chunk;
     }
     
     self.size = self.slider.value;
@@ -212,7 +232,13 @@
 }
 
 - (void) customAmountButtonPressed:(id)sender {
-    UIAlertController *customAmountAlert = [UIAlertController alertControllerWithTitle:@"Custom Amount Entry" message:[NSString stringWithFormat:@"Enter in desired size in %@.", self.measurementUnitsAfterSlash] preferredStyle:UIAlertControllerStyleAlert];
+    NSString *alertText = @"";
+    if(isShot)
+        alertText = @"Enter desired number of shots.";
+    else
+        alertText = [NSString stringWithFormat:@"Enter in desired size in %@.", self.measurementUnitsAfterSlash];
+    
+    UIAlertController *customAmountAlert = [UIAlertController alertControllerWithTitle:@"Custom Amount Entry" message:alertText preferredStyle:UIAlertControllerStyleAlert];
     UIAlertAction *cancelButton = [UIAlertAction actionWithTitle:@"Cancel" style:UIAlertActionStyleCancel handler:nil];
     UIAlertAction *confirmButton = [UIAlertAction actionWithTitle:@"Enter" style:UIAlertActionStyleDefault handler:^(UIAlertAction *action){
         NSString *customAmount = [[customAmountAlert textFields] objectAtIndex:0].text;

@@ -16,6 +16,7 @@
     NSInteger currentSpecificDrink;
     NSString *currentSpecificDrinkName;
     NSString *currentRingName;
+    BOOL isShot;
 }
 
 @property (weak, nonatomic) IBOutlet BAFluidView *liquidView;
@@ -31,6 +32,8 @@
 @property (nonatomic) int currentRing;
 @property (nonatomic) NSInteger currentGeneralDrink, currentSpecificDrink;
 @property (strong, nonatomic) NSString *currentSpecificDrinkName, *currentRingName;
+
+@property (nonatomic) BOOL isShot;
 
 
 @end

@@ -634,11 +634,11 @@
                                             <constraint firstAttribute="width" constant="375" id="iXg-HD-jv9"/>
                                         </constraints>
                                     </view>
-                                    <tableView clipsSubviews="YES" contentMode="scaleToFill" bounces="NO" scrollEnabled="NO" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="prototypes" style="grouped" separatorStyle="default" rowHeight="44" sectionHeaderHeight="18" sectionFooterHeight="18" translatesAutoresizingMaskIntoConstraints="NO" id="Rn3-fP-M1d">
-                                        <rect key="frame" x="0.0" y="188" width="375" height="471"/>
+                                    <tableView clipsSubviews="YES" contentMode="scaleToFill" bounces="NO" alwaysBounceVertical="YES" scrollEnabled="NO" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="prototypes" style="grouped" separatorStyle="default" rowHeight="44" sectionHeaderHeight="18" sectionFooterHeight="18" translatesAutoresizingMaskIntoConstraints="NO" id="Rn3-fP-M1d">
+                                        <rect key="frame" x="0.0" y="188" width="375" height="291"/>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         <constraints>
-                                            <constraint firstAttribute="height" constant="471" id="05c-d5-Jvs"/>
+                                            <constraint firstAttribute="height" constant="291" id="SgD-ml-kg1"/>
                                         </constraints>
                                         <textView key="tableHeaderView" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" scrollEnabled="NO" editable="NO" text="DESCRIPTION HEH" textAlignment="natural" selectable="NO" id="XSl-Mf-9q5">
                                             <rect key="frame" x="0.0" y="0.0" width="375" height="66.5"/>
@@ -702,8 +702,6 @@
                                 <constraints>
                                     <constraint firstItem="8qe-s3-B6D" firstAttribute="bottom" secondItem="ZCq-Qi-wvz" secondAttribute="bottom" id="0CI-PX-hlp"/>
                                     <constraint firstItem="0nz-On-3uq" firstAttribute="centerY" secondItem="3cI-6Z-5e2" secondAttribute="centerY" id="1ob-uT-fsj"/>
-                                    <constraint firstItem="Rn3-fP-M1d" firstAttribute="top" secondItem="ZCq-Qi-wvz" secondAttribute="bottom" id="1vu-iB-fpg"/>
-                                    <constraint firstAttribute="height" constant="667" id="9Ub-xb-lmj"/>
                                     <constraint firstItem="Obn-Ig-FkA" firstAttribute="top" secondItem="ZCq-Qi-wvz" secondAttribute="top" id="9VU-Ub-8dm"/>
                                     <constraint firstItem="3pU-DF-Y4k" firstAttribute="leading" secondItem="Obn-Ig-FkA" secondAttribute="leading" id="HkE-5X-yWM"/>
                                     <constraint firstItem="0nz-On-3uq" firstAttribute="centerX" secondItem="3cI-6Z-5e2" secondAttribute="centerX" id="Oq9-zZ-9F8"/>
@@ -727,8 +725,9 @@
                                 </constraints>
                             </scrollView>
                         </subviews>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
+                            <constraint firstItem="3cI-6Z-5e2" firstAttribute="centerY" secondItem="dZM-na-1kg" secondAttribute="centerY" id="4Vu-M2-b5J"/>
                             <constraint firstItem="3cI-6Z-5e2" firstAttribute="leading" secondItem="dZM-na-1kg" secondAttribute="leading" id="CmB-uX-Rmz"/>
                             <constraint firstItem="OT6-Q7-3tP" firstAttribute="top" secondItem="3cI-6Z-5e2" secondAttribute="bottom" id="I3Z-EG-QLR"/>
                             <constraint firstAttribute="trailing" secondItem="3cI-6Z-5e2" secondAttribute="trailing" id="NVx-WO-SI4"/>
@@ -767,6 +766,7 @@
                         <outlet property="ringTextView" destination="XSl-Mf-9q5" id="msA-FN-ZXo"/>
                         <outlet property="scrollViewBackgroundView" destination="Obn-Ig-FkA" id="Cz6-4V-2AU"/>
                         <outlet property="tableViewBlurView" destination="0nz-On-3uq" id="L7m-vN-8h5"/>
+                        <outlet property="tableViewHeightConstraint" destination="SgD-ml-kg1" id="tVs-7C-4YL"/>
                         <segue destination="ZdQ-hk-MM3" kind="show" identifier="toDrinksListView" id="exM-Rv-Kem"/>
                         <segue destination="jpf-fz-4Pd" kind="show" identifier="toInitialSetupVC" animates="NO" id="iQ7-6r-Qoe"/>
                     </connections>

@@ -30,5 +30,7 @@
 
 @property (weak, nonatomic) IBOutlet UIView *tableViewBlurView;
 
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *tableViewHeightConstraint;
+
 @end
 

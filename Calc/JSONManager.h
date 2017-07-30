@@ -25,6 +25,7 @@
 - (NSMutableDictionary *) getRingThingsToMeasureAsDictionaryWithJSONDictionary:(NSDictionary *)json;
 - (NSMutableArray *) getGeneralDrinksAsArrayWithJSONDictionary:(NSDictionary *)json andRingIndex:(NSInteger)ringIndex;
 - (NSMutableDictionary *) getSpecificDrinksAsDictionaryWithJSONDictionary:(NSDictionary *)json andRingIndex:(NSInteger)ringIndex andGeneralDrinkIndex:(NSInteger)generalDrinkIndex;
+- (NSMutableDictionary *) getSpecificDrinkIsShotAsDictionaryWithJSONDictionary:(NSDictionary *)json andRingIndex:(NSInteger)ringIndex andGeneralDrinkIndex:(NSInteger)generalDrinkIndex;
 
 - (void) setupScrollviewBackgroundImagesWithJSONDictionary:(NSDictionary *)json withImageSize:(CGSize)imageSize;
 - (void) setupGeneralDrinkImagesWithJSONDictionary:(NSDictionary *)json withImageSize:(CGSize)imageSize andRingIndex:(int)ringIndex;
