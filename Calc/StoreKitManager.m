@@ -46,10 +46,10 @@
 - (BOOL) purchaseRingWithRingID:(int)ringID {
     [self fetchAvailableProductsWithRingID:ringID];
     
-    NSDictionary *ringsJson = [NSKeyedUnarchiver unarchiveObjectWithData:[[ArchiverManager sharedManager] loadDataFromDiskWithFileName:@"allJson"]];
-    NSString *currentRingName = [[[JSONManager sharedManager] getRingNamesInOrderWithJSONDictionary:ringsJson] objectAtIndex:ringID];
-    NSDictionary *productIDs = [[JSONManager sharedManager] getRingIAPIDsAsDictionaryWithJSONDictionary:ringsJson];
-    NSString *currentProductID = [productIDs objectForKey:currentRingName];
+//    NSDictionary *ringsJson = [NSKeyedUnarchiver unarchiveObjectWithData:[[ArchiverManager sharedManager] loadDataFromDiskWithFileName:@"allJson"]];
+//    NSString *currentRingName = [[[JSONManager sharedManager] getRingNamesInOrderWithJSONDictionary:ringsJson] objectAtIndex:ringID];
+//    NSDictionary *productIDs = [[JSONManager sharedManager] getRingIAPIDsAsDictionaryWithJSONDictionary:ringsJson];
+//    NSString *currentProductID = [productIDs objectForKey:currentRingName];
     
     return YES;
 }

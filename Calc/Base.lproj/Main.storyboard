@@ -73,15 +73,14 @@
                                     <constraint firstAttribute="height" constant="176" id="ecC-mz-6CW"/>
                                 </constraints>
                             </view>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="4" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="IE4-US-klJ">
-                                <rect key="frame" x="15" y="216" width="345" height="52"/>
-                                <string key="text">Calc is a convenient way of helping you track your consumption of various drinks and foods with simple rings, like this one here:</string>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Calc is a convenient way of helping you track your consumption of various drinks with simple rings, like this one:" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="4" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="IE4-US-klJ">
+                                <rect key="frame" x="15" y="196" width="345" height="72"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Welcome to Calc" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ToR-gF-F1y">
-                                <rect key="frame" x="0.0" y="92" width="375" height="116"/>
+                                <rect key="frame" x="0.0" y="72" width="375" height="116"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="116" id="JVD-54-XdY"/>
                                     <constraint firstAttribute="width" constant="375" id="fiq-9A-XA2"/>
@@ -128,7 +127,7 @@
         <!--Setup-->
         <scene sceneID="ev1-xP-KIC">
             <objects>
-                <viewController title="Setup" id="ylj-wN-6vE" sceneMemberID="viewController">
+                <viewController title="Setup" id="ylj-wN-6vE" customClass="FirstAndAHalfViewController" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="X2b-Mp-cYX"/>
                         <viewControllerLayoutGuide type="bottom" id="zfA-jk-3fB"/>
@@ -137,53 +136,27 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Simply select the ring with the category of consumables you want to track..." textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ckm-pe-S3w">
-                                <rect key="frame" x="15" y="78" width="345" height="64"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="7" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" adjustsFontForContentSizeCategory="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ckm-pe-S3w">
+                                <rect key="frame" x="14" y="78" width="345" height="127"/>
                                 <constraints>
-                                    <constraint firstAttribute="width" constant="345" id="bto-tW-Vdu"/>
+                                    <constraint firstAttribute="height" constant="127" id="LcQ-cM-ZFq"/>
                                 </constraints>
-                                <fontDescription key="fontDescription" type="system" pointSize="20"/>
+                                <string key="text">Simply select the ring with the ingredient you'd like to track, select the drink itself, and watch as the ring updates to let you know how much of that ingredient you've consumed:</string>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="WVx-AK-K2T">
-                                <rect key="frame" x="67" y="150" width="240" height="128"/>
-                                <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="128" id="FAc-Wx-PIO"/>
-                                    <constraint firstAttribute="height" constant="128" id="uH2-KB-XA9"/>
-                                </constraints>
-                            </imageView>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="dO7-ET-eO8">
-                                <rect key="frame" x="67" y="339" width="240" height="128"/>
-                                <color key="backgroundColor" red="0.60000002379999995" green="0.40000000600000002" blue="0.20000000300000001" alpha="1" colorSpace="calibratedRGB"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="128" id="iSi-mO-e7f"/>
-                                </constraints>
-                            </imageView>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Then select the item..." textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="K4P-4E-9Nb">
-                                <rect key="frame" x="15" y="286" width="345" height="45"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="45" id="Tcl-xQ-5rL"/>
-                                </constraints>
-                                <fontDescription key="fontDescription" type="system" pointSize="20"/>
-                                <nil key="textColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="5" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="JGt-Wp-Ryj">
-                                <rect key="frame" x="15" y="475" width="343" height="113"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="113" id="ayU-b3-r0Z"/>
-                                </constraints>
-                                <string key="text">And watch as the ring updates as it tracks your suggested limit of that good based on things such as your height, weight, age, and gender!</string>
-                                <fontDescription key="fontDescription" type="system" pointSize="20"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="5" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="JGt-Wp-Ryj">
+                                <rect key="frame" x="14" y="463" width="345" height="142"/>
+                                <string key="text">When the ring hits 100%, that means you've hit the suggested limit of that ingredient. This limit is based on your weight, height, age, and gender.</string>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="b3A-ux-dff">
-                                <rect key="frame" x="15" y="596" width="345" height="59"/>
+                                <rect key="frame" x="0.0" y="613" width="375" height="46"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="59" id="kFP-7c-n5i"/>
+                                    <constraint firstAttribute="height" constant="46" id="ozh-Um-i7Z"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" type="system" pointSize="25"/>
                                 <state key="normal" title="Continue">
@@ -193,33 +166,37 @@
                                     <segue destination="Lz8-rp-11a" kind="show" id="Vum-tk-jHE"/>
                                 </connections>
                             </button>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="rpR-rI-ZwN">
+                                <rect key="frame" x="67" y="213" width="241" height="241"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" secondItem="rpR-rI-ZwN" secondAttribute="height" multiplier="1:1" id="cFz-RR-MvP"/>
+                                </constraints>
+                            </imageView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstItem="ckm-pe-S3w" firstAttribute="centerX" secondItem="CvD-a7-egH" secondAttribute="centerX" id="1YW-04-5Vu"/>
-                            <constraint firstItem="WVx-AK-K2T" firstAttribute="trailing" secondItem="dO7-ET-eO8" secondAttribute="trailing" id="9TD-Ra-jZY"/>
-                            <constraint firstItem="K4P-4E-9Nb" firstAttribute="leading" secondItem="JGt-Wp-Ryj" secondAttribute="leading" id="FI2-XV-EIX"/>
-                            <constraint firstItem="WVx-AK-K2T" firstAttribute="centerX" secondItem="CvD-a7-egH" secondAttribute="centerX" id="GVd-Pl-cnl"/>
-                            <constraint firstItem="K4P-4E-9Nb" firstAttribute="top" secondItem="WVx-AK-K2T" secondAttribute="bottom" constant="8" symbolic="YES" id="Ire-07-6IX"/>
-                            <constraint firstItem="JGt-Wp-Ryj" firstAttribute="leading" secondItem="b3A-ux-dff" secondAttribute="leading" id="Isl-bK-98i"/>
-                            <constraint firstItem="JGt-Wp-Ryj" firstAttribute="top" secondItem="dO7-ET-eO8" secondAttribute="bottom" constant="8" symbolic="YES" id="IvF-Yu-PUM"/>
-                            <constraint firstItem="WVx-AK-K2T" firstAttribute="top" secondItem="ckm-pe-S3w" secondAttribute="bottom" constant="8" symbolic="YES" id="JYX-jD-LbN"/>
-                            <constraint firstItem="K4P-4E-9Nb" firstAttribute="trailing" secondItem="b3A-ux-dff" secondAttribute="trailing" id="OzZ-Uc-g7I"/>
-                            <constraint firstItem="ckm-pe-S3w" firstAttribute="top" secondItem="X2b-Mp-cYX" secondAttribute="bottom" constant="14" id="XGJ-LY-plh"/>
-                            <constraint firstItem="b3A-ux-dff" firstAttribute="top" secondItem="JGt-Wp-Ryj" secondAttribute="bottom" constant="8" symbolic="YES" id="ZUF-AS-FQ0"/>
-                            <constraint firstItem="ckm-pe-S3w" firstAttribute="trailing" secondItem="K4P-4E-9Nb" secondAttribute="trailing" id="bVm-ka-aaD"/>
-                            <constraint firstItem="WVx-AK-K2T" firstAttribute="leading" secondItem="dO7-ET-eO8" secondAttribute="leading" id="d4Z-bf-39f"/>
-                            <constraint firstItem="ckm-pe-S3w" firstAttribute="leading" secondItem="K4P-4E-9Nb" secondAttribute="leading" id="dfm-zH-C7m"/>
-                            <constraint firstItem="WVx-AK-K2T" firstAttribute="leading" secondItem="CvD-a7-egH" secondAttribute="leadingMargin" constant="51" id="dq6-OM-nvX"/>
-                            <constraint firstItem="dO7-ET-eO8" firstAttribute="centerX" secondItem="JGt-Wp-Ryj" secondAttribute="centerX" id="fjH-k4-nHy"/>
-                            <constraint firstItem="zfA-jk-3fB" firstAttribute="top" secondItem="b3A-ux-dff" secondAttribute="bottom" constant="12" id="hsO-ip-QDe"/>
-                            <constraint firstItem="WVx-AK-K2T" firstAttribute="centerX" secondItem="K4P-4E-9Nb" secondAttribute="centerX" id="nWL-ll-Gll"/>
-                            <constraint firstItem="dO7-ET-eO8" firstAttribute="top" secondItem="K4P-4E-9Nb" secondAttribute="bottom" constant="8" symbolic="YES" id="uOJ-U6-xTR"/>
+                            <constraint firstItem="JGt-Wp-Ryj" firstAttribute="leading" secondItem="CvD-a7-egH" secondAttribute="leading" constant="14" id="604-4y-9ae"/>
+                            <constraint firstItem="rpR-rI-ZwN" firstAttribute="leading" secondItem="CvD-a7-egH" secondAttribute="leadingMargin" constant="51" id="PBh-6Q-pBz"/>
+                            <constraint firstItem="b3A-ux-dff" firstAttribute="leading" secondItem="CvD-a7-egH" secondAttribute="leading" id="SCu-Na-lMF"/>
+                            <constraint firstItem="rpR-rI-ZwN" firstAttribute="centerX" secondItem="CvD-a7-egH" secondAttribute="centerX" id="SMv-Lf-VK4"/>
+                            <constraint firstItem="JGt-Wp-Ryj" firstAttribute="top" secondItem="rpR-rI-ZwN" secondAttribute="bottom" constant="9" id="UYt-0f-W2l"/>
+                            <constraint firstItem="b3A-ux-dff" firstAttribute="top" secondItem="JGt-Wp-Ryj" secondAttribute="bottom" constant="8" symbolic="YES" id="bZS-Ae-Uya"/>
+                            <constraint firstAttribute="trailing" secondItem="ckm-pe-S3w" secondAttribute="trailing" constant="16" id="bvS-dj-3RE"/>
+                            <constraint firstItem="ckm-pe-S3w" firstAttribute="top" secondItem="X2b-Mp-cYX" secondAttribute="bottom" constant="14" id="d4g-95-2oI"/>
+                            <constraint firstItem="rpR-rI-ZwN" firstAttribute="centerX" secondItem="b3A-ux-dff" secondAttribute="centerX" id="krL-5P-Reg"/>
+                            <constraint firstAttribute="trailing" secondItem="JGt-Wp-Ryj" secondAttribute="trailing" constant="16" id="q18-J2-Ibq"/>
+                            <constraint firstItem="ckm-pe-S3w" firstAttribute="leading" secondItem="CvD-a7-egH" secondAttribute="leading" constant="14" id="rTv-Tx-HMe"/>
+                            <constraint firstItem="rpR-rI-ZwN" firstAttribute="top" secondItem="ckm-pe-S3w" secondAttribute="bottom" constant="8" symbolic="YES" id="sRh-Nm-bZf"/>
+                            <constraint firstItem="zfA-jk-3fB" firstAttribute="top" secondItem="b3A-ux-dff" secondAttribute="bottom" constant="8" symbolic="YES" id="t20-Ql-cvY"/>
+                            <constraint firstItem="rpR-rI-ZwN" firstAttribute="centerY" secondItem="CvD-a7-egH" secondAttribute="centerY" id="zpj-hd-GsE"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="Setup" id="hFL-m1-VWe">
                         <barButtonItem key="backBarButtonItem" title="Back" id="Bjx-Jt-Iji"/>
                     </navigationItem>
+                    <connections>
+                        <outlet property="animation" destination="rpR-rI-ZwN" id="bG3-GS-mG1"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="5x4-pD-dQM" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -254,7 +231,7 @@
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="77" id="KCO-ep-ehy"/>
                                                     </constraints>
-                                                    <string key="text">Calc needs this infomcation to automatically calculate the estimated maximum your body can healthily take of these drinks and foods. None of this info goes outside of your phone.</string>
+                                                    <string key="text">Calc needs this information to automatically calculate the most of a drink you should consume. None of this info goes outside of your phone.</string>
                                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
@@ -541,10 +518,11 @@
                                 </connections>
                             </button>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="2gv-AV-n6s" customClass="KDCircularProgress" customModule="Calc" customModuleProvider="target">
-                                <rect key="frame" x="67" y="233" width="240" height="201"/>
+                                <rect key="frame" x="67" y="233" width="240" height="240"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="201" id="h6Q-hI-hUN"/>
+                                    <constraint firstAttribute="height" constant="240" id="h6Q-hI-hUN"/>
+                                    <constraint firstAttribute="width" secondItem="2gv-AV-n6s" secondAttribute="height" multiplier="1:1" id="peI-d4-UAG"/>
                                 </constraints>
                             </view>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="You're all done!" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="obN-gJ-isR">
@@ -562,13 +540,13 @@
                             <constraint firstItem="obN-gJ-isR" firstAttribute="top" secondItem="RSt-c0-l4n" secondAttribute="bottom" constant="28" id="Qyj-i0-nBF"/>
                             <constraint firstItem="2gv-AV-n6s" firstAttribute="top" secondItem="obN-gJ-isR" secondAttribute="bottom" constant="8" symbolic="YES" id="T4O-jZ-eHY"/>
                             <constraint firstItem="2gv-AV-n6s" firstAttribute="leading" secondItem="rdg-UY-rKP" secondAttribute="leadingMargin" constant="51" id="T6B-6c-Ulv"/>
-                            <constraint firstItem="KC0-0n-FGd" firstAttribute="top" secondItem="2gv-AV-n6s" secondAttribute="bottom" constant="6" id="Ut5-CQ-NZ5"/>
+                            <constraint firstItem="KC0-0n-FGd" firstAttribute="top" secondItem="2gv-AV-n6s" secondAttribute="bottom" constant="-33" id="Ut5-CQ-NZ5"/>
                             <constraint firstItem="obN-gJ-isR" firstAttribute="leading" secondItem="KC0-0n-FGd" secondAttribute="leading" id="XEU-Dw-zOj"/>
                             <constraint firstItem="obN-gJ-isR" firstAttribute="trailing" secondItem="KC0-0n-FGd" secondAttribute="trailing" id="YoE-UV-yyP"/>
                             <constraint firstItem="obN-gJ-isR" firstAttribute="centerX" secondItem="2gv-AV-n6s" secondAttribute="centerX" id="ogq-nY-Pq3"/>
                             <constraint firstItem="obN-gJ-isR" firstAttribute="leading" secondItem="rdg-UY-rKP" secondAttribute="leadingMargin" id="qN7-Jp-UcE"/>
                             <constraint firstAttribute="bottom" secondItem="KC0-0n-FGd" secondAttribute="bottom" constant="20" symbolic="YES" id="rsX-Vt-7CB"/>
-                            <constraint firstItem="2gv-AV-n6s" firstAttribute="centerY" secondItem="rdg-UY-rKP" secondAttribute="centerY" id="sAr-fJ-3lh"/>
+                            <constraint firstItem="2gv-AV-n6s" firstAttribute="centerY" secondItem="rdg-UY-rKP" secondAttribute="centerY" constant="19.5" id="sAr-fJ-3lh"/>
                             <constraint firstItem="obN-gJ-isR" firstAttribute="trailing" secondItem="rdg-UY-rKP" secondAttribute="trailingMargin" id="vq5-Sb-RqU"/>
                         </constraints>
                         <variation key="default">

@@ -113,7 +113,7 @@
     for(int i = 0; i < [ringDictionary allKeys].count; i++) {
         [self.ringArray addObject:[self createRingWithColorHex:[ringDictionary valueForKey:[ringName objectAtIndex:i]] andIndex:i]];
         [self.ringLabelArray addObject:[self createRingLabelWithRing:[self.ringArray objectAtIndex:i]]];
-        [self.ringPurchaseButtonArray addObject:[self createRingPurchaseButtonWithRing:[self.ringArray objectAtIndex:i] withColorHex:[ringDictionary valueForKey:[ringName objectAtIndex:i]]]];
+        [self.ringPurchaseButtonArray addObject:[self createRingPurchaseButtonWithRing:[self.ringArray objectAtIndex:i] withColorHex:[ringDictionary valueForKey:[ringName objectAtIndex:i]] andCurrentRingID:i]];
         [self.ringLabelShowingPercentArray addObject:@YES];
         
         [(UIButton *)[self.ringPurchaseButtonArray objectAtIndex:i] setEnabled:NO];
@@ -264,11 +264,11 @@
     return ringLabel;
 }
 
-- (UIButton *) createRingPurchaseButtonWithRing:(KDCircularProgress *)ring withColorHex:(NSString *)colorHex {
+- (UIButton *) createRingPurchaseButtonWithRing:(KDCircularProgress *)ring withColorHex:(NSString *)colorHex andCurrentRingID:(int)currentRingID {
     RingPurchaseButton *ringPurchaseButton = [[RingPurchaseButton alloc] initWithFrame:CGRectMake((ring.frame.size.width - 100) / 2, (ring.frame.size.height - 50) / 2, 100, 50)];
     [ringPurchaseButton addTarget:self action:@selector(purchaseRingButtonPressed:) forControlEvents:UIControlEventTouchDown];
     [ringPurchaseButton setTitleColor:[[CDManager sharedManager] colorWithHexString:colorHex] forState:UIControlStateNormal];
-    [ringPurchaseButton setRingNumber:self.currentRing];
+    [ringPurchaseButton setRingNumber:currentRingID];
     return ringPurchaseButton;
 }
 
@@ -356,7 +356,7 @@
     UIAlertAction *buyButton = [UIAlertAction actionWithTitle:@"Buy" style:UIAlertActionStyleDefault handler:^(UIAlertAction *action){
         StoreKitManager *skManager = [StoreKitManager sharedManager];
         [skManager setDelegate:self];
-        [skManager purchaseRingWithRingID:self.currentRing];
+        [skManager purchaseRingWithRingID:[currentButton ringNumber]];
     }];
     UIAlertAction *cancelButton = [UIAlertAction actionWithTitle:@"Cancel" style:UIAlertActionStyleCancel handler:nil];
     

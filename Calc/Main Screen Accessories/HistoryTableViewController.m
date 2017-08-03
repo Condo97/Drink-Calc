@@ -148,6 +148,8 @@
 }
 
 - (NSString *) tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {
+    if(self.noCellsExistSections)
+        return @"";
     return [NSDateFormatter localizedStringFromDate:(NSDate *)[self getDayForArray:[self.allAmountsSplitIntoSections objectAtIndex:section]] dateStyle:NSDateFormatterMediumStyle timeStyle:NSDateFormatterNoStyle];
 }
 

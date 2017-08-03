@@ -32,7 +32,7 @@
         int gender = (int)[[NSUserDefaults standardUserDefaults] integerForKey:@"userGender"];
         int age = (int)[[NSUserDefaults standardUserDefaults] integerForKey:@"userAge"];
             
-        if(gender == 1 || gender == 0) {
+        if(gender == 0 || gender == 2 || gender == 3) {
             equation = [equation componentsSeparatedByString:@"|"][0];
             if(age <= 12)
                 equation = [equation componentsSeparatedByString:@")"][0];
