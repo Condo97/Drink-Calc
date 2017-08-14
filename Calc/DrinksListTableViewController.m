@@ -11,13 +11,16 @@
 #import "CDManager.h"
 #import "ArchiverManager.h"
 #import "EntryViewController.h"
+#import "KFKeychain.h"
+@import GoogleMobileAds;
 
 @interface DrinksListTableViewController ()
 
 @property (nonatomic) NSInteger selectedSpecificDrink;
 @property (strong, nonatomic) NSString *selectedSpecificDrinkName;
-@property (nonatomic) BOOL specificDrinkIsShot;
+@property (nonatomic) BOOL specificDrinkIsShot, shouldShowAds;
 @property (strong, nonatomic) NSDictionary *specificDrinkIsShotDictionary;
+@property (strong, nonatomic) GADBannerView *bannerAd;
 
 @end
 
@@ -32,6 +35,18 @@
     NSDictionary *ringsJson = [NSKeyedUnarchiver unarchiveObjectWithData:[[ArchiverManager sharedManager] loadDataFromDiskWithFileName:@"allJson"]];
     NSMutableArray *generalDrinksArray = [[JSONManager sharedManager] getGeneralDrinksAsArrayWithJSONDictionary:ringsJson andRingIndex:self.currentRing];
     self.specificDrinkIsShotDictionary = [[JSONManager sharedManager] getSpecificDrinkIsShotAsDictionaryWithJSONDictionary:ringsJson andRingIndex:self.currentRing andGeneralDrinkIndex:currentGeneralDrink];
+    
+    self.shouldShowAds = YES;
+    if([[KFKeychain loadObjectForKey:@"adsRemoved"] isEqualToString:@"YES"])
+        self.shouldShowAds = NO;
+    
+    if(self.shouldShowAds) {
+        self.bannerAd = [[GADBannerView alloc] initWithAdSize:kGADAdSizeBanner origin:CGPointMake((self.view.frame.size.width - kGADAdSizeBanner.size.width) / 2, self.view.frame.size.height - kGADAdSizeBanner.size.height)];
+        [self.bannerAd setAdUnitID:@"ca-app-pub-0561860165633355/9018661352"];
+        [self.bannerAd setRootViewController:self];
+        [self.view addSubview:self.bannerAd];
+        [self.bannerAd loadRequest:[GADRequest request]];
+    }
     
     [self setTitle:[generalDrinksArray objectAtIndex:self.currentGeneralDrink]];
     
@@ -55,9 +70,15 @@
 - (NSInteger) tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     NSDictionary *ringsJson = [NSKeyedUnarchiver unarchiveObjectWithData:[[ArchiverManager sharedManager] loadDataFromDiskWithFileName:@"allJson"]];
     NSMutableDictionary *specificDrinksDictionary = [[JSONManager sharedManager] getSpecificDrinksAsDictionaryWithJSONDictionary:ringsJson andRingIndex:self.currentRing andGeneralDrinkIndex:self.currentGeneralDrink];
+    
     return specificDrinksDictionary.count;
 }
 
+- (CGFloat) tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section {
+    if(self.shouldShowAds)
+        return 75;
+    return 0;
+}
 
 - (UITableViewCell *) tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"cell" forIndexPath:indexPath];

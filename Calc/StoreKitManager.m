@@ -100,6 +100,7 @@
                 [tmp addAction:doneButton];
                 
                 BOOL purchased = [KFKeychain saveObject:@"YES" forKey:[NSString stringWithFormat:@"%@Purchased", [[[transactions objectAtIndex:0] payment] productIdentifier]]];
+                [KFKeychain saveObject:@"YES" forKey:@"adsRemoved"];
                 NSLog(@"%d", purchased);
                 
                 [[SKPaymentQueue defaultQueue] finishTransaction:transaction];
@@ -128,12 +129,34 @@
     }
 }
 
+- (void) restorePurchases {
+    [[SKPaymentQueue defaultQueue] restoreCompletedTransactions];
+}
+
+- (void) paymentQueueRestoreCompletedTransactionsFinished:(SKPaymentQueue *)queue {
+    for (SKPaymentTransaction *transaction in queue.transactions) {
+        NSString *productID = transaction.payment.productIdentifier;
+        BOOL purchased = [KFKeychain saveObject:@"YES" forKey:[NSString stringWithFormat:@"%@Purchased", productID]];
+        [KFKeychain saveObject:@"YES" forKey:@"adsRemoved"];
+        NSLog(@"%d", purchased);
+    }
+}
+
 - (void) resetKeychainForTesting {
     NSDictionary *ringsJson = [NSKeyedUnarchiver unarchiveObjectWithData:[[ArchiverManager sharedManager] loadDataFromDiskWithFileName:@"allJson"]];
     NSDictionary *productIDs = [[JSONManager sharedManager] getRingIAPIDsAsDictionaryWithJSONDictionary:ringsJson];
     
     for(int i = 0; i < [productIDs allKeys].count; i++) {
         [KFKeychain saveObject:@"NO" forKey:[NSString stringWithFormat:@"%@Purchased", [productIDs objectForKey:[[productIDs allKeys] objectAtIndex:i]]]];
+    }
+}
+
+- (void) buyAllRingsForTesting {
+    NSDictionary *ringsJson = [NSKeyedUnarchiver unarchiveObjectWithData:[[ArchiverManager sharedManager] loadDataFromDiskWithFileName:@"allJson"]];
+    NSDictionary *productIDs = [[JSONManager sharedManager] getRingIAPIDsAsDictionaryWithJSONDictionary:ringsJson];
+    
+    for(int i = 0; i < [productIDs allKeys].count; i++) {
+        [KFKeychain saveObject:@"YES" forKey:[NSString stringWithFormat:@"%@Purchased", [productIDs objectForKey:[[productIDs allKeys] objectAtIndex:i]]]];
     }
 }
 

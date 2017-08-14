@@ -7,7 +7,11 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "JSONManager.h"
 
-@interface LoadingViewController : UIViewController
+@interface LoadingViewController : UIViewController <JSONManagerDelegate>
+
+@property (nonatomic) CGSize imageSize;
+@property (strong, nonatomic) NSDictionary *jsonDictionary;
 
 @end

@@ -28,6 +28,8 @@
     [self.circularProgress.layer setShadowOffset:CGSizeMake(0, 0)];
     [self.circularProgress.layer setShadowRadius:7.5];
     [self.circularProgress setClipsToBounds:NO];
+    
+    [[NSUserDefaults standardUserDefaults] setInteger:2 forKey:@"sliderIncrements"];
 }
 
 - (void) viewDidAppear:(BOOL)animated {

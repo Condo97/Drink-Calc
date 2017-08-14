@@ -23,7 +23,9 @@
 
 + (id) sharedManager;
 - (BOOL) purchaseRingWithRingID:(int)ringID;
+- (void) restorePurchases;
 
 - (void) resetKeychainForTesting;
+- (void) buyAllRingsForTesting;
 
 @end

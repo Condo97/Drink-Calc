@@ -22,7 +22,6 @@
 }
 
 - (void) saveDataToDisk:(NSData *)data withFileName:(NSString *)fileName {
-    NSError *error;
     NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
     NSString *documentsDirectory = [paths objectAtIndex:0]; // Get documents folder
     

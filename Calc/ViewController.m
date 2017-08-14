@@ -24,6 +24,8 @@
 #import "LimitCalculationManager.h"
 #import "EditProfileTableViewController.h"
 #import "HistoryTableViewController.h"
+#import "LoadingViewController.h"
+@import GoogleMobileAds;
 
 @interface ViewController ()
 
@@ -33,6 +35,8 @@
 @property (nonatomic) NSMutableDictionary *slideShowImages, *generalDrinkImages;
 @property (strong, nonatomic) NSDictionary *purchasedRingsDictionary, *ringTexts;
 @property (nonatomic) int tableViewHeight;
+@property (strong, nonatomic) GADBannerView *bannerAd;
+@property (nonatomic) BOOL shouldShowAds, shouldLoad;
 
 @end
 
@@ -40,132 +44,175 @@
 
 //Idea: home screen for rings
 
-- (void)viewDidLoad {
+- (void) viewDidLoad {
     [super viewDidLoad];
+    self.shouldLoad = YES;
+}
+
+- (void) viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
     
-    [[CDManager sharedManager] setupRingStore];
-    
-    //[[StoreKitManager sharedManager] resetKeychainForTesting];
-    
-    self.currentRing = 0;
-    self.selectedGeneralDrink = 0;
-    self.ringArray = [[NSMutableArray alloc] init];
-    self.ringLabelArray = [[NSMutableArray alloc] init];
-    self.ringLabelShowingPercentArray = [[NSMutableArray alloc] init];
-    self.amountSumPerRing = [[NSMutableArray alloc] init];
-    self.limitPerRing = [[NSMutableArray alloc] init];
-    self.ringPurchaseButtonArray = [[NSMutableArray alloc] init];
-    self.generalDrinkImages = [[NSMutableDictionary alloc] init];
-    
-//    UIGestureRecognizer *leftArrowGestureRecognizer = [[UIGestureRecognizer alloc] initWithTarget:self action:@selector(leftArrowTapped:)];
-//    UIGestureRecognizer *rightArrowGestureRecognizer = [[UIGestureRecognizer alloc] initWithTarget:self action:@selector(rightArrowTapped:)];
-//    [self.leftArrow addGestureRecognizer:leftArrowGestureRecognizer];
-//    [self.rightArrow addGestureRecognizer:rightArrowGestureRecognizer];
-    
-    __block NSDictionary *ringsJson = [NSKeyedUnarchiver unarchiveObjectWithData:[[ArchiverManager sharedManager] loadDataFromDiskWithFileName:@"allJson"]];
-    NSString *currentRingName = [[[JSONManager sharedManager] getRingNamesInOrderWithJSONDictionary:ringsJson] objectAtIndex:self.currentRing];
-    [[UIView appearance] setTintColor:[UIColor colorWithHex:[[[JSONManager sharedManager] getRingNamesAsDictionaryWithJSONDictionary:ringsJson] objectForKey:currentRingName]]];
-    NSMutableArray *generalDrinksArray = [[JSONManager sharedManager] getGeneralDrinksAsArrayWithJSONDictionary:ringsJson andRingIndex:self.currentRing];
-    [self.tableViewHeightConstraint setConstant:generalDrinksArray.count * 77 + self.drinksTableView.sectionHeaderHeight + self.ringTextView.frame.size.height + self.drinksTableView.sectionFooterHeight];
-    
-    self.ringTexts = [[JSONManager sharedManager] getRingTextsAsDictionaryWithJSONDictionary:ringsJson];
-    [self.profileButton setTitleColor:[UIColor colorWithHex:[[[JSONManager sharedManager] getRingNamesAsDictionaryWithJSONDictionary:ringsJson] objectForKey:currentRingName]] forState:UIControlStateNormal];
-    [self.historyButton setTitleColor:[UIColor colorWithHex:[[[JSONManager sharedManager] getRingNamesAsDictionaryWithJSONDictionary:ringsJson] objectForKey:currentRingName]] forState:UIControlStateNormal];
-    
-    [self.navigationController.navigationBar.layer setMasksToBounds:NO];
-    [self.navigationController.navigationBar.layer setShadowColor:[UIColor blackColor].CGColor];
-    [self.navigationController.navigationBar.layer setShadowOpacity:1.0];
-    [self.navigationController.navigationBar.layer setShadowRadius:7.5];
-    [self.navigationController.navigationBar.layer setShadowOffset:CGSizeMake(0, 0)];
-    
-    [self.tableViewBlurView.layer setMasksToBounds:NO];
-    [self.tableViewBlurView.layer setShadowColor:[UIColor blackColor].CGColor];
-    [self.tableViewBlurView.layer setShadowOpacity:1.0];
-    [self.tableViewBlurView.layer setShadowRadius:7.5];
-    [self.tableViewBlurView.layer setShadowOffset:CGSizeMake(0, 0)];
-    
-    [[JSONManager sharedManager] setupScrollviewBackgroundImagesWithJSONDictionary:ringsJson withImageSize:CGSizeMake(self.view.frame.size.width, self.ringScrollView.frame.size.height)];
-    
-    NSArray *allRingsInOrder = [[JSONManager sharedManager] getRingNamesInOrderWithJSONDictionary:ringsJson];
-    for(int i = 0; i < allRingsInOrder.count; i++) {
-        [[JSONManager sharedManager] setupGeneralDrinkImagesWithJSONDictionary:ringsJson withImageSize:CGSizeMake(55, 55) andRingIndex:i];
-    }
-    
-    [self setTitle:currentRingName];
-    [self.navigationItem.leftBarButtonItem setTintColor:[UIColor colorWithHex:[[[JSONManager sharedManager] getRingNamesAsDictionaryWithJSONDictionary:ringsJson] objectForKey:currentRingName]]];
-    [self.navigationItem.rightBarButtonItem setTintColor:[UIColor colorWithHex:[[[JSONManager sharedManager] getRingNamesAsDictionaryWithJSONDictionary:ringsJson] objectForKey:currentRingName]]];
-    
-    NSDictionary *sliderBGImageDataDictionary = [NSKeyedUnarchiver unarchiveObjectWithData:[[ArchiverManager sharedManager] loadDataFromDiskWithFileName:@"scrollViewBGImageData"]];
-    self.slideShowImages = [[JSONManager sharedManager] getImageDictionaryWithDataDictionary:sliderBGImageDataDictionary];
-    for(int i = 0; i < allRingsInOrder.count; i++) {
-        NSDictionary *generalDrinkDataDictionary = [NSKeyedUnarchiver unarchiveObjectWithData:[[ArchiverManager sharedManager] loadDataFromDiskWithFileName:[NSString stringWithFormat:@"generalDrinkImageDataWithRingIndex%ld", (long)i]]];
-        [self.generalDrinkImages setObject:[[JSONManager sharedManager] getImageDictionaryForGeneralDrinkImagesWithDataDictionary:generalDrinkDataDictionary] forKey:[allRingsInOrder objectAtIndex:i]];
-    }
-    
-    //Setup rings
-    NSMutableDictionary *ringDictionary = [[JSONManager sharedManager] getRingNamesAsDictionaryWithJSONDictionary:ringsJson];
-    NSMutableArray *ringName = [[JSONManager sharedManager] getRingNamesInOrderWithJSONDictionary:ringsJson];
-    
-    if([[NSUserDefaults standardUserDefaults] objectForKey:@"useAutoLimit"] == nil) {
-        [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"useAutoLimit"];
-    }
-    
-    for(int i = 0; i < [ringDictionary allKeys].count; i++) {
-        [self.ringArray addObject:[self createRingWithColorHex:[ringDictionary valueForKey:[ringName objectAtIndex:i]] andIndex:i]];
-        [self.ringLabelArray addObject:[self createRingLabelWithRing:[self.ringArray objectAtIndex:i]]];
-        [self.ringPurchaseButtonArray addObject:[self createRingPurchaseButtonWithRing:[self.ringArray objectAtIndex:i] withColorHex:[ringDictionary valueForKey:[ringName objectAtIndex:i]] andCurrentRingID:i]];
-        [self.ringLabelShowingPercentArray addObject:@YES];
+    if(self.shouldLoad) {
         
-        [(UIButton *)[self.ringPurchaseButtonArray objectAtIndex:i] setEnabled:NO];
+        [[CDManager sharedManager] setupRingStore];
         
-        [[self.ringArray objectAtIndex:i] addSubview:[self.ringLabelArray objectAtIndex:i]];
-        [[self.ringArray objectAtIndex:i] addSubview:[self.ringPurchaseButtonArray objectAtIndex:i]];
-        [self.ringScrollView addSubview: [self.ringArray objectAtIndex:i]];
+        //[[StoreKitManager sharedManager] resetKeychainForTesting];
+        [[StoreKitManager sharedManager] buyAllRingsForTesting];
+        
+        self.currentRing = 0;
+        self.selectedGeneralDrink = 0;
+        self.ringArray = [[NSMutableArray alloc] init];
+        self.ringLabelArray = [[NSMutableArray alloc] init];
+        self.ringLabelShowingPercentArray = [[NSMutableArray alloc] init];
+        self.amountSumPerRing = [[NSMutableArray alloc] init];
+        self.limitPerRing = [[NSMutableArray alloc] init];
+        self.ringPurchaseButtonArray = [[NSMutableArray alloc] init];
+        self.generalDrinkImages = [[NSMutableDictionary alloc] init];
+        
+        self.shouldShowAds = YES;
+        if([[KFKeychain loadObjectForKey:@"adsRemoved"] isEqualToString:@"YES"])
+            self.shouldShowAds = NO;
+        
+        if(self.shouldShowAds) {
+            self.bannerAd = [[GADBannerView alloc] initWithAdSize:kGADAdSizeBanner origin:CGPointMake((self.view.frame.size.width - kGADAdSizeBanner.size.width) / 2, self.view.frame.size.height - kGADAdSizeBanner.size.height)];
+            [self.bannerAd setAdUnitID:@"ca-app-pub-0561860165633355/6221285238"];
+            [self.bannerAd setRootViewController:self];
+            [self.view addSubview:self.bannerAd];
+            [self.bannerAd loadRequest:[GADRequest request]];
+            [self.bannerAd setDelegate:self];
+        }
+        
+    //    UIGestureRecognizer *leftArrowGestureRecognizer = [[UIGestureRecognizer alloc] initWithTarget:self action:@selector(leftArrowTapped:)];
+    //    UIGestureRecognizer *rightArrowGestureRecognizer = [[UIGestureRecognizer alloc] initWithTarget:self action:@selector(rightArrowTapped:)];
+    //    [self.leftArrow addGestureRecognizer:leftArrowGestureRecognizer];
+    //    [self.rightArrow addGestureRecognizer:rightArrowGestureRecognizer];
+        
+        __block NSDictionary *ringsJson = [NSKeyedUnarchiver unarchiveObjectWithData:[[ArchiverManager sharedManager] loadDataFromDiskWithFileName:@"allJson"]];
+        NSString *currentRingName = [[[JSONManager sharedManager] getRingNamesInOrderWithJSONDictionary:ringsJson] objectAtIndex:self.currentRing];
+        [[UIView appearance] setTintColor:[UIColor colorWithHex:[[[JSONManager sharedManager] getRingNamesAsDictionaryWithJSONDictionary:ringsJson] objectForKey:currentRingName]]];
+        NSMutableArray *generalDrinksArray = [[JSONManager sharedManager] getGeneralDrinksAsArrayWithJSONDictionary:ringsJson andRingIndex:self.currentRing];
+        
+        int additionalPadding = 0;
+        if(self.shouldShowAds)
+            additionalPadding = 50;
+        
+        [self.tableViewHeightConstraint setConstant:generalDrinksArray.count * 77 + self.drinksTableView.sectionHeaderHeight + self.ringTextView.frame.size.height + self.drinksTableView.sectionFooterHeight + additionalPadding];
+        
+        self.ringTexts = [[JSONManager sharedManager] getRingTextsAsDictionaryWithJSONDictionary:ringsJson];
+        [self.profileButton setTitleColor:[UIColor colorWithHex:[[[JSONManager sharedManager] getRingNamesAsDictionaryWithJSONDictionary:ringsJson] objectForKey:currentRingName]] forState:UIControlStateNormal];
+        [self.historyButton setTitleColor:[UIColor colorWithHex:[[[JSONManager sharedManager] getRingNamesAsDictionaryWithJSONDictionary:ringsJson] objectForKey:currentRingName]] forState:UIControlStateNormal];
+        
+        [self.navigationController.navigationBar.layer setMasksToBounds:NO];
+        [self.navigationController.navigationBar.layer setShadowColor:[UIColor blackColor].CGColor];
+        [self.navigationController.navigationBar.layer setShadowOpacity:1.0];
+        [self.navigationController.navigationBar.layer setShadowRadius:7.5];
+        [self.navigationController.navigationBar.layer setShadowOffset:CGSizeMake(0, 0)];
+        
+        [self.tableViewBlurView.layer setMasksToBounds:NO];
+        [self.tableViewBlurView.layer setShadowColor:[UIColor blackColor].CGColor];
+        [self.tableViewBlurView.layer setShadowOpacity:1.0];
+        [self.tableViewBlurView.layer setShadowRadius:7.5];
+        [self.tableViewBlurView.layer setShadowOffset:CGSizeMake(0, 0)];
+        
+        if([[JSONManager sharedManager] willTakeAWhileSettingUpScrollviewBackgroundImagesWithJSONDictionary:ringsJson]) {
+            self.shouldLoad = YES;
+            
+            LoadingViewController *lvc = [[LoadingViewController alloc] init];
+            [lvc setImageSize:CGSizeMake(self.view.frame.size.width, self.ringScrollView.frame.size.height)];
+            [lvc setJsonDictionary:ringsJson];
+            
+            [self presentViewController:lvc animated:NO completion:nil];
+        } else {
+            
+            //[[JSONManager sharedManager] setupScrollviewBackgroundImagesWithJSONDictionary:ringsJson withImageSize:CGSizeMake(self.view.frame.size.width, self.ringScrollView.frame.size.height)];
+            
+            NSArray *allRingsInOrder = [[JSONManager sharedManager] getRingNamesInOrderWithJSONDictionary:ringsJson];
+            for(int i = 0; i < allRingsInOrder.count; i++) {
+                [[JSONManager sharedManager] setupGeneralDrinkImagesWithJSONDictionary:ringsJson withImageSize:CGSizeMake(55, 55) andRingIndex:i];
+            }
+            
+            [self setTitle:currentRingName];
+            [self.navigationItem.leftBarButtonItem setTintColor:[UIColor colorWithHex:[[[JSONManager sharedManager] getRingNamesAsDictionaryWithJSONDictionary:ringsJson] objectForKey:currentRingName]]];
+            [self.navigationItem.rightBarButtonItem setTintColor:[UIColor colorWithHex:[[[JSONManager sharedManager] getRingNamesAsDictionaryWithJSONDictionary:ringsJson] objectForKey:currentRingName]]];
+            
+            NSDictionary *sliderBGImageDataDictionary = [NSKeyedUnarchiver unarchiveObjectWithData:[[ArchiverManager sharedManager] loadDataFromDiskWithFileName:@"scrollViewBGImageData"]];
+            self.slideShowImages = [[JSONManager sharedManager] getImageDictionaryWithDataDictionary:sliderBGImageDataDictionary];
+            for(int i = 0; i < allRingsInOrder.count; i++) {
+                NSDictionary *generalDrinkDataDictionary = [NSKeyedUnarchiver unarchiveObjectWithData:[[ArchiverManager sharedManager] loadDataFromDiskWithFileName:[NSString stringWithFormat:@"generalDrinkImageDataWithRingIndex%ld", (long)i]]];
+                [self.generalDrinkImages setObject:[[JSONManager sharedManager] getImageDictionaryForGeneralDrinkImagesWithDataDictionary:generalDrinkDataDictionary] forKey:[allRingsInOrder objectAtIndex:i]];
+            }
+            
+            //Setup rings
+            NSMutableDictionary *ringDictionary = [[JSONManager sharedManager] getRingNamesAsDictionaryWithJSONDictionary:ringsJson];
+            NSMutableArray *ringName = [[JSONManager sharedManager] getRingNamesInOrderWithJSONDictionary:ringsJson];
+            
+            if([[NSUserDefaults standardUserDefaults] objectForKey:@"useAutoLimit"] == nil) {
+                [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"useAutoLimit"];
+            }
+            
+            for(int i = 0; i < [ringDictionary allKeys].count; i++) {
+                [self.ringArray addObject:[self createRingWithColorHex:[ringDictionary valueForKey:[ringName objectAtIndex:i]] andIndex:i]];
+                [self.ringLabelArray addObject:[self createRingLabelWithRing:[self.ringArray objectAtIndex:i]]];
+                [self.ringPurchaseButtonArray addObject:[self createRingPurchaseButtonWithRing:[self.ringArray objectAtIndex:i] withColorHex:[ringDictionary valueForKey:[ringName objectAtIndex:i]] andCurrentRingID:i]];
+                [self.ringLabelShowingPercentArray addObject:@YES];
+                
+                [(UIButton *)[self.ringPurchaseButtonArray objectAtIndex:i] setEnabled:NO];
+                
+                [[self.ringArray objectAtIndex:i] addSubview:[self.ringLabelArray objectAtIndex:i]];
+                [[self.ringArray objectAtIndex:i] addSubview:[self.ringPurchaseButtonArray objectAtIndex:i]];
+                [self.ringScrollView addSubview: [self.ringArray objectAtIndex:i]];
+            }
+            
+            [self.ringScrollView setContentSize:CGSizeMake(self.view.frame.size.width*self.ringArray.count, self.ringScrollView.frame.size.height)];
+            
+            self.scrollViewBackgroundView.datasource = self;
+            [self.scrollViewBackgroundView setDelay:3.0];
+            [self.scrollViewBackgroundView setTransitionDuration:1.5];
+            [self.scrollViewBackgroundView setTransitionType:KASlideShowTransitionFade];
+            
+            [self.ringTextView setText:[self.ringTexts objectForKey:currentRingName]];
+            
+            [self.leftArrow setAlpha:0.0];
+            
+            [self.drinksTableView reloadData];
+            
+            self.shouldLoad = NO;
+        }
     }
-    
-    [self.ringScrollView setContentSize:CGSizeMake(self.view.frame.size.width*self.ringArray.count, self.ringScrollView.frame.size.height)];
-    
-    self.scrollViewBackgroundView.datasource = self;
-    [self.scrollViewBackgroundView setDelay:3.0];
-    [self.scrollViewBackgroundView setTransitionDuration:1.5];
-    [self.scrollViewBackgroundView setTransitionType:KASlideShowTransitionFade];
-    
-    [self.ringTextView setText:[self.ringTexts objectForKey:currentRingName]];
-    
-    [self.leftArrow setAlpha:0.0];
-    
-    [self.drinksTableView reloadData];
 }
 
 - (void) viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
-    [self.scrollViewBackgroundView start];
     
     __block NSDictionary *ringsJson = [NSKeyedUnarchiver unarchiveObjectWithData:[[ArchiverManager sharedManager] loadDataFromDiskWithFileName:@"allJson"]];
     
-    if([[NSUserDefaults standardUserDefaults] boolForKey:@"initialSetupComplete"] == NO) {
-        [self performSegueWithIdentifier:@"toInitialSetupVC" sender:nil];
-    } else {
-        [[HealthKitManager sharedManager] requestAuthorizationWithCompletion:^(BOOL completion){
-            if(completion) {
-                NSLog(@"Authorized HealthKit!");
-                __block NSDictionary *equation = [[JSONManager sharedManager] getRingLimitEquationsAsDictionaryWithJSONDictionary:ringsJson];
-                __block NSMutableDictionary *finalEquationDictionary = [[NSMutableDictionary alloc] init];
-                
-                for(int i = 0; i < [equation allKeys].count; i++) {
-                    [[LimitCalculationManager sharedManager] calculateLimitWithEquation:[equation objectForKey:[[equation allKeys] objectAtIndex:i]] andRingName:[[equation allKeys] objectAtIndex:i] withCompletion:^(BOOL successful, double value, NSString *ringName){
-                        [finalEquationDictionary setObject:[NSNumber numberWithDouble:value] forKey:ringName];
-                    }];
+    if(![[JSONManager sharedManager] willTakeAWhileSettingUpScrollviewBackgroundImagesWithJSONDictionary:ringsJson]) {
+        [self.scrollViewBackgroundView start];
+        
+        if([[NSUserDefaults standardUserDefaults] boolForKey:@"initialSetupComplete"] == NO) {
+            [self performSegueWithIdentifier:@"toInitialSetupVC" sender:nil];
+        } else {
+            [[HealthKitManager sharedManager] requestAuthorizationWithCompletion:^(BOOL completion){
+                if(completion) {
+                    NSLog(@"Authorized HealthKit!");
+                    __block NSDictionary *equation = [[JSONManager sharedManager] getRingLimitEquationsAsDictionaryWithJSONDictionary:ringsJson];
+                    __block NSMutableDictionary *finalEquationDictionary = [[NSMutableDictionary alloc] init];
+                    
+                    for(int i = 0; i < [equation allKeys].count; i++) {
+                        [[LimitCalculationManager sharedManager] calculateLimitWithEquation:[equation objectForKey:[[equation allKeys] objectAtIndex:i]] andRingName:[[equation allKeys] objectAtIndex:i] withCompletion:^(BOOL successful, double value, NSString *ringName){
+                            [finalEquationDictionary setObject:[NSNumber numberWithDouble:value] forKey:ringName];
+                        }];
+                    }
+                    
+                    [[NSUserDefaults standardUserDefaults] setObject:finalEquationDictionary forKey:@"userLimit"];
+                } else {
+                    NSLog(@"HealthKit authorization didn't work dang.");
                 }
-                
-                [[NSUserDefaults standardUserDefaults] setObject:finalEquationDictionary forKey:@"userLimit"];
-            } else {
-                NSLog(@"HealthKit authorization didn't work dang.");
-            }
-        }];
+            }];
+        }
+        
+        [self animateRings];
     }
-    
-    [self animateRings];
 }
 
 - (void) animateRings {
@@ -549,5 +596,16 @@
 
 - (void) purchaseUnsuccessful {
 }
+
+/// Tells the delegate an ad request loaded an ad.
+- (void)adViewDidReceiveAd:(GADBannerView *)adView {
+    NSLog(@"adViewDidReceiveAd");
+}
+
+/// Tells the delegate an ad request failed.
+- (void)adView:(GADBannerView *)adView didFailToReceiveAdWithError:(GADRequestError *)error {
+    NSLog(@"adView:didFailToReceiveAdWithError: %@", [error localizedDescription]);
+}
+
 
 @end

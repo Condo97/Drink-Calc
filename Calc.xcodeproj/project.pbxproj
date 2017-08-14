@@ -13,7 +13,6 @@
 		BB207DAB1ECA8FC6007C6E8B /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = BB207DAA1ECA8FC6007C6E8B /* AppDelegate.m */; };
 		BB207DAE1ECA8FC6007C6E8B /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BB207DAD1ECA8FC6007C6E8B /* ViewController.m */; };
 		BB207DB11ECA8FC6007C6E8B /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = BB207DAF1ECA8FC6007C6E8B /* Main.storyboard */; };
-		BB207DB41ECA8FC6007C6E8B /* Calc.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = BB207DB21ECA8FC6007C6E8B /* Calc.xcdatamodeld */; };
 		BB207DB61ECA8FC6007C6E8B /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = BB207DB51ECA8FC6007C6E8B /* Assets.xcassets */; };
 		BB207DB91ECA8FC6007C6E8B /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = BB207DB71ECA8FC6007C6E8B /* LaunchScreen.storyboard */; };
 		BB207DC41ECA8FC6007C6E8B /* CalcTests.m in Sources */ = {isa = PBXBuildFile; fileRef = BB207DC31ECA8FC6007C6E8B /* CalcTests.m */; };
@@ -35,6 +34,7 @@
 		BBA8BD2F1EFB7C0A0039AE0D /* DrinksListTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BBA8BD2E1EFB7C0A0039AE0D /* DrinksListTableViewController.m */; };
 		BBA8BD321EFB7D360039AE0D /* DrinksListTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = BBA8BD311EFB7D360039AE0D /* DrinksListTableViewCell.m */; };
 		BBB382C31F316A1000897FFC /* FirstAndAHalfViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BBB382C21F316A1000897FFC /* FirstAndAHalfViewController.m */; };
+		BBB9B21C1F34FFB200DA1E41 /* Calc.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = BBB9B21A1F34FFB200DA1E41 /* Calc.xcdatamodeld */; };
 		BBC196421EF6B264003E404C /* HTTPManager.m in Sources */ = {isa = PBXBuildFile; fileRef = BBC196411EF6B264003E404C /* HTTPManager.m */; };
 		BBC196451EF72D56003E404C /* ArchiverManager.m in Sources */ = {isa = PBXBuildFile; fileRef = BBC196441EF72D56003E404C /* ArchiverManager.m */; };
 		BBC196481EF738BA003E404C /* JSONManager.m in Sources */ = {isa = PBXBuildFile; fileRef = BBC196471EF738BA003E404C /* JSONManager.m */; };
@@ -118,6 +118,7 @@
 		BBE1239B1F14882700EBE3F8 /* LoadingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BBE1239A1F14882700EBE3F8 /* LoadingViewController.m */; };
 		BBE1239E1F157DB200EBE3F8 /* HealthKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BBE1239D1F157DB200EBE3F8 /* HealthKit.framework */; };
 		BBE123A11F157E0200EBE3F8 /* HealthKitManager.m in Sources */ = {isa = PBXBuildFile; fileRef = BBE123A01F157E0200EBE3F8 /* HealthKitManager.m */; };
+		BBF75CB21F3500A7004354D1 /* GoogleMobileAds.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BBF75CB11F3500A7004354D1 /* GoogleMobileAds.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -150,7 +151,6 @@
 		BB207DAC1ECA8FC6007C6E8B /* ViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
 		BB207DAD1ECA8FC6007C6E8B /* ViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
 		BB207DB01ECA8FC6007C6E8B /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
-		BB207DB31ECA8FC6007C6E8B /* Calc.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Calc.xcdatamodel; sourceTree = "<group>"; };
 		BB207DB51ECA8FC6007C6E8B /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		BB207DB81ECA8FC6007C6E8B /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		BB207DBA1ECA8FC6007C6E8B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -264,6 +264,7 @@
 		BBA8BD311EFB7D360039AE0D /* DrinksListTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DrinksListTableViewCell.m; sourceTree = "<group>"; };
 		BBB382C11F316A1000897FFC /* FirstAndAHalfViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FirstAndAHalfViewController.h; sourceTree = "<group>"; };
 		BBB382C21F316A1000897FFC /* FirstAndAHalfViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FirstAndAHalfViewController.m; sourceTree = "<group>"; };
+		BBB9B21B1F34FFB200DA1E41 /* Calc.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Calc.xcdatamodel; sourceTree = "<group>"; };
 		BBC196401EF6B264003E404C /* HTTPManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HTTPManager.h; sourceTree = "<group>"; };
 		BBC196411EF6B264003E404C /* HTTPManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HTTPManager.m; sourceTree = "<group>"; };
 		BBC196431EF72D56003E404C /* ArchiverManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ArchiverManager.h; sourceTree = "<group>"; };
@@ -290,6 +291,8 @@
 		BBE1239D1F157DB200EBE3F8 /* HealthKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = HealthKit.framework; path = System/Library/Frameworks/HealthKit.framework; sourceTree = SDKROOT; };
 		BBE1239F1F157E0200EBE3F8 /* HealthKitManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HealthKitManager.h; sourceTree = "<group>"; };
 		BBE123A01F157E0200EBE3F8 /* HealthKitManager.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HealthKitManager.m; sourceTree = "<group>"; };
+		BBF75CB11F3500A7004354D1 /* GoogleMobileAds.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = GoogleMobileAds.framework; sourceTree = "<group>"; };
+		BBF75CB31F36A410004354D1 /* Watch-Storyboard.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = "Watch-Storyboard.storyboard"; path = "../Watch-Storyboard.storyboard"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -299,6 +302,7 @@
 			files = (
 				BB35180C1F327E190046E9C9 /* ImageIO.framework in Frameworks */,
 				BB91BEDE1F11837100949B9F /* StoreKit.framework in Frameworks */,
+				BBF75CB21F3500A7004354D1 /* GoogleMobileAds.framework in Frameworks */,
 				BBE1239E1F157DB200EBE3F8 /* HealthKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -378,10 +382,11 @@
 				BBDBCAB21F06FA2D0094B00B /* Supporting Files */,
 				BB35189B1F328D730046E9C9 /* calcSetupGif */,
 				BB207DAF1ECA8FC6007C6E8B /* Main.storyboard */,
+				BBF75CB31F36A410004354D1 /* Watch-Storyboard.storyboard */,
 				BB207DB51ECA8FC6007C6E8B /* Assets.xcassets */,
 				BB207DB71ECA8FC6007C6E8B /* LaunchScreen.storyboard */,
 				BB207DBA1ECA8FC6007C6E8B /* Info.plist */,
-				BB207DB21ECA8FC6007C6E8B /* Calc.xcdatamodeld */,
+				BBB9B21A1F34FFB200DA1E41 /* Calc.xcdatamodeld */,
 				BB207DA61ECA8FC6007C6E8B /* Supporting Files */,
 				BB429D441EEE0AC200991203 /* Calc-Bridging-Header.h */,
 			);
@@ -549,6 +554,7 @@
 		BB91BEDC1F11837100949B9F /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				BBF75CB11F3500A7004354D1 /* GoogleMobileAds.framework */,
 				BB35180B1F327E190046E9C9 /* ImageIO.framework */,
 				BBE1239D1F157DB200EBE3F8 /* HealthKit.framework */,
 				BB91BEDD1F11837100949B9F /* StoreKit.framework */,
@@ -705,12 +711,14 @@
 					BB207DBE1ECA8FC6007C6E8B = {
 						CreatedOnToolsVersion = 8.3.1;
 						DevelopmentTeam = WNCN9TJFT3;
+						LastSwiftMigration = 0830;
 						ProvisioningStyle = Automatic;
 						TestTargetID = BB207DA21ECA8FC6007C6E8B;
 					};
 					BB207DC91ECA8FC6007C6E8B = {
 						CreatedOnToolsVersion = 8.3.1;
 						DevelopmentTeam = WNCN9TJFT3;
+						LastSwiftMigration = 0830;
 						ProvisioningStyle = Automatic;
 						TestTargetID = BB207DA21ECA8FC6007C6E8B;
 					};
@@ -839,7 +847,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				BB429D4A1EEE0D3A00991203 /* KDCircularProgress.swift in Sources */,
-				BB207DB41ECA8FC6007C6E8B /* Calc.xcdatamodeld in Sources */,
 				BB96CB331F1467D10083D48D /* RingPurchaseButton.m in Sources */,
 				BB52BC481F01F9080096063B /* BAFluidView.m in Sources */,
 				BBCB53861F256049004BED23 /* EditRingAutoLimitTableViewCell.m in Sources */,
@@ -862,6 +869,7 @@
 				BB05E9A71F285200004F80BD /* HistoryHeaderTableViewCell.m in Sources */,
 				BB91BEE11F11859100949B9F /* StoreKitManager.m in Sources */,
 				BB80118D1F1FDE5100539C7A /* LimitCalculationManager.m in Sources */,
+				BBB9B21C1F34FFB200DA1E41 /* Calc.xcdatamodeld in Sources */,
 				BB207DAE1ECA8FC6007C6E8B /* ViewController.m in Sources */,
 				BB207DAB1ECA8FC6007C6E8B /* AppDelegate.m in Sources */,
 				BBCB537D1F255D68004BED23 /* EditProfileTableViewController.m in Sources */,
@@ -1025,6 +1033,10 @@
 				CODE_SIGN_ENTITLEMENTS = Calc/Calc.entitlements;
 				DEFINES_MODULE = YES;
 				DEVELOPMENT_TEAM = WNCN9TJFT3;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)",
+				);
 				INFOPLIST_FILE = Calc/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -1032,7 +1044,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "Calc/Calc-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
-				SWIFT_VERSION = 4.0;
+				SWIFT_VERSION = 3.0;
 				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
@@ -1045,13 +1057,17 @@
 				CODE_SIGN_ENTITLEMENTS = Calc/Calc.entitlements;
 				DEFINES_MODULE = YES;
 				DEVELOPMENT_TEAM = WNCN9TJFT3;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)",
+				);
 				INFOPLIST_FILE = Calc/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.acapplications.calc;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "Calc/Calc-Bridging-Header.h";
-				SWIFT_VERSION = 4.0;
+				SWIFT_VERSION = 3.0;
 				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;
@@ -1066,6 +1082,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = ACApplications.CalcTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 3.0;
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Calc.app/Calc";
 			};
 			name = Debug;
@@ -1080,6 +1097,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = ACApplications.CalcTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 3.0;
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Calc.app/Calc";
 			};
 			name = Release;
@@ -1093,6 +1111,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = ACApplications.CalcUITests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 3.0;
 				TEST_TARGET_NAME = Calc;
 			};
 			name = Debug;
@@ -1106,6 +1125,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = ACApplications.CalcUITests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 3.0;
 				TEST_TARGET_NAME = Calc;
 			};
 			name = Release;
@@ -1152,12 +1172,12 @@
 /* End XCConfigurationList section */
 
 /* Begin XCVersionGroup section */
-		BB207DB21ECA8FC6007C6E8B /* Calc.xcdatamodeld */ = {
+		BBB9B21A1F34FFB200DA1E41 /* Calc.xcdatamodeld */ = {
 			isa = XCVersionGroup;
 			children = (
-				BB207DB31ECA8FC6007C6E8B /* Calc.xcdatamodel */,
+				BBB9B21B1F34FFB200DA1E41 /* Calc.xcdatamodel */,
 			);
-			currentVersion = BB207DB31ECA8FC6007C6E8B /* Calc.xcdatamodel */;
+			currentVersion = BBB9B21B1F34FFB200DA1E41 /* Calc.xcdatamodel */;
 			path = Calc.xcdatamodeld;
 			sourceTree = "<group>";
 			versionGroupType = wrapper.xcdatamodel;

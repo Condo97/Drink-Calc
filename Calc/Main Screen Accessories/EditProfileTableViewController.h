@@ -19,5 +19,6 @@
 @property (weak, nonatomic) IBOutlet UIButton *updateWithHealthAppValuesButtonOutlet;
 
 @property (strong, nonatomic) NSString *currentRingName;
+@property (weak, nonatomic) IBOutlet UISegmentedControl *sliderIncrementsSegmentedControl;
 
 @end

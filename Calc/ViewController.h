@@ -9,8 +9,9 @@
 #import <UIKit/UIKit.h>
 #import "KASlideShow.h"
 #import "StoreKitManager.h"
+@import GoogleMobileAds;
 
-@interface ViewController : UIViewController <UITableViewDelegate, UITableViewDataSource, KASlideShowDataSource, StoreKitManagerDelegate>
+@interface ViewController : UIViewController <UITableViewDelegate, UITableViewDataSource, KASlideShowDataSource, StoreKitManagerDelegate, GADBannerViewDelegate>
 
 @property (weak, nonatomic) IBOutlet UIScrollView *ringScrollView;
 

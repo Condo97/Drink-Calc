@@ -11,6 +11,7 @@
 #import "JSONManager.h"
 #import "ArchiverManager.h"
 #import "CDManager.h"
+#import "StoreKitManager.h"
 
 @interface EditProfileTableViewController ()
 
@@ -150,6 +151,13 @@
         [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"initialSetupComplete"
          ];
         
+        if(self.sliderIncrementsSegmentedControl.selectedSegmentIndex == 0)
+            [[NSUserDefaults standardUserDefaults] setInteger:1 forKey:@"sliderIncrements"];
+        else if(self.sliderIncrementsSegmentedControl.selectedSegmentIndex == 1)
+            [[NSUserDefaults standardUserDefaults] setInteger:2 forKey:@"sliderIncrements"];
+        else if(self.sliderIncrementsSegmentedControl.selectedSegmentIndex == 2)
+            [[NSUserDefaults standardUserDefaults] setInteger:4 forKey:@"sliderIncrements"];
+        
         [self dismissViewControllerAnimated:YES completion:nil];
     }
 }
@@ -269,6 +277,9 @@
     }];
 }
 
+- (IBAction) restorePurchasesButton:(id)sender {
+    [[StoreKitManager sharedManager] restorePurchases];
+}
 - (IBAction) unwindToEditProfile:(UIStoryboardSegue *)segue {
 }
 

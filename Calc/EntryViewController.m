@@ -38,7 +38,12 @@
     [super viewDidLoad];
     
     self.sliderMax = 42; //MAKE DYNAMIC
-    self.increments = 2; //MAKE DYNAMIC
+    if([[NSUserDefaults standardUserDefaults] integerForKey:@"sliderIncrements"] != 0)
+        self.increments = (int)[[NSUserDefaults standardUserDefaults] integerForKey:@"sliderIncrements"]; //MAKE DYNAMIC
+    else {
+        [[NSUserDefaults standardUserDefaults] setInteger:2 forKey:@"sliderIncrements"];
+        self.increments = 2;
+    }
     
     self.shotCount = 0;
     

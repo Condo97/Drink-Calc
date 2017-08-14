@@ -9,9 +9,19 @@
 #import <Foundation/Foundation.h>
 #import <UIKit/UIKit.h>
 
+typedef void(^completion)(BOOL);
+
+@protocol JSONManagerDelegate <NSObject>
+@required
+- (void) updateProgress:(int)percent;
+
+@end
+
 @interface JSONManager : NSObject
 
-+ (id)sharedManager;
+@property (weak, nonatomic) id <JSONManagerDelegate> delegate;
+
++ (id) sharedManager;
 - (NSMutableArray *) getRingNamesInOrderWithJSONDictionary:(NSDictionary *)json;
 - (NSMutableDictionary *) getRingNamesAsDictionaryWithJSONDictionary:(NSDictionary *)json;
 - (NSMutableDictionary *) getRingMeasurementTypesBeforeSlashAsDictionaryWithJSONDictionary:(NSDictionary *)json;
@@ -27,7 +37,8 @@
 - (NSMutableDictionary *) getSpecificDrinksAsDictionaryWithJSONDictionary:(NSDictionary *)json andRingIndex:(NSInteger)ringIndex andGeneralDrinkIndex:(NSInteger)generalDrinkIndex;
 - (NSMutableDictionary *) getSpecificDrinkIsShotAsDictionaryWithJSONDictionary:(NSDictionary *)json andRingIndex:(NSInteger)ringIndex andGeneralDrinkIndex:(NSInteger)generalDrinkIndex;
 
-- (void) setupScrollviewBackgroundImagesWithJSONDictionary:(NSDictionary *)json withImageSize:(CGSize)imageSize;
+- (BOOL) willTakeAWhileSettingUpScrollviewBackgroundImagesWithJSONDictionary:(NSDictionary *)json;
+- (void) setupScrollviewBackgroundImagesWithJSONDictionary:(NSDictionary *)json withImageSize:(CGSize)imageSize withCompletion:(completion)completion;
 - (void) setupGeneralDrinkImagesWithJSONDictionary:(NSDictionary *)json withImageSize:(CGSize)imageSize andRingIndex:(int)ringIndex;
 - (NSMutableDictionary *) getImageDictionaryWithDataDictionary:(NSDictionary *)dataDictionary;
 - (NSMutableDictionary *) getImageDictionaryForGeneralDrinkImagesWithDataDictionary:(NSDictionary *)dataDictionary;

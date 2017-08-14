@@ -12,7 +12,7 @@
 
 @implementation JSONManager
 
-+ (id)sharedManager {
++ (id) sharedManager {
     static JSONManager *sharedMyManager = nil;
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
@@ -188,7 +188,11 @@
 
 #pragma mark - Image stuff
 
-- (void) setupScrollviewBackgroundImagesWithJSONDictionary:(NSDictionary *)json withImageSize:(CGSize)imageSize {
+- (void) progressSelector:(NSNumber *)progress {
+    [self.delegate updateProgress:[progress intValue]];
+}
+
+- (BOOL) willTakeAWhileSettingUpScrollviewBackgroundImagesWithJSONDictionary:(NSDictionary *)json {
     NSMutableDictionary *imageURLDictionary = [[NSMutableDictionary alloc] init];
     
     for(int i = 0; i < [json mutableArrayValueForKey:@"rings"].count; i++) {
@@ -197,27 +201,55 @@
     
     NSDictionary *scrollViewBGImageURLsFromStore = [NSKeyedUnarchiver unarchiveObjectWithData:[[ArchiverManager sharedManager] loadDataFromDiskWithFileName:@"scrollViewBGImageURLs"]];
     
+    if(![scrollViewBGImageURLsFromStore isEqual:imageURLDictionary])
+        return YES;
+    return NO;
+}
+
+- (void) setupScrollviewBackgroundImagesWithJSONDictionary:(NSDictionary *)json withImageSize:(CGSize)imageSize withCompletion:(completion)completion {
+    NSMutableDictionary *imageURLDictionary = [[NSMutableDictionary alloc] init];
+    __block double totalCount, currentSum;
+    
+    for(int i = 0; i < [json mutableArrayValueForKey:@"rings"].count; i++) {
+        [imageURLDictionary setObject: [[[json mutableArrayValueForKey:@"rings"] objectAtIndex:i] valueForKey:@"collageImages"] forKey:[[[json mutableArrayValueForKey:@"rings"] objectAtIndex:i] objectForKey:@"ringName"]];
+    }
+    
+    NSDictionary *scrollViewBGImageURLsFromStore = [NSKeyedUnarchiver unarchiveObjectWithData:[[ArchiverManager sharedManager] loadDataFromDiskWithFileName:@"scrollViewBGImageURLs"]];
+    
     if(![scrollViewBGImageURLsFromStore isEqual:imageURLDictionary]) {
-        NSMutableDictionary *finalImageDataDictionary = [[NSMutableDictionary alloc] init];
-        for(int i = 0; i < [imageURLDictionary allKeys].count; i++) {
-            NSArray *imageURLArray = [imageURLDictionary objectForKey:[[imageURLDictionary allKeys] objectAtIndex:i]];
-            NSMutableArray *finalImageDataArray = [[NSMutableArray alloc] init];
+        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0), ^{
+            totalCount = [imageURLDictionary allKeys].count * 5;
+            totalCount--;
+            currentSum = 0;
             
-            for(NSString *imageURL in imageURLArray) {
-                NSData *imageData = [[NSData alloc] init];
-                if(![imageURL isEqual:[NSNull null]]) {
-                    imageData = [[NSData alloc] initWithContentsOfURL:[NSURL URLWithString:imageURL]];
-                    UIImage *finalImage = [self slideShowImageWithImage:[UIImage imageWithData:imageData] andSize:imageSize];
-                    imageData = UIImagePNGRepresentation(finalImage);
+            NSMutableDictionary *finalImageDataDictionary = [[NSMutableDictionary alloc] init];
+            for(int i = 0; i < [imageURLDictionary allKeys].count; i++) {
+                NSArray *imageURLArray = [imageURLDictionary objectForKey:[[imageURLDictionary allKeys] objectAtIndex:i]];
+                NSMutableArray *finalImageDataArray = [[NSMutableArray alloc] init];
+                
+                for(NSString *imageURL in imageURLArray) {
+                    NSData *imageData = [[NSData alloc] init];
+                    if(![imageURL isEqual:[NSNull null]]) {
+                        imageData = [[NSData alloc] initWithContentsOfURL:[NSURL URLWithString:imageURL]];
+                        UIImage *finalImage = [self slideShowImageWithImage:[UIImage imageWithData:imageData] andSize:imageSize];
+                        imageData = UIImagePNGRepresentation(finalImage);
+                        
+                        [self performSelectorOnMainThread:@selector(progressSelector:) withObject:[NSNumber numberWithDouble:(currentSum / totalCount) * 360] waitUntilDone:NO];
+                        currentSum++;
+                    }
+                    [finalImageDataArray addObject:imageData];
                 }
-                [finalImageDataArray addObject:imageData];
+                
+                [finalImageDataDictionary setObject:finalImageDataArray forKey:[[imageURLDictionary allKeys] objectAtIndex:i]];
             }
             
-            [finalImageDataDictionary setObject:finalImageDataArray forKey:[[imageURLDictionary allKeys] objectAtIndex:i]];
-        }
-        
-        [[ArchiverManager sharedManager] saveDataToDisk:[NSKeyedArchiver archivedDataWithRootObject:imageURLDictionary] withFileName:@"scrollViewBGImageURLs"];
-        [[ArchiverManager sharedManager] saveDataToDisk:[NSKeyedArchiver archivedDataWithRootObject:finalImageDataDictionary] withFileName:@"scrollViewBGImageData"];
+            [[ArchiverManager sharedManager] saveDataToDisk:[NSKeyedArchiver archivedDataWithRootObject:imageURLDictionary] withFileName:@"scrollViewBGImageURLs"];
+            [[ArchiverManager sharedManager] saveDataToDisk:[NSKeyedArchiver archivedDataWithRootObject:finalImageDataDictionary] withFileName:@"scrollViewBGImageData"];
+            
+            dispatch_sync(dispatch_get_main_queue(), ^{
+                completion(true);
+            });
+        });
     }
 }
 
