@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="12141" systemVersion="16G29" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
+    <entity name="CustomDrink" representedClassName="CustomDrink" syncable="YES" codeGenerationType="class">
+        <attribute name="amount" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="generalDrinkName" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="isShot" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="name" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="ringID" optional="YES" attributeType="String" syncable="YES"/>
+    </entity>
+    <entity name="Ring" representedClassName="Ring" syncable="YES" codeGenerationType="class">
+        <attribute name="amount" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="dateStamp" optional="YES" attributeType="Date" usesScalarValueType="NO" syncable="YES"/>
+        <attribute name="name" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="ringID" optional="YES" attributeType="String" syncable="YES"/>
+    </entity>
+    <entity name="UserLimit" representedClassName="UserLimit" syncable="YES" codeGenerationType="class">
+        <attribute name="limit" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="ringID" optional="YES" attributeType="String" syncable="YES"/>
+    </entity>
+    <elements>
+        <element name="Ring" positionX="-63" positionY="-18" width="128" height="105"/>
+        <element name="UserLimit" positionX="-54" positionY="-9" width="128" height="75"/>
+        <element name="CustomDrink" positionX="-54" positionY="9" width="128" height="120"/>
+    </elements>
+</model>

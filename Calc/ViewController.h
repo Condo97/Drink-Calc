@@ -24,8 +24,8 @@
 @property (weak, nonatomic) IBOutlet UIButton *profileButton;
 @property (weak, nonatomic) IBOutlet UIButton *historyButton;
 
-@property (weak, nonatomic) IBOutlet UIImageView *leftArrow;
-@property (weak, nonatomic) IBOutlet UIImageView *rightArrow;
+@property (weak, nonatomic) IBOutlet UIButton *leftArrow;
+@property (weak, nonatomic) IBOutlet UIButton *rightArrow;
 
 @property (weak, nonatomic) IBOutlet UITextView *ringTextView;
 

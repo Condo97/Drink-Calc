@@ -9,6 +9,7 @@
 #import <UIKit/UIKit.h>
 #import "BAFluidView.h"
 #import "RoundedView.h"
+#import "CustomSlider.h"
 
 @interface EntryViewController : UIViewController {
     int currentRing;
@@ -25,11 +26,12 @@
 @property (weak, nonatomic) IBOutlet UILabel *cupLabel;
 @property (weak, nonatomic) IBOutlet UIView *roundedViewOverlay;
 
-@property (strong, nonatomic) UISlider *slider;
+@property (strong, nonatomic) CustomSlider *slider;
 
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *roundedViewTopConstraint;
 
 @property (nonatomic) int currentRing;
+@property (nonatomic) double amount, finalAmount;
 @property (nonatomic) NSInteger currentGeneralDrink, currentSpecificDrink;
 @property (strong, nonatomic) NSString *currentSpecificDrinkName, *currentRingName;
 

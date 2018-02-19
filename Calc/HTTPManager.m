@@ -22,12 +22,12 @@
 - (NSDictionary *) getJSONFromURL:(NSString *)url withArguments:(NSString *)arguments,... {
     NSMutableURLRequest *request = [[NSMutableURLRequest alloc] init];
     
-    url = [NSString stringWithFormat:@"http://%@?",url];
+    url = [NSString stringWithFormat:@"http://%@?", url];
     
     va_list args;
     va_start(args, arguments);
     for(NSString *arg = arguments; arg != nil; arg = va_arg(args, NSString *)) {
-        url = [NSString stringWithFormat:@"%@%@&",url,arg];
+        url = [NSString stringWithFormat:@"%@%@&", url, arg];
     }
     va_end(args);
     
@@ -66,10 +66,22 @@
     
     [downloadTask resume];
     
-    dispatch_semaphore_wait(fd_sema, DISPATCH_TIME_FOREVER); //Add timeout
-//    dispatch_release(fd_sema);
+    dispatch_semaphore_wait(fd_sema, dispatch_time(DISPATCH_TIME_NOW, 7 * NSEC_PER_SEC)); //Add timeout
     
     return [NSJSONSerialization JSONObjectWithData:jsonData options:NSJSONReadingMutableContainers error:nil];
+}
+
+- (void) saveCustomDrinkWithRingName:(NSString *)ringName andGeneralDrinkName:(NSString *)generalDrinkName andSpecificDrinkName:(NSString *)specificDrinkName andAmount:(NSString *)amount andIsShot:(int)isShot {
+    NSString *isShotString = @"";
+    if(isShot == 1)
+        isShotString = @"Yes";
+    
+    NSString *urlString = [NSString stringWithFormat:@"http://138.197.109.254:8118/saveCustomDrink?ringName=%@&generalDrinkName=%@&specificDrinkName=%@&amount=%@&isShot=%@", ringName, generalDrinkName, specificDrinkName, amount, isShotString];
+    NSCharacterSet *set = [NSCharacterSet URLQueryAllowedCharacterSet];
+    NSString *encodedUrlString = [urlString stringByAddingPercentEncodingWithAllowedCharacters:set];
+    
+    NSURLSessionTask *saveTask = [[NSURLSession sharedSession] dataTaskWithURL:[NSURL URLWithString:encodedUrlString] completionHandler:^(NSData *data, NSURLResponse *response, NSError *error){}];
+    [saveTask resume];
 }
 
 @end

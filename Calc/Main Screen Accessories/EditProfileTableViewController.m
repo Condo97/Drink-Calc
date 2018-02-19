@@ -38,6 +38,19 @@
     self.gender = 0;
     self.heightInInches = 0;
     
+    if([[NSUserDefaults standardUserDefaults] integerForKey:@"sliderIncrements"] == 1)
+        [self.sliderIncrementsSegmentedControl setSelectedSegmentIndex:0];
+    else if([[NSUserDefaults standardUserDefaults] integerForKey:@"sliderIncrements"] == 2)
+        [self.sliderIncrementsSegmentedControl setSelectedSegmentIndex:1];
+    else
+        [self.sliderIncrementsSegmentedControl setSelectedSegmentIndex:2];
+    //    if(self.sliderIncrementsSegmentedControl.selectedSegmentIndex == 0)
+//        [[NSUserDefaults standardUserDefaults] setInteger:1 forKey:@"sliderIncrements"];
+//    else if(self.sliderIncrementsSegmentedControl.selectedSegmentIndex == 1)
+//        [[NSUserDefaults standardUserDefaults] setInteger:2 forKey:@"sliderIncrements"];
+//    else if(self.sliderIncrementsSegmentedControl.selectedSegmentIndex == 2)
+//        [[NSUserDefaults standardUserDefaults] setInteger:4 forKey:@"sliderIncrements"];
+    
     NSDictionary *json = (NSDictionary *)[NSKeyedUnarchiver unarchiveObjectWithData:[[ArchiverManager sharedManager] loadDataFromDiskWithFileName:@"allJson"]];
     UIColor *currentTintColor = [[CDManager sharedManager] colorWithHexString:[[[JSONManager sharedManager] getRingNamesAsDictionaryWithJSONDictionary:json] objectForKey:currentRingName]];
     

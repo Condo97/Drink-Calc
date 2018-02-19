@@ -13,6 +13,7 @@
 #import "RoundedView.h"
 #import "UIColor+ColorWithHex.h"
 #import "HealthKitManager.h"
+#import "CustomSlider.h"
 
 @interface EntryViewController ()
 
@@ -23,7 +24,6 @@
 
 @property (strong, nonatomic) NSString *measurementUnitsBeforeSlash, *measurementUnitsAfterSlash, *thingToMeasure, *ringColorHex, *hkIdentifierToWrite, *hkIdentifierToWriteUnit;
 @property (nonatomic) int size, sliderMax, increments, shotCount;
-@property (nonatomic) double amount, finalAmount;
 
 @end
 
@@ -57,7 +57,8 @@
     self.measurementUnitsBeforeSlash = [[[JSONManager sharedManager] getRingMeasurementTypesBeforeSlashAsDictionaryWithJSONDictionary:json] objectForKey:currentRingName];
     self.measurementUnitsAfterSlash = [[[JSONManager sharedManager] getRingMeasurementTypesAfterSlashAsDictionaryWithJSONDictionary:json] objectForKey:currentRingName];
     self.thingToMeasure = [[[JSONManager sharedManager] getRingThingsToMeasureAsDictionaryWithJSONDictionary:json] objectForKey:currentRingName];
-    self.amount = [[[[JSONManager sharedManager] getSpecificDrinksAsDictionaryWithJSONDictionary:json andRingIndex:self.currentRing andGeneralDrinkIndex:self.currentGeneralDrink] objectForKey:self.currentSpecificDrinkName] doubleValue];
+    if(self.amount == 0)
+        self.amount = [[[[JSONManager sharedManager] getSpecificDrinksAsDictionaryWithJSONDictionary:json andRingIndex:self.currentRing andGeneralDrinkIndex:self.currentGeneralDrink] objectForKey:self.currentSpecificDrinkName] doubleValue];
     self.ringColorHex = [[[JSONManager sharedManager] getRingNamesAsDictionaryWithJSONDictionary:json] objectForKey:currentRingName];
     self.hkIdentifierToWrite = [[[[[JSONManager sharedManager] getRingHKWriteTypesAsDictionaryWithJSONDictionary:json] mutableArrayValueForKey:currentRingName] objectAtIndex:0] objectAtIndex:0];
     self.hkIdentifierToWriteUnit = [[[[[JSONManager sharedManager] getRingHKWriteTypesAsDictionaryWithJSONDictionary:json] mutableArrayValueForKey:currentRingName] objectAtIndex:0] objectAtIndex:1];
@@ -89,17 +90,21 @@
     sliderBackgroundViewFrame.origin.x = sliderBackgroundViewFrame.origin.x + 150;
     [self.sliderBackgroundView setFrame:sliderBackgroundViewFrame];
     
-    self.slider = [[UISlider alloc] initWithFrame:CGRectMake((self.view.frame.size.width-((self.view.frame.size.height-self.view.frame.size.width/3)/2))-30 - 14, ((self.view.frame.size.height-self.view.frame.size.width/3)/2)+self.navigationController.navigationBar.frame.size.height*2, self.view.frame.size.height-self.view.frame.size.width/3, 10.0)];
+    self.slider = [[CustomSlider alloc] initWithFrame:CGRectMake((self.view.frame.size.width-((self.view.frame.size.height-self.view.frame.size.width/3)/2))-30 - 14, ((self.view.frame.size.height-self.view.frame.size.width/3)/2)+self.navigationController.navigationBar.frame.size.height*2, self.view.frame.size.height-self.view.frame.size.width/3, 10.0)];
     self.slider.transform = CGAffineTransformMakeRotation(M_PI_2*3);
     [self.slider setMaximumValue:self.sliderMax];
     [self.slider setMinimumValue:0];
-    [self.slider setValue:(self.sliderMax/2)];
+    if(isShot)
+        [self.slider setValue:1];
+    else
+        [self.slider setValue:16];
     [self.slider addTarget:self action:@selector(sliderValueChanged:) forControlEvents:UIControlEventValueChanged];
     [self.slider addTarget:self action:@selector(sliderEndedTouches:) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:self.slider];
     
     CGRect sliderViewFrame = self.slider.frame;
-    sliderViewFrame.origin.x = sliderViewFrame.origin.x + 150;
+    sliderViewFrame.origin.x = sliderViewFrame.origin.x + 150 - 50;
+    sliderViewFrame.size.width = 100 + sliderViewFrame.size.width;
     
     [self.slider setFrame:sliderViewFrame];
     
@@ -141,8 +146,8 @@
     [self.infoViewLabel setTextAlignment:NSTextAlignmentCenter];
     [self.infoView addSubview:self.infoViewLabel];
     
-    if((int)self.slider.value % 2 != 0)
-        [self.slider setValue:((int)self.slider.value - ((int)self.slider.value % self.increments) + self.increments)];
+//    if((int)self.slider.value % self.increments != 0)
+//        [self.slider setValue:((int)self.slider.value - ((int)self.slider.value % self.increments) + self.increments)];
     self.size = self.slider.value;
     [self updateInfoViewLabelTextWithAmount:[self getCalculatedAmountForSliderValue:self.size]];
     

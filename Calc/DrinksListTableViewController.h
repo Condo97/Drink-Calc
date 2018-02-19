@@ -17,4 +17,6 @@
 @property (nonatomic) NSInteger currentGeneralDrink;
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 
+@property (weak, nonatomic) IBOutlet UIBarButtonItem *editButtonOutlet;
+
 @end

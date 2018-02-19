@@ -12,5 +12,6 @@
 
 + (id)sharedManager;
 - (NSDictionary *) getJSONFromURL:(NSString *)url withArguments:(NSString *)arguments,...;
+- (void) saveCustomDrinkWithRingName:(NSString *)ringName andGeneralDrinkName:(NSString *)generalDrinkName andSpecificDrinkName:(NSString *)specificDrinkName andAmount:(NSString *)amount andIsShot:(int)isShot;
 
 @end

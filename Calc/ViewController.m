@@ -10,7 +10,6 @@
 #import "Calc-Swift.h"
 #import "RingCollectionViewCell.h"
 #import "CDManager.h"
-#import "HTTPManager.h"
 #import "ArchiverManager.h"
 #import "JSONManager.h"
 #import "DrinksListTableViewCell.h"
@@ -26,6 +25,7 @@
 #import "HistoryTableViewController.h"
 #import "LoadingViewController.h"
 @import GoogleMobileAds;
+@import FirebaseAnalytics;
 
 @interface ViewController ()
 
@@ -57,7 +57,7 @@
         [[CDManager sharedManager] setupRingStore];
         
         //[[StoreKitManager sharedManager] resetKeychainForTesting];
-        [[StoreKitManager sharedManager] buyAllRingsForTesting];
+        //[[StoreKitManager sharedManager] buyAllRingsForTesting];
         
         self.currentRing = 0;
         self.selectedGeneralDrink = 0;
@@ -562,31 +562,69 @@
     return [self.slideShowImages mutableArrayValueForKey:currentRingName].count;
 }
 
-- (void) encodeWithCoder:(nonnull NSCoder *)aCoder {
+- (void) doManualScrollViewReload:(int)nextRing {
+    [self.drinksTableView setAllowsSelection:YES];
+    
+    self.currentRing = nextRing;
+    
+    NSDictionary *json = [NSKeyedUnarchiver unarchiveObjectWithData:[[ArchiverManager sharedManager] loadDataFromDiskWithFileName:@"allJson"]];
+    NSArray *allRingNamesInOrder = [[JSONManager sharedManager] getRingNamesInOrderWithJSONDictionary:json];
+    NSString *currentRingName = [[[JSONManager sharedManager] getRingNamesInOrderWithJSONDictionary:json] objectAtIndex:self.currentRing];
+    [[UIView appearance] setTintColor:[UIColor colorWithHex:[[[JSONManager sharedManager] getRingNamesAsDictionaryWithJSONDictionary:json] objectForKey:currentRingName]]];
+    NSMutableArray *generalDrinksArray = [[JSONManager sharedManager] getGeneralDrinksAsArrayWithJSONDictionary:json andRingIndex:self.currentRing];
+    
+    if([[[self getPurchasedRings] objectForKey:[allRingNamesInOrder objectAtIndex:self.currentRing]] isEqualToString:@"NO"])
+        [self.tableViewHeightConstraint setConstant:generalDrinksArray.count * 77 + self.drinksTableView.sectionHeaderHeight + self.ringTextView.frame.size.height + self.drinksTableView.sectionFooterHeight + 35];
+    else
+        [self.tableViewHeightConstraint setConstant:generalDrinksArray.count * 77 + self.drinksTableView.sectionHeaderHeight + self.ringTextView.frame.size.height + self.drinksTableView.sectionFooterHeight];
+    
+    [self setTitle:currentRingName];
+    [self.ringTextView setText:[self.ringTexts objectForKey:currentRingName]];
+    
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [self.profileButton setTitleColor:[UIColor colorWithHex:[[[JSONManager sharedManager] getRingNamesAsDictionaryWithJSONDictionary:json] objectForKey:currentRingName]] forState:UIControlStateNormal];
+        [self.historyButton setTitleColor:[UIColor colorWithHex:[[[JSONManager sharedManager] getRingNamesAsDictionaryWithJSONDictionary:json] objectForKey:currentRingName]] forState:UIControlStateNormal];
+    });
+    
+    [self.scrollViewBackgroundView next];
+    
+    if(self.currentRing == 0) {
+        [UIView animateWithDuration:0.25 animations:^{
+            [self.leftArrow setAlpha:0.0];
+            [self.rightArrow setAlpha:1.0];
+        }];
+    } else if (self.currentRing == allRingNamesInOrder.count - 1) {
+        [UIView animateWithDuration:0.25 animations:^{
+            [self.rightArrow setAlpha:0.0];
+            [self.leftArrow setAlpha:1.0];
+        }];
+    } else {
+        [UIView animateWithDuration:0.25 animations:^{
+            [self.rightArrow setAlpha:1.0];
+            [self.leftArrow setAlpha:1.0];
+        }];
+    }
+    
+    [self.drinksTableView reloadData];
 }
 
-- (void) traitCollectionDidChange:(nullable UITraitCollection *)previousTraitCollection {
+- (IBAction) leftArrowPressed:(id)sender {
+    if(self.currentRing > 0) {
+        [self.ringScrollView setContentOffset:CGPointMake(self.ringScrollView.frame.size.width * (self.currentRing - 1), 0.0f) animated:YES];
+        
+        [self doManualScrollViewReload:self.currentRing - 1];
+    }
 }
 
-- (void) preferredContentSizeDidChangeForChildContentContainer:(nonnull id<UIContentContainer>)container {
-}
-
-- (void) systemLayoutFittingSizeDidChangeForChildContentContainer:(nonnull id<UIContentContainer>)container {
-}
-
-- (void) viewWillTransitionToSize:(CGSize)size withTransitionCoordinator:(nonnull id<UIViewControllerTransitionCoordinator>)coordinator {
-}
-
-- (void) willTransitionToTraitCollection:(nonnull UITraitCollection *)newCollection withTransitionCoordinator:(nonnull id<UIViewControllerTransitionCoordinator>)coordinator {
-}
-
-- (void) didUpdateFocusInContext:(nonnull UIFocusUpdateContext *)context withAnimationCoordinator:(nonnull UIFocusAnimationCoordinator *)coordinator {
-}
-
-- (void) setNeedsFocusUpdate {
-}
-
-- (void) updateFocusIfNeeded {
+- (IBAction) rightArrowPressed:(id)sender {
+    NSDictionary *json = [NSKeyedUnarchiver unarchiveObjectWithData:[[ArchiverManager sharedManager] loadDataFromDiskWithFileName:@"allJson"]];
+    NSArray *allRingNamesInOrder = [[JSONManager sharedManager] getRingNamesInOrderWithJSONDictionary:json];
+    
+    if(self.currentRing < allRingNamesInOrder.count - 1) {
+        [self.ringScrollView setContentOffset:CGPointMake(self.ringScrollView.frame.size.width * (self.currentRing + 1), 0.0f) animated:YES];
+        
+        [self doManualScrollViewReload:self.currentRing + 1];
+    }
 }
 
 - (void) purchaseSuccessful {

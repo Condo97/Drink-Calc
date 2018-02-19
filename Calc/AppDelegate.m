@@ -9,6 +9,7 @@
 #import "AppDelegate.h"
 #import "CDManager.h"
 @import GoogleMobileAds;
+@import FirebaseAnalytics;
 
 @interface AppDelegate ()
 
@@ -21,6 +22,7 @@
     // Override point for customization after application launch.
     
     [GADMobileAds configureWithApplicationID:@"ca-app-pub-0561860165633355~6889523161"];
+    [FIRApp configure];
     
     return YES;
 }

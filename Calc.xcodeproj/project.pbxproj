@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		BB05E9A61F285200004F80BD /* HistoryStandardTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = BB05E9A51F285200004F80BD /* HistoryStandardTableViewCell.m */; };
 		BB05E9A71F285200004F80BD /* HistoryHeaderTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = BB05E9A41F285200004F80BD /* HistoryHeaderTableViewCell.m */; };
+		BB1619411F5CA4B0007919A5 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = BB1619401F5CA4B0007919A5 /* GoogleService-Info.plist */; };
 		BB207DA81ECA8FC6007C6E8B /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = BB207DA71ECA8FC6007C6E8B /* main.m */; };
 		BB207DAB1ECA8FC6007C6E8B /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = BB207DAA1ECA8FC6007C6E8B /* AppDelegate.m */; };
 		BB207DAE1ECA8FC6007C6E8B /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BB207DAD1ECA8FC6007C6E8B /* ViewController.m */; };
@@ -27,17 +28,26 @@
 		BB6714721EF0AAFD008C94EC /* CDManager.m in Sources */ = {isa = PBXBuildFile; fileRef = BB6714711EF0AAFD008C94EC /* CDManager.m */; };
 		BB80118D1F1FDE5100539C7A /* LimitCalculationManager.m in Sources */ = {isa = PBXBuildFile; fileRef = BB80118C1F1FDE5100539C7A /* LimitCalculationManager.m */; };
 		BB8011911F21A74B00539C7A /* FirstViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BB8011901F21A74B00539C7A /* FirstViewController.m */; };
+		BB90DADA1F5CA50A00720D42 /* FirebaseAnalytics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BB90DAD31F5CA50A00720D42 /* FirebaseAnalytics.framework */; };
+		BB90DADB1F5CA50A00720D42 /* FirebaseCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BB90DAD41F5CA50A00720D42 /* FirebaseCore.framework */; };
+		BB90DADC1F5CA50A00720D42 /* FirebaseCoreDiagnostics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BB90DAD51F5CA50A00720D42 /* FirebaseCoreDiagnostics.framework */; };
+		BB90DADD1F5CA50A00720D42 /* FirebaseInstanceID.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BB90DAD61F5CA50A00720D42 /* FirebaseInstanceID.framework */; };
+		BB90DADE1F5CA50A00720D42 /* FirebaseNanoPB.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BB90DAD71F5CA50A00720D42 /* FirebaseNanoPB.framework */; };
+		BB90DADF1F5CA50A00720D42 /* GoogleToolboxForMac.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BB90DAD81F5CA50A00720D42 /* GoogleToolboxForMac.framework */; };
+		BB90DAE01F5CA50A00720D42 /* nanopb.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BB90DAD91F5CA50A00720D42 /* nanopb.framework */; };
 		BB91BEDE1F11837100949B9F /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BB91BEDD1F11837100949B9F /* StoreKit.framework */; };
 		BB91BEE11F11859100949B9F /* StoreKitManager.m in Sources */ = {isa = PBXBuildFile; fileRef = BB91BEE01F11859100949B9F /* StoreKitManager.m */; };
 		BB91BEE61F11A5E700949B9F /* KFKeychain.m in Sources */ = {isa = PBXBuildFile; fileRef = BB91BEE51F11A5E700949B9F /* KFKeychain.m */; };
 		BB96CB331F1467D10083D48D /* RingPurchaseButton.m in Sources */ = {isa = PBXBuildFile; fileRef = BB96CB321F1467D00083D48D /* RingPurchaseButton.m */; };
 		BBA8BD2F1EFB7C0A0039AE0D /* DrinksListTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BBA8BD2E1EFB7C0A0039AE0D /* DrinksListTableViewController.m */; };
 		BBA8BD321EFB7D360039AE0D /* DrinksListTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = BBA8BD311EFB7D360039AE0D /* DrinksListTableViewCell.m */; };
+		BBB2AEA91F4B7093009DC02B /* CustomSlider.m in Sources */ = {isa = PBXBuildFile; fileRef = BBB2AEA81F4B7093009DC02B /* CustomSlider.m */; };
 		BBB382C31F316A1000897FFC /* FirstAndAHalfViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BBB382C21F316A1000897FFC /* FirstAndAHalfViewController.m */; };
 		BBB9B21C1F34FFB200DA1E41 /* Calc.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = BBB9B21A1F34FFB200DA1E41 /* Calc.xcdatamodeld */; };
 		BBC196421EF6B264003E404C /* HTTPManager.m in Sources */ = {isa = PBXBuildFile; fileRef = BBC196411EF6B264003E404C /* HTTPManager.m */; };
 		BBC196451EF72D56003E404C /* ArchiverManager.m in Sources */ = {isa = PBXBuildFile; fileRef = BBC196441EF72D56003E404C /* ArchiverManager.m */; };
 		BBC196481EF738BA003E404C /* JSONManager.m in Sources */ = {isa = PBXBuildFile; fileRef = BBC196471EF738BA003E404C /* JSONManager.m */; };
+		BBC1E5811F4A2174003438CF /* CustomDrinkEntryViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BBC1E5801F4A2174003438CF /* CustomDrinkEntryViewController.m */; };
 		BBC702451F25594F000A58A4 /* FinalViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BBC702441F25594F000A58A4 /* FinalViewController.m */; };
 		BBCB537D1F255D68004BED23 /* EditProfileTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BBCB537C1F255D68004BED23 /* EditProfileTableViewController.m */; };
 		BBCB53801F255D78004BED23 /* EditRingAutoLimitTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BBCB537F1F255D77004BED23 /* EditRingAutoLimitTableViewController.m */; };
@@ -143,6 +153,7 @@
 		BB05E9A11F2851C2004F80BD /* HistoryStandardTableViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HistoryStandardTableViewCell.h; sourceTree = "<group>"; };
 		BB05E9A41F285200004F80BD /* HistoryHeaderTableViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HistoryHeaderTableViewCell.m; sourceTree = "<group>"; };
 		BB05E9A51F285200004F80BD /* HistoryStandardTableViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HistoryStandardTableViewCell.m; sourceTree = "<group>"; };
+		BB1619401F5CA4B0007919A5 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		BB1B83231F0FE77C00F4239C /* UIImage+BlurExtension.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = "UIImage+BlurExtension.h"; path = "../../../../../Downloads/UIImage+BlurExtension.h"; sourceTree = "<group>"; };
 		BB207DA31ECA8FC6007C6E8B /* Calc.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Calc.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		BB207DA71ECA8FC6007C6E8B /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
@@ -181,6 +192,13 @@
 		BB80118C1F1FDE5100539C7A /* LimitCalculationManager.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LimitCalculationManager.m; sourceTree = "<group>"; };
 		BB80118F1F21A74B00539C7A /* FirstViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FirstViewController.h; sourceTree = "<group>"; };
 		BB8011901F21A74B00539C7A /* FirstViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FirstViewController.m; sourceTree = "<group>"; };
+		BB90DAD31F5CA50A00720D42 /* FirebaseAnalytics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = FirebaseAnalytics.framework; sourceTree = "<group>"; };
+		BB90DAD41F5CA50A00720D42 /* FirebaseCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = FirebaseCore.framework; sourceTree = "<group>"; };
+		BB90DAD51F5CA50A00720D42 /* FirebaseCoreDiagnostics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = FirebaseCoreDiagnostics.framework; sourceTree = "<group>"; };
+		BB90DAD61F5CA50A00720D42 /* FirebaseInstanceID.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = FirebaseInstanceID.framework; sourceTree = "<group>"; };
+		BB90DAD71F5CA50A00720D42 /* FirebaseNanoPB.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = FirebaseNanoPB.framework; sourceTree = "<group>"; };
+		BB90DAD81F5CA50A00720D42 /* GoogleToolboxForMac.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = GoogleToolboxForMac.framework; sourceTree = "<group>"; };
+		BB90DAD91F5CA50A00720D42 /* nanopb.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = nanopb.framework; sourceTree = "<group>"; };
 		BB91BEDD1F11837100949B9F /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = System/Library/Frameworks/StoreKit.framework; sourceTree = SDKROOT; };
 		BB91BEDF1F11859100949B9F /* StoreKitManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = StoreKitManager.h; sourceTree = "<group>"; };
 		BB91BEE01F11859100949B9F /* StoreKitManager.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = StoreKitManager.m; sourceTree = "<group>"; };
@@ -262,6 +280,8 @@
 		BBA8BD2E1EFB7C0A0039AE0D /* DrinksListTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DrinksListTableViewController.m; sourceTree = "<group>"; };
 		BBA8BD301EFB7D360039AE0D /* DrinksListTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DrinksListTableViewCell.h; sourceTree = "<group>"; };
 		BBA8BD311EFB7D360039AE0D /* DrinksListTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DrinksListTableViewCell.m; sourceTree = "<group>"; };
+		BBB2AEA71F4B7093009DC02B /* CustomSlider.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CustomSlider.h; sourceTree = "<group>"; };
+		BBB2AEA81F4B7093009DC02B /* CustomSlider.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CustomSlider.m; sourceTree = "<group>"; };
 		BBB382C11F316A1000897FFC /* FirstAndAHalfViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FirstAndAHalfViewController.h; sourceTree = "<group>"; };
 		BBB382C21F316A1000897FFC /* FirstAndAHalfViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FirstAndAHalfViewController.m; sourceTree = "<group>"; };
 		BBB9B21B1F34FFB200DA1E41 /* Calc.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Calc.xcdatamodel; sourceTree = "<group>"; };
@@ -271,6 +291,9 @@
 		BBC196441EF72D56003E404C /* ArchiverManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ArchiverManager.m; sourceTree = "<group>"; };
 		BBC196461EF738BA003E404C /* JSONManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JSONManager.h; sourceTree = "<group>"; };
 		BBC196471EF738BA003E404C /* JSONManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JSONManager.m; sourceTree = "<group>"; };
+		BBC1E57E1F4A1CE9003438CF /* Calc v2.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "Calc v2.xcdatamodel"; sourceTree = "<group>"; };
+		BBC1E57F1F4A2174003438CF /* CustomDrinkEntryViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CustomDrinkEntryViewController.h; sourceTree = "<group>"; };
+		BBC1E5801F4A2174003438CF /* CustomDrinkEntryViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CustomDrinkEntryViewController.m; sourceTree = "<group>"; };
 		BBC702431F25594F000A58A4 /* FinalViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FinalViewController.h; sourceTree = "<group>"; };
 		BBC702441F25594F000A58A4 /* FinalViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FinalViewController.m; sourceTree = "<group>"; };
 		BBCB537B1F255D68004BED23 /* EditProfileTableViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = EditProfileTableViewController.h; sourceTree = "<group>"; };
@@ -300,10 +323,17 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				BB90DADE1F5CA50A00720D42 /* FirebaseNanoPB.framework in Frameworks */,
 				BB35180C1F327E190046E9C9 /* ImageIO.framework in Frameworks */,
+				BB90DAE01F5CA50A00720D42 /* nanopb.framework in Frameworks */,
 				BB91BEDE1F11837100949B9F /* StoreKit.framework in Frameworks */,
+				BB90DADB1F5CA50A00720D42 /* FirebaseCore.framework in Frameworks */,
+				BB90DADD1F5CA50A00720D42 /* FirebaseInstanceID.framework in Frameworks */,
 				BBF75CB21F3500A7004354D1 /* GoogleMobileAds.framework in Frameworks */,
+				BB90DADC1F5CA50A00720D42 /* FirebaseCoreDiagnostics.framework in Frameworks */,
 				BBE1239E1F157DB200EBE3F8 /* HealthKit.framework in Frameworks */,
+				BB90DADA1F5CA50A00720D42 /* FirebaseAnalytics.framework in Frameworks */,
+				BB90DADF1F5CA50A00720D42 /* GoogleToolboxForMac.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -372,6 +402,8 @@
 				BBA8BD311EFB7D360039AE0D /* DrinksListTableViewCell.m */,
 				BB52BC401F01F71D0096063B /* EntryViewController.h */,
 				BB52BC411F01F71E0096063B /* EntryViewController.m */,
+				BBC1E57F1F4A2174003438CF /* CustomDrinkEntryViewController.h */,
+				BBC1E5801F4A2174003438CF /* CustomDrinkEntryViewController.m */,
 				BBE123991F14882700EBE3F8 /* LoadingViewController.h */,
 				BBE1239A1F14882700EBE3F8 /* LoadingViewController.m */,
 				BBC196491EF85548003E404C /* Managers */,
@@ -386,6 +418,7 @@
 				BB207DB51ECA8FC6007C6E8B /* Assets.xcassets */,
 				BB207DB71ECA8FC6007C6E8B /* LaunchScreen.storyboard */,
 				BB207DBA1ECA8FC6007C6E8B /* Info.plist */,
+				BB1619401F5CA4B0007919A5 /* GoogleService-Info.plist */,
 				BBB9B21A1F34FFB200DA1E41 /* Calc.xcdatamodeld */,
 				BB207DA61ECA8FC6007C6E8B /* Supporting Files */,
 				BB429D441EEE0AC200991203 /* Calc-Bridging-Header.h */,
@@ -554,6 +587,13 @@
 		BB91BEDC1F11837100949B9F /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				BB90DAD31F5CA50A00720D42 /* FirebaseAnalytics.framework */,
+				BB90DAD41F5CA50A00720D42 /* FirebaseCore.framework */,
+				BB90DAD51F5CA50A00720D42 /* FirebaseCoreDiagnostics.framework */,
+				BB90DAD61F5CA50A00720D42 /* FirebaseInstanceID.framework */,
+				BB90DAD71F5CA50A00720D42 /* FirebaseNanoPB.framework */,
+				BB90DAD81F5CA50A00720D42 /* GoogleToolboxForMac.framework */,
+				BB90DAD91F5CA50A00720D42 /* nanopb.framework */,
 				BBF75CB11F3500A7004354D1 /* GoogleMobileAds.framework */,
 				BB35180B1F327E190046E9C9 /* ImageIO.framework */,
 				BBE1239D1F157DB200EBE3F8 /* HealthKit.framework */,
@@ -625,6 +665,8 @@
 			children = (
 				BBDBCAAF1F06FA260094B00B /* RoundedView.h */,
 				BBDBCAB01F06FA260094B00B /* RoundedView.m */,
+				BBB2AEA71F4B7093009DC02B /* CustomSlider.h */,
+				BBB2AEA81F4B7093009DC02B /* CustomSlider.m */,
 			);
 			path = "Supporting Files";
 			sourceTree = "<group>";
@@ -785,6 +827,7 @@
 				BBCD03341F32912D00230126 /* 69.png in Resources */,
 				BBCD03551F32912D00230126 /* 7.png in Resources */,
 				BBCD03231F32912D00230126 /* 52.png in Resources */,
+				BB1619411F5CA4B0007919A5 /* GoogleService-Info.plist in Resources */,
 				BBCD03421F32912D00230126 /* 39.png in Resources */,
 				BB207DB91ECA8FC6007C6E8B /* LaunchScreen.storyboard in Resources */,
 				BBCD03481F32912D00230126 /* 45.png in Resources */,
@@ -870,12 +913,14 @@
 				BB91BEE11F11859100949B9F /* StoreKitManager.m in Sources */,
 				BB80118D1F1FDE5100539C7A /* LimitCalculationManager.m in Sources */,
 				BBB9B21C1F34FFB200DA1E41 /* Calc.xcdatamodeld in Sources */,
+				BBB2AEA91F4B7093009DC02B /* CustomSlider.m in Sources */,
 				BB207DAE1ECA8FC6007C6E8B /* ViewController.m in Sources */,
 				BB207DAB1ECA8FC6007C6E8B /* AppDelegate.m in Sources */,
 				BBCB537D1F255D68004BED23 /* EditProfileTableViewController.m in Sources */,
 				BBC196451EF72D56003E404C /* ArchiverManager.m in Sources */,
 				BB207DA81ECA8FC6007C6E8B /* main.m in Sources */,
 				BB6714721EF0AAFD008C94EC /* CDManager.m in Sources */,
+				BBC1E5811F4A2174003438CF /* CustomDrinkEntryViewController.m in Sources */,
 				BB651A501F0F44F7004722E5 /* KASlideShow.m in Sources */,
 				BBB382C31F316A1000897FFC /* FirstAndAHalfViewController.m in Sources */,
 				BB52BC421F01F71E0096063B /* EntryViewController.m in Sources */,
@@ -1175,9 +1220,10 @@
 		BBB9B21A1F34FFB200DA1E41 /* Calc.xcdatamodeld */ = {
 			isa = XCVersionGroup;
 			children = (
+				BBC1E57E1F4A1CE9003438CF /* Calc v2.xcdatamodel */,
 				BBB9B21B1F34FFB200DA1E41 /* Calc.xcdatamodel */,
 			);
-			currentVersion = BBB9B21B1F34FFB200DA1E41 /* Calc.xcdatamodel */;
+			currentVersion = BBC1E57E1F4A1CE9003438CF /* Calc v2.xcdatamodel */;
 			path = Calc.xcdatamodeld;
 			sourceTree = "<group>";
 			versionGroupType = wrapper.xcdatamodel;

@@ -28,7 +28,7 @@
     //NSMutableArray *name, *amount, *limit, *angle; //CDHandler Objects
     
     //Setup JSON and read it
-    NSDictionary *json = [[HTTPManager sharedManager] getJSONFromURL:@"138.197.109.254:8118/func1:8118/func1" withArguments:nil];
+    NSDictionary *json = [[HTTPManager sharedManager] getJSONFromURL:@"138.197.109.254:8118/func1" withArguments:nil];//:8118/func1
     if(json != nil) {
         NSData *jsonData = [NSKeyedArchiver archivedDataWithRootObject:json];
     
@@ -88,14 +88,14 @@
     return [[NSArray alloc] init];
 }
 
-- (void) saveDataArray:(NSArray *)data forEntityNamed:(NSString *)entity forAttributesNamed:(NSString *)attribute,... {
+- (void) saveDataArray:(NSArray *)data forEntityNamed:(NSString *)entity forAttributesNamed:(NSString *)attribute,...NS_REQUIRES_NIL_TERMINATION {
     NSManagedObjectContext *context = ((AppDelegate *)[[UIApplication sharedApplication] delegate]).persistentContainer.viewContext;
     NSManagedObject *managedObject = [NSEntityDescription insertNewObjectForEntityForName:entity inManagedObjectContext:context];
     
     NSMutableArray *attributeArray = [[NSMutableArray alloc] init];
     NSString *arg;
     va_list args;
-    if(attribute) {
+    if(attribute != nil) {
         [attributeArray addObject:attribute];
         va_start(args, attribute);
         while((arg = va_arg(args, NSString *)) != nil) {
@@ -121,7 +121,7 @@
     
     NSError *error;
     NSArray *results = [context executeFetchRequest:fetchRequest error:&error];
-    managedObject =  [results objectAtIndex:index];
+    managedObject = [results objectAtIndex:index];
     
     NSMutableArray *attributeArray = [[NSMutableArray alloc] init];
     NSString *arg;
@@ -220,6 +220,34 @@
     *name = nameInitial;
 }
 
+- (void) getParsedCustomDrinksForDataArray:(NSArray *)dataArray andFilterRingID:(NSString *)filterRingID andFilterGeneralDrinkName:(NSString *)filterGeneralDrinkName outputRingID:(NSMutableArray **)ringID outputDrinkName:(NSMutableArray **)drinkName outputDrinkAmount:(NSMutableArray **)drinkAmount outputIsShot:(NSMutableArray **)isShot {
+    NSMutableArray *outputRingID = [[NSMutableArray alloc] init];
+    NSMutableArray *outputDrinkName = [[NSMutableArray alloc] init];
+    NSMutableArray *outputDrinkAmount = [[NSMutableArray alloc] init];
+    NSMutableArray *outputIsShot = [[NSMutableArray alloc] init];
+    
+    for(NSManagedObject *object in dataArray) {
+        NSString *ringID = [object valueForKey:@"ringID"];
+        NSString *name = [object valueForKey:@"name"];
+        NSString *amount = [object valueForKey:@"amount"];
+        NSString *isShot = [object valueForKey:@"isShot"];
+        NSString *generalDrinkName = [object valueForKey:@"generalDrinkName"];
+        
+        
+        if([filterRingID isEqual:ringID] && [filterGeneralDrinkName isEqual:generalDrinkName]) {
+            [outputRingID addObject:ringID];
+            [outputDrinkName addObject:name];
+            [outputDrinkAmount addObject:amount];
+            [outputIsShot addObject:isShot];
+        }
+    }
+    
+    *ringID = outputRingID;
+    *drinkName = outputDrinkName;
+    *drinkAmount = outputDrinkAmount;
+    *isShot = outputIsShot;
+}
+
 - (NSDictionary *) getAllRingDataWithRingDataArray:(NSArray *)ringDataArray andFilterRingID:(NSString *)filterRingID {
     NSMutableDictionary *resultDictionary = [[NSMutableDictionary alloc] init];
     
@@ -288,7 +316,31 @@
             return YES;
         return NO;
     }
+    return NO;
+}
+
+- (BOOL) deleteCustomDrinkWithRingID:(NSString *)ringID andDrinkName:(NSString *)drinkName {
+    NSManagedObjectContext *context = ((AppDelegate *)[[UIApplication sharedApplication] delegate]).persistentContainer.viewContext;
     
+    NSError *error;
+    NSFetchRequest *request = [[NSFetchRequest alloc] initWithEntityName:@"CustomDrink"];
+    NSArray *resultArray = [context executeFetchRequest:request error:&error];
+    
+    if(error == nil) {
+        for(NSManagedObject *managedObject in resultArray) {
+            NSString *tempDrinkName = [managedObject valueForKey:@"name"];
+            if([tempDrinkName isEqual:drinkName]) {
+                [context deleteObject:managedObject];
+            }
+        }
+        
+        NSError *error2;
+        [context save:&error2];
+        
+        if(error2 == nil)
+            return YES;
+        return NO;
+    }
     return NO;
 }
 
